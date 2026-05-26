@@ -4,352 +4,448 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services — Chip Ursery</title>
-  <meta name="description" content="Partnership strategy, creative campaign development, pitch deck creation, and cultural positioning for sports, lifestyle, and emerging brands." />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── PAGE HERO ── */
-    .page-hero {
-      padding: 100px 40px 80px;
-      background: var(--ash);
-      border-bottom: 1px solid rgba(201,168,76,0.12);
-      position: relative;
-      overflow: hidden;
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: var(--s6) var(--s4) 0;
+      border-bottom: 1px solid var(--rule);
     }
-    .page-hero::before {
-      content: 'SERVICES';
-      position: absolute;
-      right: -20px; top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--font-display);
-      font-size: clamp(140px, 18vw, 260px);
-      color: rgba(255,255,255,0.025);
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .page-hero h1 {
-      font-size: clamp(64px, 10vw, 140px);
-      line-height: .9;
-    }
-    .page-hero h1 span { color: var(--gold); }
-    .page-hero-sub {
-      max-width: 500px;
-      font-size: 16px;
-      color: rgba(242,239,232,0.55);
-      margin-top: 24px;
+    .header-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: var(--s5);
+      padding-bottom: var(--s5);
+      max-width: var(--max-w);
+      margin: 0 auto;
     }
 
-    /* ── SERVICES MAIN ── */
-    .services-main { background: var(--black); }
-    .services-list {
+    /* ── SERVICES LIST ── */
+    .services-section { padding: 0; }
+    .service-row {
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 120px;
+      align-items: start;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      transition: background .2s;
+      cursor: default;
+    }
+    .service-row:hover { background: var(--ink-2); }
+    .service-row:hover .sr-arrow { opacity: 1; transform: translate(3px, -3px); }
+    .service-row:hover .sr-tags { opacity: 1; }
+
+    .sr-num {
+      border-right: 1px solid var(--rule);
+      padding: var(--s5) var(--s3);
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--paper-mute);
+      padding-top: var(--s5);
+    }
+    .sr-main {
+      padding: var(--s5) var(--s4);
+      border-right: 1px solid var(--rule);
+    }
+    .sr-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(30px, 4vw, 60px);
+      line-height: .9;
+      text-transform: uppercase;
+      color: var(--paper);
+      margin-bottom: var(--s3);
+    }
+    .sr-desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--paper-mute);
+      max-width: 440px;
+    }
+    .sr-detail {
+      padding: var(--s5) var(--s4);
+      border-right: 1px solid var(--rule);
+    }
+    .sr-detail-label {
+      font-family: var(--font-display);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--paper-mute);
+      margin-bottom: var(--s2);
+      opacity: .5;
+    }
+    .sr-tags {
       display: flex;
       flex-direction: column;
-      gap: 2px;
-    }
-    .service-item {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      align-items: start;
-      gap: 40px;
-      padding: 56px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      cursor: default;
-      position: relative;
-    }
-    .service-item::before {
-      content: '';
-      position: absolute;
-      left: -40px; right: -40px;
-      top: 0; bottom: 0;
-      background: var(--ash);
-      opacity: 0;
+      gap: 6px;
+      opacity: .6;
       transition: opacity .25s;
-      z-index: 0;
     }
-    .service-item:hover::before { opacity: 1; }
-    .service-item > * { position: relative; z-index: 1; }
-    .service-num {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      padding-top: 8px;
-    }
-    .service-body {}
-    .service-title {
+    .sr-tag {
       font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 52px);
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-    .service-desc {
-      font-size: 15px;
-      color: rgba(242,239,232,0.58);
-      line-height: 1.7;
-      max-width: 560px;
-      margin-bottom: 28px;
-    }
-    .service-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .service-tag {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.18em;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 5px 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(242,239,232,0.4);
+      color: var(--paper-dim);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--rule);
     }
-    .service-arrow {
-      font-size: 28px;
-      color: rgba(201,168,76,0.3);
-      padding-top: 8px;
-      transition: color .25s, transform .25s;
+    .sr-tag:last-child { border-bottom: none; }
+    .sr-arrow-col {
+      padding: var(--s5) var(--s3);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
     }
-    .service-item:hover .service-arrow {
-      color: var(--gold);
-      transform: translate(4px, -4px);
+    .sr-arrow {
+      font-size: 24px;
+      color: var(--paper);
+      opacity: .12;
+      transition: opacity .2s, transform .25s;
+    }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: var(--s6) 0;
+    }
+    .philosophy-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--s4);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s6);
+      align-items: center;
+    }
+    .philosophy-left {}
+    .philosophy-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(22px, 3vw, 38px);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.4;
+      color: var(--paper-dim);
+      margin-top: var(--s4);
+    }
+    .philosophy-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s4);
+    }
+    .phil-item {
+      padding-top: var(--s3);
+      border-top: 1px solid var(--rule);
+    }
+    .phil-item-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--paper);
+      margin-bottom: 8px;
+    }
+    .phil-item-body {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--paper-mute);
     }
 
     /* ── PROCESS ── */
-    .process { background: var(--ash); }
+    .process-section {
+      padding: var(--s6) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .process-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--s4);
+    }
     .process-steps {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      margin-top: 56px;
+      margin-top: var(--s5);
+      border-top: 1px solid var(--rule);
     }
     .process-step {
-      background: var(--mid);
-      padding: 40px 28px;
-      position: relative;
+      padding: var(--s4) var(--s4) var(--s4) 0;
+      border-right: 1px solid var(--rule);
+      padding-right: var(--s4);
     }
-    .process-step::after {
-      content: attr(data-arrow);
-      position: absolute;
-      right: -14px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 16px;
-      color: var(--gold);
-      z-index: 2;
-    }
-    .process-step:last-child::after { display: none; }
-    .step-num {
+    .process-step:last-child { border-right: none; }
+    .ps-num {
       font-family: var(--font-display);
+      font-weight: 800;
       font-size: 64px;
-      color: rgba(201,168,76,0.12);
       line-height: 1;
-      margin-bottom: 20px;
+      color: var(--paper);
+      opacity: .08;
+      margin-bottom: var(--s2);
     }
-    .step-title {
+    .ps-title {
       font-family: var(--font-display);
-      font-size: 22px;
-      color: var(--white);
-      margin-bottom: 12px;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--paper);
+      margin-bottom: var(--s2);
     }
-    .step-desc {
+    .ps-body {
       font-size: 13px;
-      color: rgba(242,239,232,0.5);
+      font-weight: 300;
       line-height: 1.65;
+      color: var(--paper-mute);
     }
 
-    /* ── CTA STRIP ── */
-    .cta-strip {
-      background: var(--gold);
-      padding: 80px 40px;
-      text-align: center;
+    /* ── CTA ── */
+    .cta-section {
+      padding: var(--s7) var(--s4);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--s5);
+      max-width: var(--max-w);
+      margin: 0 auto;
     }
-    .cta-strip h2 {
-      color: var(--black);
-      margin-bottom: 16px;
-      font-size: clamp(32px, 5vw, 64px);
-    }
-    .cta-strip p {
-      color: rgba(10,10,10,0.65);
-      font-size: 16px;
-      max-width: 440px;
-      margin: 0 auto 36px;
-    }
-    .btn-dark {
-      background: var(--black);
-      border-color: var(--black);
-      color: var(--white);
-    }
-    .btn-dark::before { background: var(--ash); }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
+      .service-row { grid-template-columns: 64px 1fr 120px; }
+      .sr-detail { display: none; }
       .process-steps { grid-template-columns: 1fr 1fr; }
-      .process-step::after { display: none; }
+      .process-step:nth-child(2) { border-right: none; }
+      .process-step:nth-child(1),
+      .process-step:nth-child(2) { border-bottom: 1px solid var(--rule); }
     }
     @media (max-width: 768px) {
-      .page-hero { padding: 80px 20px 60px; }
-      .services-main { padding: 72px 20px; }
-      .service-item { grid-template-columns: 1fr; gap: 16px; padding: 40px 0; }
-      .service-num { padding-top: 0; }
-      .service-arrow { display: none; }
-      .service-item::before { left: -20px; right: -20px; }
-      .process { padding: 72px 20px; }
+      .header-grid { grid-template-columns: 1fr; }
+      .service-row { grid-template-columns: 1fr 48px; }
+      .sr-num { display: none; }
+      .philosophy-inner { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .cta-section { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+    }
+    @media (max-width: 480px) {
       .process-steps { grid-template-columns: 1fr; }
-      .cta-strip { padding: 60px 20px; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--rule); }
     }
   </style>
 </head>
 <body>
-
-<!-- NAV -->
+<div class="cursor"></div>
 <nav>
-  <a class="nav-logo" href="index.html">CHIP <span>URSERY</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="work.html">Work</a></li>
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
+  <a class="nav-logo" href="index.html">Chip Ursery<sup>Cultural Strategy</sup></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Let's Talk</a>
+  </div>
   <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu">
-  <button class="close-btn">✕</button>
-  <a href="index.html">Home</a>
-  <a href="work.html">Work</a>
-  <a href="projects.html">Projects</a>
-  <a href="services.html">Services</a>
-  <a href="contact.html">Contact</a>
+  <button class="mobile-close">Close</button>
+  <a href="index.html">Home</a><a href="work.html">Work</a><a href="projects.html">Projects</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
+  <div class="mobile-menu-bottom">chipursery@gmail.com</div>
 </div>
 
 <div class="page-wrap">
-
-  <!-- PAGE HERO -->
-  <div class="page-hero">
-    <div class="container">
-      <div class="section-label">What I Do</div>
-      <h1>SER<span>VICES</span></h1>
-      <p class="page-hero-sub">Four focused disciplines. No bloated service menu. Every engagement is built to move brand culture forward.</p>
+  <div class="page-header">
+    <div class="header-grid">
+      <div>
+        <div class="eyebrow reveal">Capabilities</div>
+        <h1 class="d1 reveal up" data-delay="1" style="margin-top:16px;">What<br>I Do</h1>
+      </div>
+      <div class="reveal" data-delay="2">
+        <p class="body-lg" style="border-left:1px solid var(--rule);padding-left:var(--s4);">Four focused disciplines. No bloated service menu. Every engagement is built around one thing — moving brand culture forward at the highest level.</p>
+      </div>
     </div>
   </div>
 
-  <!-- SERVICES LIST -->
-  <section class="services-main">
-    <div class="container">
-      <div class="services-list">
+  <!-- SERVICES -->
+  <section class="services-section">
 
-        <div class="service-item reveal">
-          <div class="service-num">01</div>
-          <div class="service-body">
-            <div class="service-title">Partnership Strategy</div>
-            <p class="service-desc">Brand collaborations, sponsorship concepts, and cross-industry activations built around audience identity — not just reach. I develop partnership frameworks that align brand values with cultural momentum, creating agreements that feel earned rather than bought.</p>
-            <div class="service-tags">
-              <span class="service-tag">Brand Collaborations</span>
-              <span class="service-tag">Sponsorship Concepts</span>
-              <span class="service-tag">Cross-Industry Activations</span>
-              <span class="service-tag">Sports Marketing</span>
-              <span class="service-tag">Partnership Architecture</span>
-            </div>
-          </div>
-          <span class="service-arrow">↗</span>
+    <div class="service-row reveal">
+      <div class="sr-num">01</div>
+      <div class="sr-main">
+        <div class="sr-title">Partnership<br>Strategy</div>
+        <p class="sr-desc">Brand collaborations, sponsorship concepts, and cross-industry activations built around audience identity — not just reach. Partnership frameworks that feel earned rather than bought.</p>
+      </div>
+      <div class="sr-detail">
+        <div class="sr-detail-label">Deliverables</div>
+        <div class="sr-tags">
+          <span class="sr-tag">Brand Collaboration Frameworks</span>
+          <span class="sr-tag">Sponsorship Concept Decks</span>
+          <span class="sr-tag">Cross-Industry Activation Plans</span>
+          <span class="sr-tag">Partnership Architecture</span>
+          <span class="sr-tag">Cultural Alignment Strategy</span>
         </div>
+      </div>
+      <div class="sr-arrow-col">
+        <span class="sr-arrow">↗</span>
+      </div>
+    </div>
 
-        <div class="service-item reveal">
-          <div class="service-num">02</div>
-          <div class="service-body">
-            <div class="service-title">Creative Campaign Development</div>
-            <p class="service-desc">Campaign ideation, experiential concepts, and launch narratives for brands entering new cultural territory. From the big idea through to activation architecture — built to generate real conversation, not just impressions.</p>
-            <div class="service-tags">
-              <span class="service-tag">Campaign Ideation</span>
-              <span class="service-tag">Experiential Concepts</span>
-              <span class="service-tag">Launch Narratives</span>
-              <span class="service-tag">Product Storytelling</span>
-              <span class="service-tag">Event Marketing</span>
-            </div>
-          </div>
-          <span class="service-arrow">↗</span>
+    <div class="service-row reveal">
+      <div class="sr-num">02</div>
+      <div class="sr-main">
+        <div class="sr-title">Creative<br>Campaign<br>Development</div>
+        <p class="sr-desc">Campaign ideation, experiential concepts, and launch narratives for brands entering new cultural territory. Built to generate real conversation — not just impressions.</p>
+      </div>
+      <div class="sr-detail">
+        <div class="sr-detail-label">Deliverables</div>
+        <div class="sr-tags">
+          <span class="sr-tag">Campaign Ideation &amp; Concepts</span>
+          <span class="sr-tag">Experiential Activation Design</span>
+          <span class="sr-tag">Launch Narrative Development</span>
+          <span class="sr-tag">Product Storytelling</span>
+          <span class="sr-tag">Event Marketing Strategy</span>
         </div>
+      </div>
+      <div class="sr-arrow-col">
+        <span class="sr-arrow">↗</span>
+      </div>
+    </div>
 
-        <div class="service-item reveal">
-          <div class="service-num">03</div>
-          <div class="service-body">
-            <div class="service-title">Pitch &amp; Deck Development</div>
-            <p class="service-desc">Strategic decks for partnerships, sponsorships, and brand storytelling that close conversations. I build pitch materials that communicate vision and value with clarity — designed to be read, believed, and acted on.</p>
-            <div class="service-tags">
-              <span class="service-tag">Partnership Pitches</span>
-              <span class="service-tag">Sponsorship Decks</span>
-              <span class="service-tag">Brand Storytelling</span>
-              <span class="service-tag">Capabilities Decks</span>
-              <span class="service-tag">Investor Narratives</span>
-            </div>
-          </div>
-          <span class="service-arrow">↗</span>
+    <div class="service-row reveal">
+      <div class="sr-num">03</div>
+      <div class="sr-main">
+        <div class="sr-title">Pitch &amp; Deck<br>Development</div>
+        <p class="sr-desc">Strategic decks for partnerships, sponsorships, and brand storytelling that close conversations. Built to be read, believed, and acted on — not just passed around.</p>
+      </div>
+      <div class="sr-detail">
+        <div class="sr-detail-label">Deliverables</div>
+        <div class="sr-tags">
+          <span class="sr-tag">Partnership Pitch Decks</span>
+          <span class="sr-tag">Sponsorship Proposals</span>
+          <span class="sr-tag">Brand Storytelling Decks</span>
+          <span class="sr-tag">Capabilities Presentations</span>
+          <span class="sr-tag">Investor Narratives</span>
         </div>
+      </div>
+      <div class="sr-arrow-col">
+        <span class="sr-arrow">↗</span>
+      </div>
+    </div>
 
-        <div class="service-item reveal">
-          <div class="service-num">04</div>
-          <div class="service-body">
-            <div class="service-title">Cultural Positioning</div>
-            <p class="service-desc">Helping brands align with audience identity and community culture — not just trends. I map the intersection of brand values and lived culture to build positioning frameworks that resonate with real people, not demographic targets.</p>
-            <div class="service-tags">
-              <span class="service-tag">Audience Identity</span>
-              <span class="service-tag">Brand Alignment</span>
-              <span class="service-tag">Community Strategy</span>
-              <span class="service-tag">Lifestyle Brands</span>
-              <span class="service-tag">Emerging Markets</span>
-            </div>
-          </div>
-          <span class="service-arrow">↗</span>
+    <div class="service-row reveal">
+      <div class="sr-num">04</div>
+      <div class="sr-main">
+        <div class="sr-title">Cultural<br>Positioning</div>
+        <p class="sr-desc">Helping brands align with audience identity and community culture — not just trends. Positioning frameworks that resonate with real people, not demographic targets.</p>
+      </div>
+      <div class="sr-detail">
+        <div class="sr-detail-label">Deliverables</div>
+        <div class="sr-tags">
+          <span class="sr-tag">Audience Identity Mapping</span>
+          <span class="sr-tag">Brand Alignment Frameworks</span>
+          <span class="sr-tag">Community Strategy</span>
+          <span class="sr-tag">Cultural Positioning Platforms</span>
+          <span class="sr-tag">Market Entry Concepts</span>
         </div>
+      </div>
+      <div class="sr-arrow-col">
+        <span class="sr-arrow">↗</span>
+      </div>
+    </div>
 
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy">
+    <div class="philosophy-inner">
+      <div class="philosophy-left">
+        <div class="eyebrow reveal">Point of View</div>
+        <p class="philosophy-quote reveal up" data-delay="1">
+          "Strategy that doesn't understand culture is just a spreadsheet with ambition."
+        </p>
+      </div>
+      <div class="philosophy-right">
+        <div class="phil-item reveal">
+          <div class="phil-item-title">Culture First, Always</div>
+          <div class="phil-item-body">Every brief starts with audience identity. Who are they? How do they see themselves? What does this brand need to mean to be relevant in their world?</div>
+        </div>
+        <div class="phil-item reveal" data-delay="1">
+          <div class="phil-item-title">Earned Over Bought</div>
+          <div class="phil-item-body">The strongest brand partnerships feel mutual. The goal is frameworks that create genuine alignment — not placements that look good in a recap deck.</div>
+        </div>
+        <div class="phil-item reveal" data-delay="2">
+          <div class="phil-item-title">Strategy You Can See</div>
+          <div class="phil-item-body">Every concept is built to be pitched — with the visuals, narrative, and activation logic needed to get a room to say yes.</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- PROCESS -->
-  <section class="process">
-    <div class="container">
-      <div class="section-label reveal">How I Work</div>
-      <h2 class="reveal">The Process</h2>
-
+  <section class="process-section">
+    <div class="process-inner">
+      <div class="eyebrow reveal">How It Works</div>
+      <h2 class="d2 reveal up" data-delay="1" style="margin-top:16px;">The Process</h2>
       <div class="process-steps">
-        <div class="process-step reveal" data-arrow="→">
-          <div class="step-num">01</div>
-          <div class="step-title">Discovery</div>
-          <p class="step-desc">Brand audit, audience mapping, and competitive landscape. Understanding where the brand sits culturally before recommending where it should go.</p>
+        <div class="process-step reveal">
+          <div class="ps-num">01</div>
+          <div class="ps-title">Discovery</div>
+          <p class="ps-body">Brand audit, audience mapping, competitive landscape. Understanding where the brand sits culturally before recommending where it should move.</p>
         </div>
-        <div class="process-step reveal" data-arrow="→">
-          <div class="step-num">02</div>
-          <div class="step-title">Strategy</div>
-          <p class="step-desc">Partnership frameworks, positioning platforms, and campaign architectures — built on insight, not instinct alone.</p>
+        <div class="process-step reveal" data-delay="1">
+          <div class="ps-num">02</div>
+          <div class="ps-title">Strategy</div>
+          <p class="ps-body">Partnership frameworks, positioning platforms, and campaign architecture — built on insight, not instinct alone.</p>
         </div>
-        <div class="process-step reveal" data-arrow="→">
-          <div class="step-num">03</div>
-          <div class="step-title">Concept</div>
-          <p class="step-desc">Activation ideas, creative direction, and narrative development. Turning strategy into something you can see, feel, and pitch.</p>
+        <div class="process-step reveal" data-delay="2">
+          <div class="ps-num">03</div>
+          <div class="ps-title">Concept</div>
+          <p class="ps-body">Activation ideas, creative direction, and narrative development. Turning strategy into something you can see, feel, and pitch.</p>
         </div>
-        <div class="process-step reveal" data-arrow="">
-          <div class="step-num">04</div>
-          <div class="step-title">Delivery</div>
-          <p class="step-desc">A strategic deck, pitch document, or activation playbook ready to present — or ready to execute.</p>
+        <div class="process-step reveal" data-delay="3">
+          <div class="ps-num">04</div>
+          <div class="ps-title">Delivery</div>
+          <p class="ps-body">A strategic deck, pitch document, or activation playbook — ready to present to partners, sponsors, or internal leadership.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA STRIP -->
-  <div class="cta-strip">
-    <h2 class="reveal">Ready to Work?</h2>
-    <p class="reveal">Let's build something that competes at the cultural level your brand deserves.</p>
-    <a href="contact.html" class="btn btn-dark reveal">Get In Touch &nbsp;→</a>
+  <!-- CTA -->
+  <div class="cta-section">
+    <div>
+      <div class="eyebrow reveal" style="margin-bottom:16px;">Ready to Start</div>
+      <h2 class="d2 reveal up" data-delay="1">Let's Build<br>Something Real</h2>
+    </div>
+    <div class="reveal" data-delay="2" style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-paper btn-arrow">Get In Touch</a>
+      <a href="work.html" class="btn btn-ghost">View Work</a>
+    </div>
   </div>
 
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <span class="footer-logo">CHIP URSERY</span>
-  <span class="footer-copy">© 2025 · Cultural Partnerships &amp; Brand Strategy</span>
+  <span class="footer-logo">Chip Ursery</span>
+  <div class="footer-right">
+    <a href="mailto:chipursery@gmail.com" class="footer-link">chipursery@gmail.com</a>
+    <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+    <span class="footer-copy">© 2025</span>
+  </div>
 </footer>
-
 <script src="nav.js"></script>
 </body>
 </html>

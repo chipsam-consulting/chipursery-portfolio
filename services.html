@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Chip Ursery</title>
+  <meta name="description" content="Partnership strategy, creative campaign development, pitch deck creation, and cultural positioning for sports, lifestyle, and emerging brands." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 100px 40px 80px;
+      background: var(--ash);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: 'SERVICES';
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(140px, 18vw, 260px);
+      color: rgba(255,255,255,0.025);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .page-hero h1 {
+      font-size: clamp(64px, 10vw, 140px);
+      line-height: .9;
+    }
+    .page-hero h1 span { color: var(--gold); }
+    .page-hero-sub {
+      max-width: 500px;
+      font-size: 16px;
+      color: rgba(242,239,232,0.55);
+      margin-top: 24px;
+    }
+
+    /* ── SERVICES MAIN ── */
+    .services-main { background: var(--black); }
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .service-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: start;
+      gap: 40px;
+      padding: 56px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: default;
+      position: relative;
+    }
+    .service-item::before {
+      content: '';
+      position: absolute;
+      left: -40px; right: -40px;
+      top: 0; bottom: 0;
+      background: var(--ash);
+      opacity: 0;
+      transition: opacity .25s;
+      z-index: 0;
+    }
+    .service-item:hover::before { opacity: 1; }
+    .service-item > * { position: relative; z-index: 1; }
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      padding-top: 8px;
+    }
+    .service-body {}
+    .service-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 52px);
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .service-desc {
+      font-size: 15px;
+      color: rgba(242,239,232,0.58);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .service-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(242,239,232,0.4);
+    }
+    .service-arrow {
+      font-size: 28px;
+      color: rgba(201,168,76,0.3);
+      padding-top: 8px;
+      transition: color .25s, transform .25s;
+    }
+    .service-item:hover .service-arrow {
+      color: var(--gold);
+      transform: translate(4px, -4px);
+    }
+
+    /* ── PROCESS ── */
+    .process { background: var(--ash); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 56px;
+    }
+    .process-step {
+      background: var(--mid);
+      padding: 40px 28px;
+      position: relative;
+    }
+    .process-step::after {
+      content: attr(data-arrow);
+      position: absolute;
+      right: -14px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: var(--gold);
+      z-index: 2;
+    }
+    .process-step:last-child::after { display: none; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: rgba(242,239,232,0.5);
+      line-height: 1.65;
+    }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background: var(--gold);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .cta-strip h2 {
+      color: var(--black);
+      margin-bottom: 16px;
+      font-size: clamp(32px, 5vw, 64px);
+    }
+    .cta-strip p {
+      color: rgba(10,10,10,0.65);
+      font-size: 16px;
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+    .btn-dark {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+    .btn-dark::before { background: var(--ash); }
+
+    @media (max-width: 900px) {
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-step::after { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { padding: 80px 20px 60px; }
+      .services-main { padding: 72px 20px; }
+      .service-item { grid-template-columns: 1fr; gap: 16px; padding: 40px 0; }
+      .service-num { padding-top: 0; }
+      .service-arrow { display: none; }
+      .service-item::before { left: -20px; right: -20px; }
+      .process { padding: 72px 20px; }
+      .process-steps { grid-template-columns: 1fr; }
+      .cta-strip { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">CHIP <span>URSERY</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu">
+  <button class="close-btn">✕</button>
+  <a href="index.html">Home</a>
+  <a href="work.html">Work</a>
+  <a href="projects.html">Projects</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="page-wrap">
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="section-label">What I Do</div>
+      <h1>SER<span>VICES</span></h1>
+      <p class="page-hero-sub">Four focused disciplines. No bloated service menu. Every engagement is built to move brand culture forward.</p>
+    </div>
+  </div>
+
+  <!-- SERVICES LIST -->
+  <section class="services-main">
+    <div class="container">
+      <div class="services-list">
+
+        <div class="service-item reveal">
+          <div class="service-num">01</div>
+          <div class="service-body">
+            <div class="service-title">Partnership Strategy</div>
+            <p class="service-desc">Brand collaborations, sponsorship concepts, and cross-industry activations built around audience identity — not just reach. I develop partnership frameworks that align brand values with cultural momentum, creating agreements that feel earned rather than bought.</p>
+            <div class="service-tags">
+              <span class="service-tag">Brand Collaborations</span>
+              <span class="service-tag">Sponsorship Concepts</span>
+              <span class="service-tag">Cross-Industry Activations</span>
+              <span class="service-tag">Sports Marketing</span>
+              <span class="service-tag">Partnership Architecture</span>
+            </div>
+          </div>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service-item reveal">
+          <div class="service-num">02</div>
+          <div class="service-body">
+            <div class="service-title">Creative Campaign Development</div>
+            <p class="service-desc">Campaign ideation, experiential concepts, and launch narratives for brands entering new cultural territory. From the big idea through to activation architecture — built to generate real conversation, not just impressions.</p>
+            <div class="service-tags">
+              <span class="service-tag">Campaign Ideation</span>
+              <span class="service-tag">Experiential Concepts</span>
+              <span class="service-tag">Launch Narratives</span>
+              <span class="service-tag">Product Storytelling</span>
+              <span class="service-tag">Event Marketing</span>
+            </div>
+          </div>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service-item reveal">
+          <div class="service-num">03</div>
+          <div class="service-body">
+            <div class="service-title">Pitch &amp; Deck Development</div>
+            <p class="service-desc">Strategic decks for partnerships, sponsorships, and brand storytelling that close conversations. I build pitch materials that communicate vision and value with clarity — designed to be read, believed, and acted on.</p>
+            <div class="service-tags">
+              <span class="service-tag">Partnership Pitches</span>
+              <span class="service-tag">Sponsorship Decks</span>
+              <span class="service-tag">Brand Storytelling</span>
+              <span class="service-tag">Capabilities Decks</span>
+              <span class="service-tag">Investor Narratives</span>
+            </div>
+          </div>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service-item reveal">
+          <div class="service-num">04</div>
+          <div class="service-body">
+            <div class="service-title">Cultural Positioning</div>
+            <p class="service-desc">Helping brands align with audience identity and community culture — not just trends. I map the intersection of brand values and lived culture to build positioning frameworks that resonate with real people, not demographic targets.</p>
+            <div class="service-tags">
+              <span class="service-tag">Audience Identity</span>
+              <span class="service-tag">Brand Alignment</span>
+              <span class="service-tag">Community Strategy</span>
+              <span class="service-tag">Lifestyle Brands</span>
+              <span class="service-tag">Emerging Markets</span>
+            </div>
+          </div>
+          <span class="service-arrow">↗</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="container">
+      <div class="section-label reveal">How I Work</div>
+      <h2 class="reveal">The Process</h2>
+
+      <div class="process-steps">
+        <div class="process-step reveal" data-arrow="→">
+          <div class="step-num">01</div>
+          <div class="step-title">Discovery</div>
+          <p class="step-desc">Brand audit, audience mapping, and competitive landscape. Understanding where the brand sits culturally before recommending where it should go.</p>
+        </div>
+        <div class="process-step reveal" data-arrow="→">
+          <div class="step-num">02</div>
+          <div class="step-title">Strategy</div>
+          <p class="step-desc">Partnership frameworks, positioning platforms, and campaign architectures — built on insight, not instinct alone.</p>
+        </div>
+        <div class="process-step reveal" data-arrow="→">
+          <div class="step-num">03</div>
+          <div class="step-title">Concept</div>
+          <p class="step-desc">Activation ideas, creative direction, and narrative development. Turning strategy into something you can see, feel, and pitch.</p>
+        </div>
+        <div class="process-step reveal" data-arrow="">
+          <div class="step-num">04</div>
+          <div class="step-title">Delivery</div>
+          <p class="step-desc">A strategic deck, pitch document, or activation playbook ready to present — or ready to execute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip">
+    <h2 class="reveal">Ready to Work?</h2>
+    <p class="reveal">Let's build something that competes at the cultural level your brand deserves.</p>
+    <a href="contact.html" class="btn btn-dark reveal">Get In Touch &nbsp;→</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">CHIP URSERY</span>
+  <span class="footer-copy">© 2025 · Cultural Partnerships &amp; Brand Strategy</span>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

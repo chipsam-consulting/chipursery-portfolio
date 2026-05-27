@@ -1,440 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Services — Chip Ursery</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ── PAGE HEADER ── */
-    .page-header {
-      padding: var(--s6) var(--s4) 0;
+    .page-hero {
+      padding: var(--sp6) var(--sp4) var(--sp5);
       border-bottom: 1px solid var(--rule);
-      background: var(--ink);
-    }
-    .header-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      align-items: end;
-      gap: var(--s5);
-      padding-bottom: var(--s5);
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-
-    /* ── SERVICES ROW LAYOUT ── */
-    .services-section { padding: 0; background: var(--ink); }
-    .service-row {
-      border-bottom: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: 100px 1.1fr 0.9fr 120px;
-      align-items: start;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: default;
-      background: var(--ink);
-    }
-    .service-row:hover { background: var(--ink-2); }
-    .service-row:hover .sr-arrow { opacity: 1; transform: translate(4px, -4px); color: var(--paper); }
-    .service-row:hover .sr-tags { opacity: 1; }
-
-    .sr-num {
-      border-right: 1px solid var(--rule);
-      padding: var(--s5) var(--s3);
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--accent);
-      padding-top: var(--s5);
-      text-align: center;
-    }
-    .sr-main {
-      padding: var(--s5) var(--s4);
-      border-right: 1px solid var(--rule);
-    }
-    .sr-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(34px, 4.5vw, 68px);
-      line-height: .86;
-      text-transform: uppercase;
-      color: var(--paper);
-      margin-bottom: var(--s3);
-    }
-    .sr-desc {
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--paper-dim);
-      max-width: 480px;
-    }
-    .sr-detail {
-      padding: var(--s5) var(--s4);
-      border-right: 1px solid var(--rule);
-    }
-    .sr-detail-label {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      margin-bottom: var(--s3);
-    }
-    .sr-tags {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      opacity: .6;
-      transition: opacity .25s ease;
-    }
-    .sr-tag {
-      font-family: var(--font-display-wide);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--paper-dim);
-      padding: 8px 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .sr-tag:last-child { border-bottom: none; }
-    .sr-arrow-col {
-      padding: var(--s5) var(--s3);
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-end;
-    }
-    .sr-arrow {
-      font-size: 24px;
-      color: var(--paper-mute);
-      opacity: .2;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* ── PHILOSOPHY EDITORIAL BLOCK ── */
-    .philosophy {
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      padding: var(--s6) 0;
-      background: var(--ink);
-    }
-    .philosophy-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--s4);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--s6);
-      align-items: center;
+      align-items: end;
+      gap: var(--sp5);
+      max-width: var(--max-w);
+      margin: 0 auto;
     }
-    .philosophy-left {}
-    .philosophy-quote {
-      font-family: var(--font-serif);
-      font-size: clamp(24px, 3.5vw, 42px);
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.45;
-      color: var(--paper-dim);
-      margin-top: var(--s4);
-    }
-    .philosophy-right {
-      display: flex;
-      flex-direction: column;
-      gap: var(--s4);
-    }
-    .phil-item {
-      padding-top: var(--s3);
-      border-top: 1px solid var(--rule);
-    }
-    .phil-item-title {
-      font-family: var(--font-display-wide);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--paper);
-      margin-bottom: 10px;
-    }
-    .phil-item-body {
-      font-size: 13.5px;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--paper-mute);
-    }
-
-    /* ── PROCESS STEPS ── */
-    .process-section {
-      padding: var(--s6) 0;
+    .svc-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 1fr 80px;
       border-bottom: 1px solid var(--rule);
-      background: var(--ink);
-    }
-    .process-inner {
+      transition: background .2s;
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 var(--s4);
     }
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      margin-top: var(--s5);
-      border-top: 1px solid var(--rule);
-    }
-    .process-step {
-      padding: var(--s5) var(--s4) var(--s4) 0;
+    .svc-row:hover { background: var(--carbon); }
+    .svc-row:hover .svc-arrow { opacity: 1; transform: translate(3px,-3px); }
+    .svc-row:hover .svc-tags { opacity: 1; }
+    .svc-num {
       border-right: 1px solid var(--rule);
-      padding-right: var(--s4);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: var(--sp5) var(--sp2) var(--sp4);
+      font-family: var(--font-text); font-weight: 500; font-size: 9px;
+      letter-spacing: 0.2em; color: var(--chalk-3);
     }
-    .process-step:last-child { border-right: none; }
-    .ps-num {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 72px;
-      line-height: 1;
-      color: var(--accent);
-      opacity: .08;
-      margin-bottom: var(--s2);
+    .svc-main {
+      padding: var(--sp5) var(--sp4) var(--sp4);
+      border-right: 1px solid var(--rule);
     }
-    .ps-title {
-      font-family: var(--font-display-wide);
-      font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--paper);
-      margin-bottom: var(--s2);
+    .svc-title {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(32px, 4.5vw, 68px); line-height: .88;
+      text-transform: uppercase; color: var(--chalk); margin-bottom: var(--sp3);
     }
-    .ps-body {
-      font-size: 13px;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--paper-dim);
+    .svc-desc {
+      font-size: 14px; font-weight: 300; line-height: 1.75;
+      color: var(--chalk-3); max-width: 420px;
     }
-
-    /* ── Stark CTA Section ── */
-    .cta-section {
-      padding: var(--s7) var(--s4);
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: center;
-      gap: var(--s5);
-      max-width: var(--max-w);
-      margin: 0 auto;
-      background: var(--ink);
+    .svc-detail {
+      padding: var(--sp5) var(--sp4) var(--sp4);
+      border-right: 1px solid var(--rule);
     }
+    .svc-detail-lbl {
+      font-family: var(--font-text); font-size: 8px; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase; color: var(--chalk-3);
+      margin-bottom: var(--sp2); opacity: .45;
+    }
+    .svc-tags {
+      display: flex; flex-direction: column; gap: 5px;
+      opacity: .5; transition: opacity .25s;
+    }
+    .svc-tag {
+      font-family: var(--font-text); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; color: var(--chalk-2);
+      padding: 7px 0; border-bottom: 1px solid var(--rule);
+    }
+    .svc-tag:last-child { border-bottom: none; }
+    .svc-arrow-col {
+      padding: var(--sp4) var(--sp2);
+      display: flex; align-items: flex-start; justify-content: flex-end;
+    }
+    .svc-arrow {
+      font-size: 20px; color: var(--chalk);
+      opacity: .1; transition: opacity .2s, transform .25s;
+    }
+    /* philosophy */
+    .philosophy { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--carbon); }
+    .phil-inner { display: grid; grid-template-columns: 1fr 1fr; max-width: var(--max-w); margin: 0 auto; }
+    .phil-left { padding: var(--sp6) var(--sp4); border-right: 1px solid var(--rule); }
+    .phil-quote {
+      font-family: var(--font-body); font-style: italic; font-weight: 100;
+      font-size: clamp(20px, 3vw, 34px); line-height: 1.45;
+      color: var(--chalk-2); margin-top: var(--sp3);
+    }
+    .phil-right { padding: var(--sp6) var(--sp4); display: flex; flex-direction: column; gap: var(--sp4); }
+    .phil-item { padding-top: var(--sp3); border-top: 1px solid var(--rule); }
+    .phil-item-title {
+      font-family: var(--font-display); font-weight: 900; font-size: 16px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--chalk); margin-bottom: 8px;
+    }
+    .phil-item-body { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--chalk-3); }
+    /* process */
+    .process { border-bottom: 1px solid var(--rule); }
+    .process-inner { max-width: var(--max-w); margin: 0 auto; padding: var(--sp6) var(--sp4); }
+    .process-steps { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--rule); margin-top: var(--sp5); }
+    .ps { padding: var(--sp4) var(--sp4) var(--sp4) 0; border-right: 1px solid var(--rule); }
+    .ps:last-child { border-right: none; }
+    .ps-n { font-family: var(--font-display); font-weight: 900; font-size: 72px; line-height: 1; color: var(--chalk); opacity: .06; margin-bottom: var(--sp2); }
+    .ps-t { font-family: var(--font-display); font-weight: 900; font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--chalk); margin-bottom: var(--sp2); }
+    .ps-b { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--chalk-3); }
+    /* cta */
+    .svc-cta { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--sp5); max-width: var(--max-w); margin: 0 auto; padding: var(--sp6) var(--sp4); }
 
     @media (max-width: 1024px) {
-      .service-row { grid-template-columns: 80px 1.2fr 120px; }
-      .sr-detail { display: none; }
+      .svc-row { grid-template-columns: 64px 1fr 80px; }
+      .svc-detail { display: none; }
       .process-steps { grid-template-columns: 1fr 1fr; }
-      .process-step:nth-child(2) { border-right: none; }
-      .process-step:nth-child(1),
-      .process-step:nth-child(2) { border-bottom: 1px solid var(--rule); }
+      .ps:nth-child(2) { border-right: none; }
+      .ps:nth-child(1),.ps:nth-child(2) { border-bottom: 1px solid var(--rule); }
     }
     @media (max-width: 768px) {
-      .header-grid { grid-template-columns: 1fr; gap: var(--s3); }
-      .service-row { grid-template-columns: 1fr 48px; }
-      .sr-num { display: none; }
-      .sr-main { border-right: none; padding: var(--s4) 0; }
-      .philosophy-inner { grid-template-columns: 1fr; gap: var(--s5); }
-      .cta-section { grid-template-columns: 1fr; text-align: center; justify-items: center; gap: var(--s4); }
+      .page-hero { grid-template-columns: 1fr; }
+      .svc-row { grid-template-columns: 1fr 56px; }
+      .svc-num { display: none; }
+      .phil-inner { grid-template-columns: 1fr; }
+      .phil-left { border-right: none; border-bottom: 1px solid var(--rule); }
+      .svc-cta { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .process-steps { grid-template-columns: 1fr; }
-      .process-step { border-right: none; border-bottom: 1px solid var(--rule); padding: var(--s4) 0; }
+      .ps { border-right: none; border-bottom: 1px solid var(--rule); }
+      .ps:last-child { border-bottom: none; }
     }
   </style>
 </head>
 <body>
-<div class="cursor"></div>
+<div class="cursor-dot"></div><div class="cursor-ring"></div>
 <nav>
-  <a class="nav-logo" href="index.html">Chip Ursery<sup>Cultural Strategy</sup></a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="work.html">Work</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <a href="contact.html" class="nav-cta">Let's Talk</a>
+  <a class="nav-logo" href="index.html">Chip Ursery<small>Cultural Strategy</small></a>
+  <div class="nav-center">
+    <a href="index.html">Home</a><a href="work.html">Work</a><a href="projects.html">Projects</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
   </div>
+  <a href="contact.html" class="nav-cta">Let's Talk</a>
   <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu">
-  <button class="mobile-close">Close</button>
+  <button class="mob-close">Close</button>
   <a href="index.html">Home</a><a href="work.html">Work</a><a href="projects.html">Projects</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
-  <div class="mobile-menu-bottom">chipursery@gmail.com</div>
+  <div class="mob-foot">chipursery@gmail.com</div>
 </div>
 
 <div class="page-wrap">
-  <div class="page-header">
-    <div class="header-grid">
-      <div>
-        <div class="eyebrow reveal">Capabilities</div>
-        <h1 class="d1 reveal up" data-delay="1" style="margin-top:16px;">What<br>I Do</h1>
-      </div>
-      <div class="reveal" data-delay="2">
-        <p class="body-lg" style="border-left:1px solid var(--rule);padding-left:var(--s4);">Four focused disciplines. No bloated service menu. Every engagement is built around one thing — moving brand culture forward at the highest level.</p>
-      </div>
+
+  <div class="page-hero">
+    <div>
+      <div class="label reveal">Capabilities</div>
+      <h1 class="d-hero reveal" data-d="1" style="margin-top:12px;">What<br>I Do</h1>
     </div>
+    <p class="body-lg reveal" data-d="2" style="border-left:1px solid var(--rule);padding-left:var(--sp4);">Four focused disciplines. No bloated service menu. Every engagement is built around one thing — moving brand culture forward at the highest level.</p>
   </div>
 
-  <!-- SERVICES -->
-  <section class="services-section">
-
-    <div class="service-row reveal">
-      <div class="sr-num">01</div>
-      <div class="sr-main">
-        <div class="sr-title">Creative<br>Campaign<br>Development</div>
-        <p class="sr-desc">Campaign ideation, experiential concepts, and launch narratives for brands entering new cultural territory. Built to generate real conversation — not just impressions.</p>
-      </div>
-      <div class="sr-detail">
-        <div class="sr-detail-label">Deliverables</div>
-        <div class="sr-tags">
-          <span class="sr-tag">Campaign Ideation &amp; Concepts</span>
-          <span class="sr-tag">Experiential Activation Design</span>
-          <span class="sr-tag">Launch Narrative Development</span>
-          <span class="sr-tag">Product Storytelling</span>
-          <span class="sr-tag">Event Marketing Strategy</span>
-        </div>
-      </div>
-      <div class="sr-arrow-col">
-        <span class="sr-arrow">↗</span>
+  <div class="svc-row reveal">
+    <div class="svc-num">01</div>
+    <div class="svc-main">
+      <div class="svc-title">Partnership<br>Strategy</div>
+      <p class="svc-desc">Brand collaborations, sponsorship concepts, and cross-industry activations built around audience identity — not just reach. Frameworks that feel earned rather than bought.</p>
+    </div>
+    <div class="svc-detail">
+      <div class="svc-detail-lbl">Deliverables</div>
+      <div class="svc-tags">
+        <span class="svc-tag">Brand Collaboration Frameworks</span>
+        <span class="svc-tag">Sponsorship Concept Decks</span>
+        <span class="svc-tag">Cross-Industry Activation Plans</span>
+        <span class="svc-tag">Partnership Architecture</span>
+        <span class="svc-tag">Cultural Alignment Strategy</span>
       </div>
     </div>
+    <div class="svc-arrow-col"><span class="svc-arrow">↗</span></div>
+  </div>
 
-    <div class="service-row reveal">
-      <div class="sr-num">02</div>
-      <div class="sr-main">
-        <div class="sr-title">Partnership<br>Strategy</div>
-        <p class="sr-desc">Brand collaborations, sponsorship concepts, and cross-industry activations built around audience identity — not just reach. Partnership frameworks that feel earned rather than bought.</p>
-      </div>
-      <div class="sr-detail">
-        <div class="sr-detail-label">Deliverables</div>
-        <div class="sr-tags">
-          <span class="sr-tag">Brand Collaboration Frameworks</span>
-          <span class="sr-tag">Sponsorship Concept Decks</span>
-          <span class="sr-tag">Cross-Industry Activation Plans</span>
-          <span class="sr-tag">Partnership Architecture</span>
-          <span class="sr-tag">Cultural Alignment Strategy</span>
-        </div>
-      </div>
-      <div class="sr-arrow-col">
-        <span class="sr-arrow">↗</span>
+  <div class="svc-row reveal">
+    <div class="svc-num">02</div>
+    <div class="svc-main">
+      <div class="svc-title">Creative<br>Campaign<br>Development</div>
+      <p class="svc-desc">Campaign ideation, experiential concepts, and launch narratives for brands entering new cultural territory. Built to generate real conversation — not just impressions.</p>
+    </div>
+    <div class="svc-detail">
+      <div class="svc-detail-lbl">Deliverables</div>
+      <div class="svc-tags">
+        <span class="svc-tag">Campaign Ideation &amp; Concepts</span>
+        <span class="svc-tag">Experiential Activation Design</span>
+        <span class="svc-tag">Launch Narrative Development</span>
+        <span class="svc-tag">Product Storytelling</span>
+        <span class="svc-tag">Event Marketing Strategy</span>
       </div>
     </div>
+    <div class="svc-arrow-col"><span class="svc-arrow">↗</span></div>
+  </div>
 
-    <div class="service-row reveal">
-      <div class="sr-num">03</div>
-      <div class="sr-main">
-        <div class="sr-title">Pitch &amp; Deck<br>Creation</div>
-        <p class="sr-desc">Strategic decks for partnerships, sponsorships, and brand storytelling that close conversations. Built to be read, believed, and acted on — not just passed around.</p>
-      </div>
-      <div class="sr-detail">
-        <div class="sr-detail-label">Deliverables</div>
-        <div class="sr-tags">
-          <span class="sr-tag">Partnership Pitch Decks</span>
-          <span class="sr-tag">Sponsorship Proposals</span>
-          <span class="sr-tag">Brand Storytelling Decks</span>
-          <span class="sr-tag">Capabilities Presentations</span>
-          <span class="sr-tag">Investor Narratives</span>
-        </div>
-      </div>
-      <div class="sr-arrow-col">
-        <span class="sr-arrow">↗</span>
+  <div class="svc-row reveal">
+    <div class="svc-num">03</div>
+    <div class="svc-main">
+      <div class="svc-title">Pitch &amp; Deck<br>Development</div>
+      <p class="svc-desc">Strategic decks for partnerships, sponsorships, and brand storytelling that close conversations. Built to be read, believed, and acted on — not just passed around.</p>
+    </div>
+    <div class="svc-detail">
+      <div class="svc-detail-lbl">Deliverables</div>
+      <div class="svc-tags">
+        <span class="svc-tag">Partnership Pitch Decks</span>
+        <span class="svc-tag">Sponsorship Proposals</span>
+        <span class="svc-tag">Brand Storytelling Decks</span>
+        <span class="svc-tag">Capabilities Presentations</span>
+        <span class="svc-tag">Investor Narratives</span>
       </div>
     </div>
+    <div class="svc-arrow-col"><span class="svc-arrow">↗</span></div>
+  </div>
 
-    <div class="service-row reveal">
-      <div class="sr-num">04</div>
-      <div class="sr-main">
-        <div class="sr-title">Cultural<br>Positioning</div>
-        <p class="sr-desc">Helping brands align with audience identity and community culture — not just trends. Positioning frameworks that resonate with real people, not demographic targets.</p>
-      </div>
-      <div class="sr-detail">
-        <div class="sr-detail-label">Deliverables</div>
-        <div class="sr-tags">
-          <span class="sr-tag">Audience Identity Mapping</span>
-          <span class="sr-tag">Brand Alignment Frameworks</span>
-          <span class="sr-tag">Community Strategy</span>
-          <span class="sr-tag">Cultural Positioning Platforms</span>
-          <span class="sr-tag">Market Entry Concepts</span>
-        </div>
-      </div>
-      <div class="sr-arrow-col">
-        <span class="sr-arrow">↗</span>
+  <div class="svc-row reveal">
+    <div class="svc-num">04</div>
+    <div class="svc-main">
+      <div class="svc-title">Cultural<br>Positioning</div>
+      <p class="svc-desc">Helping brands align with audience identity and community culture — not just trends. Positioning frameworks that resonate with real people, not demographic targets.</p>
+    </div>
+    <div class="svc-detail">
+      <div class="svc-detail-lbl">Deliverables</div>
+      <div class="svc-tags">
+        <span class="svc-tag">Audience Identity Mapping</span>
+        <span class="svc-tag">Brand Alignment Frameworks</span>
+        <span class="svc-tag">Community Strategy</span>
+        <span class="svc-tag">Cultural Positioning Platforms</span>
+        <span class="svc-tag">Market Entry Concepts</span>
       </div>
     </div>
+    <div class="svc-arrow-col"><span class="svc-arrow">↗</span></div>
+  </div>
 
-  </section>
-
-  <!-- PHILOSOPHY -->
   <section class="philosophy">
-    <div class="philosophy-inner">
-      <div class="philosophy-left">
-        <div class="eyebrow reveal">Point of View</div>
-        <p class="philosophy-quote reveal up" data-delay="1">
-          "Strategy that doesn't understand culture is just a spreadsheet with ambition."
-        </p>
+    <div class="phil-inner">
+      <div class="phil-left">
+        <div class="label reveal">Point of View</div>
+        <p class="phil-quote reveal" data-d="1">"Strategy that doesn't understand culture is just a spreadsheet with ambition."</p>
       </div>
-      <div class="philosophy-right">
+      <div class="phil-right">
         <div class="phil-item reveal">
           <div class="phil-item-title">Culture First, Always</div>
-          <div class="phil-item-body">Every brief starts with audience identity. Who are they? How do they see themselves? What does this brand need to mean to be relevant in their world?</div>
+          <p class="phil-item-body">Every brief starts with audience identity. Who are they? How do they see themselves? What does this brand need to mean to be relevant in their world?</p>
         </div>
-        <div class="phil-item reveal" data-delay="1">
+        <div class="phil-item reveal" data-d="1">
           <div class="phil-item-title">Earned Over Bought</div>
-          <div class="phil-item-body">The strongest brand partnerships feel mutual. The goal is frameworks that create genuine alignment — not placements that look good in a recap deck.</div>
+          <p class="phil-item-body">The strongest brand partnerships feel mutual. The goal is frameworks that create genuine alignment — not placements that look good in a recap deck.</p>
         </div>
-        <div class="phil-item reveal" data-delay="2">
+        <div class="phil-item reveal" data-d="2">
           <div class="phil-item-title">Strategy You Can See</div>
-          <div class="phil-item-body">Every concept is built to be pitched — with the visuals, narrative, and activation logic needed to get a room to say yes.</div>
+          <p class="phil-item-body">Every concept is built to be pitched — with the visuals, narrative, and activation logic needed to get a room to say yes.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROCESS -->
-  <section class="process-section">
+  <section class="process">
     <div class="process-inner">
-      <div class="eyebrow reveal">How It Works</div>
-      <h2 class="d2 reveal up" data-delay="1" style="margin-top:16px;">The Process</h2>
+      <div class="label reveal">How It Works</div>
+      <h2 class="d-xl reveal" data-d="1" style="margin-top:12px;">The Process</h2>
       <div class="process-steps">
-        <div class="process-step reveal">
-          <div class="ps-num">01</div>
-          <div class="ps-title">Discovery</div>
-          <p class="ps-body">Brand audit, audience mapping, competitive landscape. Understanding where the brand sits culturally before recommending where it should move.</p>
-        </div>
-        <div class="process-step reveal" data-delay="1">
-          <div class="ps-num">02</div>
-          <div class="ps-title">Strategy</div>
-          <p class="ps-body">Partnership frameworks, positioning platforms, and campaign architecture — built on insight, not instinct alone.</p>
-        </div>
-        <div class="process-step reveal" data-delay="2">
-          <div class="ps-num">03</div>
-          <div class="ps-title">Concept</div>
-          <p class="ps-body">Activation ideas, creative direction, and narrative development. Turning strategy into something you can see, feel, and pitch.</p>
-        </div>
-        <div class="process-step reveal" data-delay="3">
-          <div class="ps-num">04</div>
-          <div class="ps-title">Delivery</div>
-          <p class="ps-body">A strategic deck, pitch document, or activation playbook — ready to present to partners, sponsors, or internal leadership.</p>
-        </div>
+        <div class="ps reveal"><div class="ps-n">01</div><div class="ps-t">Discovery</div><p class="ps-b">Brand audit, audience mapping, competitive landscape. Understanding where the brand sits culturally before recommending where it should move.</p></div>
+        <div class="ps reveal" data-d="1"><div class="ps-n">02</div><div class="ps-t">Strategy</div><p class="ps-b">Partnership frameworks, positioning platforms, campaign architecture — built on insight, not instinct alone.</p></div>
+        <div class="ps reveal" data-d="2"><div class="ps-n">03</div><div class="ps-t">Concept</div><p class="ps-b">Activation ideas, creative direction, narrative development. Turning strategy into something you can see, feel, and pitch.</p></div>
+        <div class="ps reveal" data-d="3"><div class="ps-n">04</div><div class="ps-t">Delivery</div><p class="ps-b">A strategic deck, pitch document, or activation playbook ready to present to partners, sponsors, or leadership.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <div class="cta-section">
+  <div class="svc-cta">
     <div>
-      <div class="eyebrow reveal" style="margin-bottom:16px;">Ready to Start</div>
-      <h2 class="d2 reveal up" data-delay="1">Let's Build<br>Something Real</h2>
+      <div class="label reveal" style="margin-bottom:12px;">Ready to Start</div>
+      <h2 class="d-xl reveal" data-d="1">Let's Build<br>Something Real</h2>
     </div>
-    <div class="reveal" data-delay="2" style="display:flex;gap:10px;flex-wrap:wrap;">
-      <a href="contact.html" class="btn btn-paper btn-arrow">Get In Touch</a>
-      <a href="work.html" class="btn btn-ghost">View Work</a>
+    <div class="reveal" data-d="2" style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-solid">Get In Touch &nbsp;↗</a>
+      <a href="work.html" class="btn btn-outline">View Work</a>
     </div>
   </div>
 
@@ -442,7 +277,7 @@
 
 <footer>
   <span class="footer-logo">Chip Ursery</span>
-  <div class="footer-right">
+  <div class="footer-r">
     <a href="mailto:chipursery@gmail.com" class="footer-link">chipursery@gmail.com</a>
     <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
     <span class="footer-copy">© 2025</span>

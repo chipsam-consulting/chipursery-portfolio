@@ -1,701 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Projects — Chip Ursery</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ── PAGE HEADER ── */
-    .page-header {
-      padding: var(--s6) var(--s4) var(--s5);
+    .page-hero {
+      padding: var(--sp6) var(--sp4) var(--sp5);
       border-bottom: 1px solid var(--rule);
-      background: var(--ink);
-    }
-    .page-header-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: var(--s5);
+      grid-template-columns: 1fr 1fr;
       align-items: end;
+      gap: var(--sp5);
       max-width: var(--max-w);
       margin: 0 auto;
     }
 
-    /* ── CASE STUDY STARK BLOCK ── */
-    .cs-block {
-      border-bottom: 1px solid var(--rule);
-      background: var(--ink);
-      padding-bottom: var(--s5);
-    }
-    .cs-block:last-of-type { border-bottom: none; }
+    /* case study block */
+    .cs { border-bottom: 1px solid var(--rule); }
 
-    /* TOP BAR */
-    .cs-topbar {
+    .cs-bar {
       display: grid;
-      grid-template-columns: 100px 1fr auto;
-      align-items: stretch;
+      grid-template-columns: 72px 1fr auto;
+      align-items: center;
       border-bottom: 1px solid var(--rule);
-      max-width: var(--max-w);
-      margin: 0 auto;
+      max-width: var(--max-w); margin: 0 auto;
     }
-    .cs-topbar-num {
+    .cs-bar-num {
       border-right: 1px solid var(--rule);
-      padding: var(--s3) var(--s3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--accent);
+      padding: var(--sp2) var(--sp2);
+      text-align: center;
+      font-family: var(--font-display); font-weight: 900; font-size: 10px;
+      letter-spacing: 0.14em; color: var(--chalk-3);
     }
-    .cs-topbar-mid {
-      padding: var(--s3) var(--s4);
-      display: flex;
-      align-items: center;
-      gap: var(--s3);
+    .cs-bar-mid {
+      padding: var(--sp2) var(--sp3);
+      display: flex; align-items: center; gap: var(--sp2);
     }
-    .cs-industry-badge {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      border: 1px solid var(--rule-strong);
-      padding: 6px 14px;
-      border-radius: 0px;
+    .cs-badge {
+      font-family: var(--font-text); font-weight: 500; font-size: 8px;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--chalk-3);
+      border: 1px solid var(--rule-mid); padding: 5px 10px;
     }
-    .cs-topbar-right {
-      padding: var(--s3) var(--s4);
-      display: flex;
-      align-items: center;
-    }
+    .cs-bar-right { padding: var(--sp2) var(--sp3); }
 
-    /* HERO ROW */
-    .cs-hero-row {
+    .cs-hero {
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 280px;
       border-bottom: 1px solid var(--rule);
-      max-width: var(--max-w);
-      margin: 0 auto;
+      max-width: var(--max-w); margin: 0 auto;
     }
-    .cs-title-block {
-      padding: var(--s5) var(--s4) var(--s5);
-      border-right: 1px solid var(--rule);
-    }
+    .cs-title-block { padding: var(--sp5) var(--sp4); border-right: 1px solid var(--rule); }
     .cs-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(48px, 6.5vw, 100px);
-      line-height: .86;
-      text-transform: uppercase;
-      color: var(--paper);
-      margin-bottom: var(--s4);
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(44px, 7vw, 108px); line-height: .84;
+      text-transform: uppercase; color: var(--chalk); margin-bottom: var(--sp4);
     }
-    .cs-context {
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--paper-dim);
-      max-width: 560px;
-    }
-    .cs-sidebar {
-      padding: var(--s5) var(--s4);
-      display: flex;
-      flex-direction: column;
-      gap: var(--s4);
-      justify-content: center;
-    }
-    .cs-sidebar-item {}
-    .cs-sidebar-label {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      margin-bottom: 8px;
-    }
-    .cs-sidebar-val {
-      font-family: var(--font-display-wide);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--paper-dim);
-      line-height: 1.5;
-    }
+    .cs-sidebar { padding: var(--sp4) var(--sp3); display: flex; flex-direction: column; gap: var(--sp3); }
+    .cs-sb-item {}
+    .cs-sb-lbl { font-family: var(--font-text); font-size: 8px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--chalk-3); opacity:.45; margin-bottom:5px; }
+    .cs-sb-val { font-family: var(--font-text); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: var(--chalk-2); line-height: 1.5; }
 
-    /* ANALYSIS GRID (CASE STUDY BREAKDOWNS) */
-    .cs-analysis {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    /* analysis */
+    .cs-cells {
+      display: grid; grid-template-columns: repeat(4,1fr);
       border-bottom: 1px solid var(--rule);
-      max-width: var(--max-w);
-      margin: 0 auto;
+      max-width: var(--max-w); margin: 0 auto;
     }
     .cs-cell {
-      padding: var(--s5) var(--s4);
+      padding: var(--sp4) var(--sp3);
       border-right: 1px solid var(--rule);
     }
     .cs-cell:last-child { border-right: none; }
-    .cs-cell-label {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      margin-bottom: var(--s3);
-      padding-bottom: var(--s2);
-      border-bottom: 1px solid var(--rule);
+    .cs-cell-lbl {
+      font-family: var(--font-text); font-size: 8px; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase; color: var(--chalk-3);
+      margin-bottom: var(--sp2); padding-bottom: var(--sp2);
+      border-bottom: 1px solid var(--rule); opacity: .55;
     }
     .cs-cell-body {
-      font-size: 13px;
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--paper-dim);
+      font-size: 12px; font-weight: 300; line-height: 1.65; color: var(--chalk-2);
     }
-    .cs-cell-body ul {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .cs-cell-body li {
-      padding-left: 16px;
-      position: relative;
-      font-size: 12.5px;
-    }
-    .cs-cell-body li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--paper-mute);
-    }
+    .cs-cell-body li { padding-left: 12px; position: relative; font-size: 12px; margin-bottom: 7px; }
+    .cs-cell-body li::before { content:'—'; position: absolute; left:0; color: var(--chalk-3); opacity:.5; }
 
-    /* DECK EMBED */
-    .cs-deck-row {
-      display: grid;
-      grid-template-columns: 200px 1fr;
+    /* deck embed */
+    .cs-deck {
+      display: grid; grid-template-columns: 180px 1fr;
       border-bottom: 1px solid var(--rule);
-      max-width: var(--max-w);
-      margin: 0 auto;
+      max-width: var(--max-w); margin: 0 auto;
     }
-    .cs-deck-sidebar {
+    .cs-deck-side {
       border-right: 1px solid var(--rule);
-      padding: var(--s5) var(--s3);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: var(--s4);
+      padding: var(--sp4) var(--sp3);
+      display: flex; flex-direction: column; justify-content: space-between; gap: var(--sp3);
     }
-    .cs-deck-sidebar .eyebrow { writing-mode: vertical-rl; transform: rotate(180deg); text-align: right; }
-    .cs-deck-embed {
-      position: relative;
-      border-left: none;
+    .cs-deck-main {}
+    .embed-bar {
+      padding: 12px var(--sp3); border-bottom: 1px solid var(--rule);
+      background: var(--carbon);
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .cs-deck-embed iframe {
-      width: 100%;
-      height: 520px;
-      border: none;
-      display: block;
-      background: var(--ink-2);
-    }
-    .embed-topbar {
-      padding: 14px var(--s4);
-      border-bottom: 1px solid var(--rule);
-      background: var(--ink-2);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .embed-topbar span {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-    }
-    .embed-topbar a {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      transition: color .25s ease;
-    }
-    .embed-topbar a:hover { color: var(--paper); }
+    .embed-bar span { font-family: var(--font-text); font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--chalk-3); }
+    .embed-bar a { font-family: var(--font-text); font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--chalk-3); transition: color .2s; }
+    .embed-bar a:hover { color: var(--chalk); }
+    .cs-deck-main iframe { width: 100%; height: 480px; border: none; display: block; }
 
-    /* IMPACT STRIP */
+    /* impact */
     .cs-impact {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: grid; grid-template-columns: repeat(4,1fr);
       border-bottom: 1px solid var(--rule);
-      background: var(--ink-2);
-      max-width: var(--max-w);
-      margin: 0 auto;
+      background: var(--carbon);
+      max-width: var(--max-w); margin: 0 auto;
     }
-    .impact-cell {
-      padding: var(--s5) var(--s4);
-      border-right: 1px solid var(--rule);
+    .imp-cell { padding: var(--sp4) var(--sp3); border-right: 1px solid var(--rule); }
+    .imp-cell:last-child { border-right: none; }
+    .imp-lbl { font-family: var(--font-text); font-size: 8px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--chalk-3); opacity:.45; margin-bottom: 10px; }
+    .imp-val { font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.5vw, 48px); line-height: .9; color: var(--chalk); }
+    .imp-sub { font-size: 11px; font-weight: 300; color: var(--chalk-3); margin-top: 6px; line-height: 1.4; }
+
+    /* cta */
+    .cs-cta {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: var(--sp3); padding: var(--sp3) var(--sp4);
+      border-bottom: 1px solid var(--rule);
+      max-width: var(--max-w); margin: 0 auto;
     }
-    .impact-cell:last-child { border-right: none; }
-    .impact-label {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      margin-bottom: 12px;
-    }
-    .impact-val {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(30px, 3.5vw, 52px);
-      line-height: .86;
-      color: var(--accent);
-    }
-    .impact-sub {
-      font-size: 11px;
-      font-weight: 300;
-      color: var(--paper-mute);
-      margin-top: 8px;
-      line-height: 1.5;
+    .cs-pullquote {
+      font-family: var(--font-body); font-style: italic; font-weight: 100;
+      font-size: 16px; color: var(--chalk-3); max-width: 440px;
     }
 
-    /* CTA FOOTER STRIP */
-    .cs-cta-row {
-      display: flex;
-      gap: var(--s3);
-      padding: var(--s4) var(--s4);
-      max-width: var(--max-w);
-      margin: 0 auto;
-      border-bottom: 1px solid var(--rule);
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .cs-cta-left {
-      font-family: var(--font-serif);
-      font-size: 19px;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--paper-dim);
-    }
-
-    /* BOTTOM STRIP */
-    .bottom-strip {
-      padding: var(--s6) var(--s4);
-      text-align: center;
-      border-top: 1px solid var(--rule);
-      background: var(--ink);
-    }
+    /* bottom */
+    .bottom { padding: var(--sp7) var(--sp4); text-align: center; border-top: 1px solid var(--rule); }
 
     @media (max-width: 1024px) {
-      .cs-analysis { grid-template-columns: 1fr 1fr; }
-      .cs-analysis .cs-cell:nth-child(2) { border-right: none; }
-      .cs-analysis .cs-cell:nth-child(1),
-      .cs-analysis .cs-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+      .cs-cells { grid-template-columns: 1fr 1fr; }
+      .cs-cells .cs-cell:nth-child(2) { border-right: none; }
+      .cs-cells .cs-cell:nth-child(1), .cs-cells .cs-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
       .cs-impact { grid-template-columns: 1fr 1fr; }
-      .cs-impact .impact-cell:nth-child(2) { border-right: none; }
-      .cs-impact .impact-cell:nth-child(1),
-      .cs-impact .impact-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
-      .cs-deck-row { grid-template-columns: 1fr; }
-      .cs-deck-sidebar { border-right: none; border-bottom: 1px solid var(--rule); flex-direction: row; align-items: center; }
-      .cs-deck-sidebar .eyebrow { writing-mode: initial; transform: none; text-align: left; }
+      .cs-impact .imp-cell:nth-child(2) { border-right: none; }
+      .cs-impact .imp-cell:nth-child(1), .cs-impact .imp-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+      .cs-deck { grid-template-columns: 1fr; }
+      .cs-deck-side { border-right: none; border-bottom: 1px solid var(--rule); flex-direction: row; align-items: center; }
     }
     @media (max-width: 768px) {
-      .page-header-grid { grid-template-columns: 1fr; gap: var(--s3); }
-      .cs-topbar { grid-template-columns: 1fr auto; }
-      .cs-topbar-num { display: none; }
-      .cs-hero-row { grid-template-columns: 1fr; }
+      .page-hero { grid-template-columns: 1fr; }
+      .cs-hero { grid-template-columns: 1fr; }
       .cs-title-block { border-right: none; }
-      .cs-sidebar { border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s2); padding: var(--s4) var(--s4); }
-      .cs-deck-embed iframe { height: 360px; }
+      .cs-sidebar { border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; }
+      .cs-bar { grid-template-columns: 1fr auto; }
+      .cs-bar-num { display: none; }
+      .cs-deck-main iframe { height: 320px; }
     }
     @media (max-width: 480px) {
-      .cs-analysis { grid-template-columns: 1fr; }
-      .cs-analysis .cs-cell { border-right: none; border-bottom: 1px solid var(--rule); }
-      .cs-impact { grid-template-columns: 1fr; }
-      .cs-impact .impact-cell { border-right: none; border-bottom: 1px solid var(--rule); }
-      .cs-impact .impact-cell:last-child { border-bottom: none; }
-      .cs-sidebar { grid-template-columns: 1fr 1fr; }
+      .cs-cells { grid-template-columns: 1fr; }
+      .cs-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+      .cs-impact { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
-<div class="cursor"></div>
+<div class="cursor-dot"></div><div class="cursor-ring"></div>
 <nav>
-  <a class="nav-logo" href="index.html">Chip Ursery<sup>Cultural Strategy</sup></a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="work.html">Work</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <a href="contact.html" class="nav-cta">Let's Talk</a>
+  <a class="nav-logo" href="index.html">Chip Ursery<small>Cultural Strategy</small></a>
+  <div class="nav-center">
+    <a href="index.html">Home</a><a href="work.html">Work</a><a href="projects.html">Projects</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
   </div>
+  <a href="contact.html" class="nav-cta">Let's Talk</a>
   <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu">
-  <button class="mobile-close">Close</button>
+  <button class="mob-close">Close</button>
   <a href="index.html">Home</a><a href="work.html">Work</a><a href="projects.html">Projects</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
-  <div class="mobile-menu-bottom">chipursery@gmail.com</div>
+  <div class="mob-foot">chipursery@gmail.com</div>
 </div>
 
 <div class="page-wrap">
-  <div class="page-header">
-    <div class="page-header-grid">
-      <div>
-        <div class="eyebrow reveal">Case Studies</div>
-        <h1 class="d1 reveal up" data-delay="1" style="margin-top:16px;">Featured<br>Projects</h1>
-      </div>
-      <div class="reveal" data-delay="2">
-        <p class="body-lg" style="border-left:1px solid var(--rule);padding-left:var(--s4);">Three flagship concepts built at agency depth — context, problem, insight, strategy, activation, and business impact.</p>
-      </div>
+  <div class="page-hero">
+    <div>
+      <div class="label reveal">Case Studies</div>
+      <h1 class="d-hero reveal" data-d="1" style="margin-top:12px;">Featured<br>Projects</h1>
     </div>
+    <p class="body-lg reveal" data-d="2" style="border-left:1px solid var(--rule);padding-left:var(--sp4);">Three flagship concepts at agency depth — context, problem, insight, strategy, activation system, and business impact.</p>
   </div>
 
-
-  <!-- ══════════════════════════
-       CASE STUDY 01 — TKO
-  ══════════════════════════ -->
-  <div class="cs-block" id="tko">
-
-    <div class="cs-topbar">
-      <div class="cs-topbar-num">01</div>
-      <div class="cs-topbar-mid">
-        <span class="cs-industry-badge">Sports &amp; Entertainment</span>
-      </div>
-      <div class="cs-topbar-right">
-        <a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener" class="btn btn-ghost btn-arrow" style="font-size:10px;padding:10px 18px;">Open Deck</a>
-      </div>
+  <!-- ═══ CS 01 — TKO ═══ -->
+  <div class="cs" id="tko">
+    <div class="cs-bar">
+      <div class="cs-bar-num">01</div>
+      <div class="cs-bar-mid"><span class="cs-badge">Sports &amp; Entertainment</span></div>
+      <div class="cs-bar-right"><a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:8px;padding:9px 16px;">Open Deck &nbsp;↗</a></div>
     </div>
-
-    <div class="cs-hero-row">
+    <div class="cs-hero">
       <div class="cs-title-block">
-        <h2 class="cs-title reveal up">TKO<br>Marketing<br>Strategy</h2>
-        <p class="cs-context reveal" data-delay="1">
-          TKO Group Holdings operates some of the world's most recognized live entertainment properties. The challenge: converting passionate event audiences into sustained brand relationships — and giving sponsors something that lives beyond broadcast inventory.
-        </p>
+        <h2 class="cs-title reveal">TKO<br>Marketing<br>Strategy</h2>
+        <p class="body-lg reveal" data-d="1" style="max-width:520px;">TKO Group Holdings operates the world's most recognized live entertainment properties. The challenge: convert passionate event audiences into sustained brand relationships and give sponsors something that lives beyond broadcast inventory.</p>
       </div>
-      <div class="cs-sidebar reveal" data-delay="2">
-        <div class="cs-sidebar-item">
-          <div class="cs-sidebar-label">Industry</div>
-          <div class="cs-sidebar-val">Sports Entertainment</div>
-        </div>
-        <div class="cs-sidebar-item">
-          <div class="cs-sidebar-label">Scope</div>
-          <div class="cs-sidebar-val">Brand Strategy<br>Partnership Architecture<br>Fan Engagement</div>
-        </div>
+      <div class="cs-sidebar reveal" data-d="2">
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Industry</div><div class="cs-sb-val">Sports Entertainment</div></div>
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Scope</div><div class="cs-sb-val">Brand Strategy<br>Partnership Architecture<br>Fan Engagement</div></div>
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Type</div><div class="cs-sb-val">Speculative Concept</div></div>
       </div>
     </div>
-
-    <div class="cs-analysis">
-      <div class="cs-cell reveal">
-        <div class="cs-cell-label">Problem</div>
-        <div class="cs-cell-body">Live sports properties operate on event cycles, leaving massive cultural equity dormant between shows. Sponsors get broadcast slots — not genuine audience integration.</div>
+    <div class="cs-cells">
+      <div class="cs-cell reveal"><div class="cs-cell-lbl">Problem</div><div class="cs-cell-body">Live sports properties operate on event cycles, leaving massive cultural equity dormant between shows. Sponsors get broadcast slots — not genuine audience integration.</div></div>
+      <div class="cs-cell reveal" data-d="1"><div class="cs-cell-lbl">Insight</div><div class="cs-cell-body">Live sports audiences don't just attend events — they inhabit culture. The space between events is where identity forms, purchases happen, and fan loyalty is built or lost.</div></div>
+      <div class="cs-cell reveal" data-d="2"><div class="cs-cell-lbl">Strategic Direction</div><div class="cs-cell-body">Reframe TKO as a year-round cultural platform, not an event calendar. Anchor partnerships in audience identity, aligning sponsor integrations with fan ritual rather than airtime.</div></div>
+      <div class="cs-cell reveal" data-d="3"><div class="cs-cell-lbl">Activation System</div><div class="cs-cell-body"><ul><li>Athlete-forward storytelling across owned + earned channels</li><li>Limited partner collab drops timed to event weeks</li><li>Community hype programming in top-10 DMAs pre-event</li><li>Experiential fan zones with built-in partner integration</li></ul></div></div>
+    </div>
+    <div class="cs-deck">
+      <div class="cs-deck-side">
+        <div class="label reveal">Strategy Deck</div>
+        <a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener" class="btn btn-ghost reveal" style="font-size:8px;">Drive ↗</a>
       </div>
-      <div class="cs-cell reveal" data-delay="1">
-        <div class="cs-cell-label">Insight</div>
-        <div class="cs-cell-body">Live sports audiences don't just attend — they inhabit culture. The space between events is where identity forms, purchases happen, and fan loyalty is built or lost.</div>
-      </div>
-      <div class="cs-cell reveal" data-delay="2">
-        <div class="cs-cell-label">Strategic Direction</div>
-        <div class="cs-cell-body">Reframe TKO as a year-round cultural platform — not an event calendar. Anchor partnerships in audience identity, aligning sponsor integrations with fan ritual rather than airtime.</div>
-      </div>
-      <div class="cs-cell reveal" data-delay="3">
-        <div class="cs-cell-label">Activation System</div>
-        <div class="cs-cell-body">
-          <ul>
-            <li>Athlete-forward brand storytelling across owned + earned channels</li>
-            <li>Limited partner collab drops timed to event weeks</li>
-            <li>Community hype programming in top-10 DMAs pre-event</li>
-            <li>Experiential fan zones with built-in partner integration</li>
-          </ul>
-        </div>
+      <div class="cs-deck-main">
+        <div class="embed-bar"><span>TKO Marketing Strategy</span><a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener">Open Full Deck ↗</a></div>
+        <iframe src="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/preview" loading="lazy" allow="autoplay" allowfullscreen title="TKO Deck"></iframe>
       </div>
     </div>
-
-    <div class="cs-deck-row">
-      <div class="cs-deck-sidebar">
-        <div class="eyebrow reveal">Strategy Deck</div>
-        <a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener" class="btn btn-ghost reveal" style="font-size:10px;padding:10px 18px;">Drive ↗</a>
-      </div>
-      <div class="cs-deck-embed">
-        <div class="embed-topbar">
-          <span>TKO Marketing Strategy</span>
-          <a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener">Open Full Deck ↗</a>
-        </div>
-        <iframe src="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/preview" loading="lazy" allow="autoplay" allowfullscreen title="TKO Strategy Deck"></iframe>
-      </div>
-    </div>
-
     <div class="cs-impact reveal">
-      <div class="impact-cell">
-        <div class="impact-label">Sponsor Retention</div>
-        <div class="impact-val">↑ 30%</div>
-        <div class="impact-sub">Projected YoY improvement via identity-led integration</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Off-Season Engagement</div>
-        <div class="impact-val">↑ 45%</div>
-        <div class="impact-sub">Year-round cultural platform vs event-only model</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Partnership Depth</div>
-        <div class="impact-val">Strategic</div>
-        <div class="impact-sub">From transactional placements to cultural alignment</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Revenue Model</div>
-        <div class="impact-val">Expanded</div>
-        <div class="impact-sub">New partnership tiers beyond broadcast inventory</div>
-      </div>
+      <div class="imp-cell"><div class="imp-lbl">Sponsor Retention</div><div class="imp-val">↑ 30%</div><div class="imp-sub">Projected via identity-led integration</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Off-Season Engagement</div><div class="imp-val">↑ 45%</div><div class="imp-sub">Year-round platform vs event-only</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Partnership Depth</div><div class="imp-val">Strategic</div><div class="imp-sub">From placements to cultural alignment</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Revenue Model</div><div class="imp-val">Expanded</div><div class="imp-sub">New tiers beyond broadcast inventory</div></div>
     </div>
-
-    <div class="cs-cta-row">
-      <span class="cs-cta-left">"Live sports audiences don't just attend — they inhabit culture."</span>
-      <div style="display:flex;gap:10px;">
-        <a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener" class="btn btn-paper btn-arrow" style="font-size:10px;padding:12px 20px;">View Full Deck</a>
-        <a href="contact.html" class="btn btn-ghost" style="font-size:10px;padding:12px 20px;">Discuss This Work</a>
+    <div class="cs-cta reveal">
+      <p class="cs-pullquote">"Live sports audiences don't just attend — they inhabit culture."</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener" class="btn btn-solid" style="font-size:9px;padding:11px 18px;">View Full Deck &nbsp;↗</a>
+        <a href="contact.html" class="btn btn-outline" style="font-size:9px;padding:11px 18px;">Discuss This Work</a>
       </div>
     </div>
   </div>
 
-
-  <!-- ══════════════════════════
-       CASE STUDY 02 — NEW BALANCE
-  ══════════════════════════ -->
-  <div class="cs-block" id="newbalance">
-
-    <div class="cs-topbar">
-      <div class="cs-topbar-num">02</div>
-      <div class="cs-topbar-mid">
-        <span class="cs-industry-badge">Global Sportswear</span>
-      </div>
-      <div class="cs-topbar-right">
-        <a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener" class="btn btn-ghost btn-arrow" style="font-size:10px;padding:10px 18px;">Open Deck</a>
-      </div>
+  <!-- ═══ CS 02 — NEW BALANCE ═══ -->
+  <div class="cs" id="newbalance">
+    <div class="cs-bar">
+      <div class="cs-bar-num">02</div>
+      <div class="cs-bar-mid"><span class="cs-badge">Global Sportswear</span></div>
+      <div class="cs-bar-right"><a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:8px;padding:9px 16px;">Open Deck &nbsp;↗</a></div>
     </div>
-
-    <div class="cs-hero-row">
+    <div class="cs-hero">
       <div class="cs-title-block">
-        <h2 class="cs-title reveal up">New Balance<br>Global<br>Partnership</h2>
-        <p class="cs-context reveal" data-delay="1">
-          New Balance carries rare heritage equity in a market flooded with celebrity-first moves. The brief: build a global partnership architecture that scales international relevance without compromising the authenticity that defines the brand.
-        </p>
+        <h2 class="cs-title reveal">New Balance<br>Global<br>Partnership</h2>
+        <p class="body-lg reveal" data-d="1" style="max-width:520px;">New Balance carries rare heritage equity in a market flooded with celebrity-first moves. The brief: build a global partnership architecture that scales international relevance without compromising the authenticity that defines the brand.</p>
       </div>
-      <div class="cs-sidebar reveal" data-delay="2">
-        <div class="cs-sidebar-item">
-          <div class="cs-sidebar-label">Industry</div>
-          <div class="cs-sidebar-val">Global Sportswear</div>
-        </div>
-        <div class="cs-sidebar-item">
-          <div class="cs-sidebar-label">Scope</div>
-          <div class="cs-sidebar-val">Partnership Framework<br>Cultural Positioning<br>International Brand</div>
-        </div>
+      <div class="cs-sidebar reveal" data-d="2">
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Industry</div><div class="cs-sb-val">Global Sportswear</div></div>
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Scope</div><div class="cs-sb-val">Partnership Framework<br>Cultural Positioning<br>International Brand</div></div>
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Type</div><div class="cs-sb-val">Speculative Concept</div></div>
       </div>
     </div>
-
-    <div class="cs-analysis">
-      <div class="cs-cell reveal">
-        <div class="cs-cell-label">Problem</div>
-        <div class="cs-cell-body">Heritage brands face a tension between legacy equity and modern relevance. Global expansion requires authentic resonance in every market — not a US playbook translated outward.</div>
+    <div class="cs-cells">
+      <div class="cs-cell reveal"><div class="cs-cell-lbl">Problem</div><div class="cs-cell-body">Heritage brands face tension between legacy equity and modern relevance. Global expansion requires authentic resonance in every market — not a US playbook translated outward.</div></div>
+      <div class="cs-cell reveal" data-d="1"><div class="cs-cell-lbl">Insight</div><div class="cs-cell-body">NB's greatest asset isn't a silhouette — it's perceived authenticity. In a market of celebrity noise, NB's partnerships should amplify earned credibility, not dilute it.</div></div>
+      <div class="cs-cell reveal" data-d="2"><div class="cs-cell-lbl">Strategic Direction</div><div class="cs-cell-body">Build a tiered global partnership architecture rooted in local community athletes before macro-influencer plays. Use storytelling — not endorsements — as the primary partnership currency.</div></div>
+      <div class="cs-cell reveal" data-d="3"><div class="cs-cell-lbl">Activation System</div><div class="cs-cell-body"><ul><li>City-specific heritage collections co-created with local cultural leaders</li><li>"Made Local" content series — athlete origin stories per global market</li><li>Long-term grassroots sport sponsorship over one-time event buys</li><li>Flagship stores as cultural venues, not just retail floors</li></ul></div></div>
+    </div>
+    <div class="cs-deck">
+      <div class="cs-deck-side">
+        <div class="label reveal">Strategy Deck</div>
+        <a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener" class="btn btn-ghost reveal" style="font-size:8px;">Drive ↗</a>
       </div>
-      <div class="cs-cell reveal" data-delay="1">
-        <div class="cs-cell-label">Insight</div>
-        <div class="cs-cell-body">NB's greatest asset isn't a silhouette — it's perceived authenticity. In a market of celebrity noise, NB's partnerships should amplify earned credibility, not dilute it.</div>
-      </div>
-      <div class="cs-cell reveal" data-delay="2">
-        <div class="cs-cell-label">Strategic Direction</div>
-        <div class="cs-cell-body">Build a tiered global partnership architecture rooted in local community athletes before macro-influencer plays. Use storytelling — not endorsements — as the primary partnership currency.</div>
-      </div>
-      <div class="cs-cell reveal" data-delay="3">
-        <div class="cs-cell-label">Activation System</div>
-        <div class="cs-cell-body">
-          <ul>
-            <li>City-specific heritage collections co-created with local cultural leaders</li>
-            <li>"Made Local" content series — athlete origin stories per global market</li>
-            <li>Long-term grassroots sport sponsorship over one-time event buys</li>
-            <li>Partnership-first flagship stores as cultural venues, not retail floors</li>
-          </ul>
-        </div>
+      <div class="cs-deck-main">
+        <div class="embed-bar"><span>New Balance Global Partnership Strategy</span><a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener">Open Full Deck ↗</a></div>
+        <iframe src="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/preview" loading="lazy" allow="autoplay" allowfullscreen title="New Balance Deck"></iframe>
       </div>
     </div>
-
-    <div class="cs-deck-row">
-      <div class="cs-deck-sidebar">
-        <div class="eyebrow reveal">Strategy Deck</div>
-        <a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener" class="btn btn-ghost reveal" style="font-size:10px;padding:10px 18px;">Drive ↗</a>
-      </div>
-      <div class="cs-deck-embed">
-        <div class="embed-topbar">
-          <span>New Balance Global Partnership Strategy</span>
-          <a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener">Open Full Deck ↗</a>
-        </div>
-        <iframe src="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/preview" loading="lazy" allow="autoplay" allowfullscreen title="New Balance Strategy Deck"></iframe>
-      </div>
-    </div>
-
     <div class="cs-impact reveal">
-      <div class="impact-cell">
-        <div class="impact-label">International Relevance</div>
-        <div class="impact-val">Global</div>
-        <div class="impact-sub">Market-specific frameworks for authentic cultural entry</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Community Depth</div>
-        <div class="impact-val">↑ Deep</div>
-        <div class="impact-sub">Local-first architecture before macro reach</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Brand Authenticity</div>
-        <div class="impact-val">Protected</div>
-        <div class="impact-sub">Storytelling over endorsement across all markets</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Partnership Scalability</div>
-        <div class="impact-val">Tiered</div>
-        <div class="impact-sub">From local community to global cultural alignment</div>
-      </div>
+      <div class="imp-cell"><div class="imp-lbl">International Relevance</div><div class="imp-val">Global</div><div class="imp-sub">Market-specific frameworks for cultural entry</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Community Depth</div><div class="imp-val">↑ Deep</div><div class="imp-sub">Local-first architecture before macro reach</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Brand Authenticity</div><div class="imp-val">Protected</div><div class="imp-sub">Storytelling over endorsement across markets</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Partnership Scale</div><div class="imp-val">Tiered</div><div class="imp-sub">Local community through global alignment</div></div>
     </div>
-
-    <div class="cs-cta-row">
-      <span class="cs-cta-left">"NB's greatest asset isn't a silhouette — it's perceived authenticity."</span>
-      <div style="display:flex;gap:10px;">
-        <a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener" class="btn btn-paper btn-arrow" style="font-size:10px;padding:12px 20px;">View Full Deck</a>
-        <a href="contact.html" class="btn btn-ghost" style="font-size:10px;padding:12px 20px;">Discuss This Work</a>
+    <div class="cs-cta reveal">
+      <p class="cs-pullquote">"NB's greatest asset isn't a silhouette — it's perceived authenticity."</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view" target="_blank" rel="noopener" class="btn btn-solid" style="font-size:9px;padding:11px 18px;">View Full Deck &nbsp;↗</a>
+        <a href="contact.html" class="btn btn-outline" style="font-size:9px;padding:11px 18px;">Discuss This Work</a>
       </div>
     </div>
   </div>
 
-
-  <!-- ══════════════════════════
-       CASE STUDY 03 — NOFREE MARATHON
-  ══════════════════════════ -->
-  <div class="cs-block" id="nofree">
-
-    <div class="cs-topbar">
-      <div class="cs-topbar-num">03</div>
-      <div class="cs-topbar-mid">
-        <span class="cs-industry-badge">Streetwear &amp; Experiential</span>
-      </div>
-      <div class="cs-topbar-right">
-        <a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener" class="btn btn-ghost btn-arrow" style="font-size:10px;padding:10px 18px;">Open Deck</a>
-      </div>
+  <!-- ═══ CS 03 — NOFREE ═══ -->
+  <div class="cs" id="nofree">
+    <div class="cs-bar">
+      <div class="cs-bar-num">03</div>
+      <div class="cs-bar-mid"><span class="cs-badge">Streetwear &amp; Experiential</span></div>
+      <div class="cs-bar-right"><a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:8px;padding:9px 16px;">Open Deck &nbsp;↗</a></div>
     </div>
-
-    <div class="cs-hero-row">
+    <div class="cs-hero">
       <div class="cs-title-block">
-        <h2 class="cs-title reveal up">NoFree<br>Marathon<br>× CMPLXCon</h2>
-        <p class="cs-context reveal" data-delay="1">
-          Streetwear brands and culture festivals rarely build partnerships that feel mutual. This concept repositions NoFreeMarathon from sponsor to co-author — with a narrative arc spanning pre-event, on-site, and post-event, anchored in shared identity.
-        </p>
+        <h2 class="cs-title reveal">NoFree<br>Marathon<br>× CMPLXCon</h2>
+        <p class="body-lg reveal" data-d="1" style="max-width:520px;">Streetwear brands at festivals end up as logos on a banner. This concept repositions NoFreeMarathon from sponsor to co-author — with a narrative arc spanning pre-event, on-site, and post-event, anchored in shared identity.</p>
       </div>
-      <div class="cs-sidebar reveal" data-delay="2">
-        <div class="cs-sidebar-item">
-          <div class="cs-sidebar-label">Industry</div>
-          <div class="cs-sidebar-val">Streetwear / Culture Events</div>
-        </div>
-        <div class="cs-sidebar-item">
-          <div class="cs-sidebar-label">Scope</div>
-          <div class="cs-sidebar-val">Experiential Strategy<br>Partnership Design<br>Product Activation</div>
-        </div>
+      <div class="cs-sidebar reveal" data-d="2">
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Industry</div><div class="cs-sb-val">Streetwear / Culture Events</div></div>
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Scope</div><div class="cs-sb-val">Experiential Strategy<br>Partnership Design<br>Product Activation</div></div>
+        <div class="cs-sb-item"><div class="cs-sb-lbl">Type</div><div class="cs-sb-val">Speculative Concept</div></div>
       </div>
     </div>
-
-    <div class="cs-analysis">
-      <div class="cs-cell reveal">
-        <div class="cs-cell-label">Problem</div>
-        <div class="cs-cell-body">Streetwear brands at festivals end up as logos on a banner. Sponsorship placements fail to integrate into the authentic experiences that actually drive community loyalty.</div>
-      </div>
-      <div class="cs-cell reveal" data-delay="1">
-        <div class="cs-cell-label">Insight</div>
-        <div class="cs-cell-body">The CMPLXCon audience doesn't consume streetwear — they speak it as a first language. A partnership built on shared identity creates genuine cultural demand, not manufactured hype.</div>
-      </div>
-      <div class="cs-cell reveal" data-delay="2">
-        <div class="cs-cell-label">Strategic Direction</div>
-        <div class="cs-cell-body">Make NoFreeMarathon a co-author of the CMPLXCon '26 experience. Build a three-phase narrative arc — pre-event, on-site, post-event — where the brand is woven into the story, not placed beside it.</div>
-      </div>
-      <div class="cs-cell reveal" data-delay="3">
-        <div class="cs-cell-label">Activation System</div>
-        <div class="cs-cell-body">
-          <ul>
-            <li>Co-branded pre-event content series building authentic hype</li>
-            <li>Exclusive collab drop — available only at the event activation</li>
-            <li>Immersive on-site environment (not a booth — a world)</li>
-            <li>Post-event earned media through attendee content and storytelling</li>
-            <li>Year-round community touchpoints sustaining the relationship</li>
-          </ul>
-        </div>
-      </div>
+    <div class="cs-cells">
+      <div class="cs-cell reveal"><div class="cs-cell-lbl">Problem</div><div class="cs-cell-body">Streetwear brand sponsorships at festivals fail to integrate into the authentic experiences that drive community loyalty. Logos on banners don't build culture.</div></div>
+      <div class="cs-cell reveal" data-d="1"><div class="cs-cell-lbl">Insight</div><div class="cs-cell-body">The CMPLXCon audience doesn't consume streetwear — they speak it as a first language. A partnership built on shared identity creates genuine demand, not manufactured hype.</div></div>
+      <div class="cs-cell reveal" data-d="2"><div class="cs-cell-lbl">Strategic Direction</div><div class="cs-cell-body">Make NoFreeMarathon a co-author of the CMPLXCon '26 experience. Build a three-phase narrative arc — pre, on-site, and post — where the brand is woven into the story, not placed beside it.</div></div>
+      <div class="cs-cell reveal" data-d="3"><div class="cs-cell-lbl">Activation System</div><div class="cs-cell-body"><ul><li>Co-branded pre-event content series building authentic hype</li><li>Exclusive collab drop — available only at the activation</li><li>Immersive on-site environment — a world, not a booth</li><li>Post-event earned media through attendee content</li><li>Year-round community touchpoints sustaining the relationship</li></ul></div></div>
     </div>
-
-    <div class="cs-deck-row">
-      <div class="cs-deck-sidebar">
-        <div class="eyebrow reveal">Strategy Deck</div>
-        <a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener" class="btn btn-ghost reveal" style="font-size:10px;padding:10px 18px;">Drive ↗</a>
+    <div class="cs-deck">
+      <div class="cs-deck-side">
+        <div class="label reveal">Strategy Deck</div>
+        <a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener" class="btn btn-ghost reveal" style="font-size:8px;">Drive ↗</a>
       </div>
-      <div class="cs-deck-embed">
-        <div class="embed-topbar">
-          <span>NoFreeMarathon × CMPLXCon '26</span>
-          <a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener">Open Full Deck ↗</a>
-        </div>
+      <div class="cs-deck-main">
+        <div class="embed-bar"><span>NoFreeMarathon × CMPLXCon '26</span><a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener">Open Full Deck ↗</a></div>
         <iframe src="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/preview" loading="lazy" allow="autoplay" allowfullscreen title="NoFreeMarathon Deck"></iframe>
       </div>
     </div>
-
     <div class="cs-impact reveal">
-      <div class="impact-cell">
-        <div class="impact-label">Brand Recall</div>
-        <div class="impact-val">↑ 60%</div>
-        <div class="impact-sub">Projected attendee brand recognition vs logo placement</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Earned Media</div>
-        <div class="impact-val">High</div>
-        <div class="impact-sub">Attendee content drives organic reach post-event</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Product Sellthrough</div>
-        <div class="impact-val">100%</div>
-        <div class="impact-sub">Exclusive drop model creates genuine scarcity</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-label">Community Retention</div>
-        <div class="impact-val">Sustained</div>
-        <div class="impact-sub">Year-round touchpoints beyond the event window</div>
-      </div>
+      <div class="imp-cell"><div class="imp-lbl">Brand Recall</div><div class="imp-val">↑ 60%</div><div class="imp-sub">Projected vs logo-only placement</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Earned Media</div><div class="imp-val">High</div><div class="imp-sub">Attendee content drives organic reach</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Product Sellthrough</div><div class="imp-val">100%</div><div class="imp-sub">Exclusive drop creates genuine scarcity</div></div>
+      <div class="imp-cell"><div class="imp-lbl">Community Retention</div><div class="imp-val">Sustained</div><div class="imp-sub">Year-round beyond the event window</div></div>
     </div>
-
-    <div class="cs-cta-row">
-      <span class="cs-cta-left">"The brand becomes co-author — not a sponsor."</span>
-      <div style="display:flex;gap:10px;">
-        <a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener" class="btn btn-paper btn-arrow" style="font-size:10px;padding:12px 20px;">View Full Deck</a>
-        <a href="contact.html" class="btn btn-ghost" style="font-size:10px;padding:12px 20px;">Discuss This Work</a>
+    <div class="cs-cta reveal">
+      <p class="cs-pullquote">"The brand becomes co-author of the experience — not a sponsor."</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view" target="_blank" rel="noopener" class="btn btn-solid" style="font-size:9px;padding:11px 18px;">View Full Deck &nbsp;↗</a>
+        <a href="contact.html" class="btn btn-outline" style="font-size:9px;padding:11px 18px;">Discuss This Work</a>
       </div>
     </div>
   </div>
 
-  <!-- BOTTOM -->
-  <div class="bottom-strip">
-    <div class="eyebrow reveal" style="margin-bottom:20px;">More Work</div>
-    <h2 class="d2 reveal up" data-delay="1" style="margin-bottom:32px;">More Decks<br>in the Gallery</h2>
-    <a href="work.html" class="btn btn-paper btn-arrow reveal" data-delay="2">View All Work</a>
+  <div class="bottom">
+    <div class="label reveal" style="margin-bottom:16px;">More Work</div>
+    <h2 class="d-xl reveal" data-d="1" style="margin-bottom:28px;">6 More Decks<br>in the Gallery</h2>
+    <a href="work.html" class="btn btn-solid reveal" data-d="2">View All 9 Projects &nbsp;↗</a>
   </div>
-
 </div>
 
 <footer>
   <span class="footer-logo">Chip Ursery</span>
-  <div class="footer-right">
+  <div class="footer-r">
     <a href="mailto:chipursery@gmail.com" class="footer-link">chipursery@gmail.com</a>
     <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
     <span class="footer-copy">© 2025</span>

@@ -1,457 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Work — Chip Ursery</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ── PAGE HEADER ── */
-    .page-header {
-      padding: var(--s6) var(--s4) var(--s4);
+    .page-hero {
+      padding: var(--sp6) var(--sp4) var(--sp4);
       border-bottom: 1px solid var(--rule);
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1fr 1fr;
       align-items: end;
-      gap: var(--s4);
-      background: var(--ink);
+      gap: var(--sp5);
+      max-width: var(--max-w);
+      margin: 0 auto;
     }
-    .page-header-right { text-align: right; }
 
-    /* ── FILTER BAR ── */
+    /* filter */
     .filter-bar {
       border-bottom: 1px solid var(--rule);
-      padding: 0 var(--s4);
+      padding: 0 var(--sp4);
       display: flex;
-      gap: 10px;
+      gap: 0;
       overflow-x: auto;
-      background: var(--ink-2);
+      scrollbar-width: none;
+      max-width: var(--max-w);
+      margin: 0 auto;
     }
-    .filter-btn {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .fb {
+      font-family: var(--font-text);
+      font-weight: 500;
+      font-size: 9px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--paper-mute);
+      color: var(--chalk-3);
       background: none;
       border: none;
-      border-bottom: 2px solid transparent;
-      padding: 20px 24px;
+      border-bottom: 1px solid transparent;
+      padding: 14px 18px;
       white-space: nowrap;
-      transition: all 0.25s ease;
-      border-radius: 0px;
+      transition: color .2s, border-color .2s;
     }
-    .filter-btn:hover { color: var(--paper); }
-    .filter-btn.active {
-      color: var(--paper);
-      border-bottom-color: var(--paper);
-    }
+    .fb:hover { color: var(--chalk); }
+    .fb.on { color: var(--chalk); border-bottom-color: var(--chalk); }
 
-    /* ── DECK GRID ── */
-    .deck-grid-section { padding: 0; background: var(--ink); }
+    /* grid */
+    .grid-wrap { max-width: var(--max-w); margin: 0 auto; }
     .deck-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       border-top: 1px solid var(--rule);
     }
-    .deck-card {
+    .dc {
       border-right: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
-      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: var(--void);
+      transition: background .2s;
       position: relative;
       overflow: hidden;
-      border-radius: 0px; /* Sharp corners */
     }
-    .deck-card:nth-child(3n) { border-right: none; }
-    .deck-card:hover { background: var(--ink-2); }
-    .deck-card:hover .dc-arrow { opacity: 1; transform: translate(3px,-3px); color: var(--paper); }
-    .deck-card:hover .dc-preview { opacity: 1; max-height: 280px; }
-
-    .dc-thumb {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background: var(--ink-3);
-      border-bottom: 1px solid var(--rule);
-      position: relative;
-    }
-    .dc-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      opacity: 0.85;
-    }
-    .deck-card:hover .dc-thumb img {
-      transform: scale(1.05);
-      opacity: 1;
-    }
+    .dc:nth-child(3n) { border-right: none; }
+    .dc:hover { background: var(--carbon); }
+    .dc:hover .dc-arrow { opacity: 1; transform: translate(3px,-3px); }
+    .dc:hover .dc-preview { max-height: 260px; opacity: 1; }
     .dc-top {
-      padding: var(--s2) var(--s4) var(--s2);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--sp3) var(--sp3) var(--sp2);
       border-bottom: 1px solid var(--rule);
     }
-    .dc-index {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-    }
-    .dc-arrow {
-      font-size: 18px;
-      color: var(--paper-mute);
-      opacity: .2;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .dc-body { padding: var(--s3) var(--s4) var(--s4); }
-    .dc-industry {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      margin-bottom: var(--s2);
+    .dc-idx { font-family: var(--font-text); font-weight: 500; font-size: 9px; letter-spacing: 0.24em; color: var(--chalk-3); }
+    .dc-arrow { font-size: 15px; color: var(--chalk); opacity: .13; transition: opacity .2s, transform .25s; }
+    .dc-body { padding: var(--sp2) var(--sp3) var(--sp3); }
+    .dc-ind {
+      font-family: var(--font-text); font-weight: 500; font-size: 8px;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--chalk-3);
+      margin-bottom: 10px; opacity: .55;
     }
     .dc-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(20px, 2.5vw, 30px);
-      line-height: .9;
-      text-transform: uppercase;
-      color: var(--paper);
-      margin-bottom: var(--s2);
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(17px, 2vw, 24px); line-height: .92;
+      text-transform: uppercase; color: var(--chalk); margin-bottom: 10px;
     }
-    .dc-desc {
-      font-size: 12.5px;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--paper-dim);
-    }
+    .dc-desc { font-size: 12px; font-weight: 300; line-height: 1.6; color: var(--chalk-3); }
     .dc-preview {
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: opacity .35s ease, max-height .45s cubic-bezier(.16,1,.3,1);
+      max-height: 0; opacity: 0; overflow: hidden;
       border-top: 1px solid var(--rule);
+      transition: max-height .4s cubic-bezier(.16,1,.3,1), opacity .3s;
     }
-    .dc-preview iframe {
-      width: 100%;
-      height: 260px;
-      border: none;
-      display: block;
-      background: var(--ink-2);
-    }
-    .dc-footer {
-      padding: var(--s2) var(--s4) var(--s3);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .dc-preview iframe { width: 100%; height: 240px; border: none; display: block; }
+    .dc-foot {
+      padding: var(--sp1) var(--sp3) var(--sp2);
       border-top: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .dc-open {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      background: none;
-      border: none;
-      transition: color .25s ease;
-      border-radius: 0px;
+    .dc-btn {
+      font-family: var(--font-text); font-weight: 500; font-size: 8px;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--chalk-3);
+      background: none; border: none; transition: color .2s;
     }
-    .deck-card:hover .dc-open { color: var(--paper); }
+    .dc:hover .dc-btn { color: var(--chalk); }
 
-    /* ── MODAL OVERLAY ── */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.97);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: var(--s4);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-    }
+    /* modal */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(8,8,8,.96); z-index: 2000; align-items: center; justify-content: center; padding: var(--sp4); }
     .modal.open { display: flex; }
-    .modal-box {
-      width: 100%;
-      max-width: 1020px;
-      background: var(--ink-2);
-      border: 1px solid var(--rule-strong);
-      overflow: hidden;
-      border-radius: 0px;
-    }
-    .modal-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: start;
-      padding: var(--s4);
-      border-bottom: 1px solid var(--rule);
-    }
-    .modal-industry {
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--paper-mute);
-      margin-bottom: 12px;
-    }
-    .modal-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(26px, 4vw, 48px);
-      text-transform: uppercase;
-      color: var(--paper);
-      line-height: .9;
-    }
-    .modal-close-btn {
-      background: none;
-      border: 1px solid var(--rule-strong);
-      color: var(--paper-mute);
-      font-family: var(--font-display-wide);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 10px 16px;
-      transition: all 0.25s ease;
-      border-radius: 0px;
-    }
-    .modal-close-btn:hover { color: var(--paper); border-color: var(--paper); }
-    .modal-frame { width: 100%; height: 560px; border: none; display: block; background: var(--ink); }
-    .modal-foot {
-      padding: var(--s3) var(--s4);
-      border-top: 1px solid var(--rule);
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
+    .modal-box { width: 100%; max-width: 980px; background: var(--carbon); border: 1px solid var(--rule-mid); overflow: hidden; }
+    .modal-head { display: grid; grid-template-columns: 1fr auto; align-items: start; padding: var(--sp3) var(--sp4); border-bottom: 1px solid var(--rule); }
+    .modal-ind { font-family: var(--font-text); font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--chalk-3); margin-bottom: 8px; }
+    .modal-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 3vw, 42px); text-transform: uppercase; line-height: .9; color: var(--chalk); }
+    .modal-x { font-family: var(--font-text); font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--chalk-3); background: none; border: 1px solid var(--rule-mid); padding: 8px 14px; transition: color .2s, border-color .2s; }
+    .modal-x:hover { color: var(--chalk); border-color: var(--chalk-3); }
+    .modal-frame { width: 100%; height: 520px; border: none; display: block; }
+    .modal-foot { padding: var(--sp2) var(--sp4); border-top: 1px solid var(--rule); display: flex; gap: 10px; }
 
     @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; }
       .deck-grid { grid-template-columns: 1fr 1fr; }
-      .deck-card:nth-child(3n) { border-right: 1px solid var(--rule); }
-      .deck-card:nth-child(2n) { border-right: none; }
+      .dc:nth-child(3n) { border-right: 1px solid var(--rule); }
+      .dc:nth-child(2n) { border-right: none; }
       .dc-preview { display: none; }
     }
     @media (max-width: 600px) {
       .deck-grid { grid-template-columns: 1fr; }
-      .deck-card:nth-child(n) { border-right: none; }
-      .page-header { grid-template-columns: 1fr; gap: var(--s3); }
-      .modal-frame { height: 380px; }
+      .dc:nth-child(n) { border-right: none; }
+      .modal-frame { height: 340px; }
     }
   </style>
 </head>
 <body>
-<div class="cursor"></div>
+<div class="cursor-dot"></div><div class="cursor-ring"></div>
 <nav>
-  <a class="nav-logo" href="index.html">Chip Ursery<sup>Cultural Strategy</sup></a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="work.html">Work</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <a href="contact.html" class="nav-cta">Let's Talk</a>
+  <a class="nav-logo" href="index.html">Chip Ursery<small>Cultural Strategy</small></a>
+  <div class="nav-center">
+    <a href="index.html">Home</a><a href="work.html">Work</a><a href="projects.html">Projects</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
   </div>
+  <a href="contact.html" class="nav-cta">Let's Talk</a>
   <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu">
-  <button class="mobile-close">Close</button>
+  <button class="mob-close">Close</button>
   <a href="index.html">Home</a><a href="work.html">Work</a><a href="projects.html">Projects</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
-  <div class="mobile-menu-bottom">chipursery@gmail.com</div>
+  <div class="mob-foot">chipursery@gmail.com</div>
 </div>
 
 <div class="page-wrap">
-  <div class="page-header container-full" style="max-width:var(--max-w);margin:0 auto;">
+  <div class="page-hero">
     <div>
-      <div class="eyebrow reveal">Full Portfolio</div>
-      <h1 class="d1 reveal up" data-delay="1" style="margin-top:16px;">The<br>Work</h1>
+      <div class="label reveal">Full Portfolio</div>
+      <h1 class="d-hero reveal" data-d="1" style="margin-top:12px;">The<br>Work</h1>
     </div>
-    <div class="page-header-right reveal" data-delay="2">
-      <p class="body-sm" style="max-width:220px;">My strategic concepts across different industries. Click to open.</p>
-    </div>
+    <p class="body-lg reveal" data-d="2" style="border-left:1px solid var(--rule);padding-left:var(--sp4);">Nine strategic concepts across six industries. Hover any card to preview — click to open.</p>
   </div>
 
   <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">All Work</button>
-    <button class="filter-btn" data-filter="sports">Sports</button>
-    <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
-    <button class="filter-btn" data-filter="culture">Culture</button>
-    <button class="filter-btn" data-filter="food">Food &amp; Bev</button>
+    <button class="fb on" data-f="all">All</button>
+    <button class="fb" data-f="sports">Sports</button>
+    <button class="fb" data-f="lifestyle">Lifestyle</button>
+    <button class="fb" data-f="culture">Culture</button>
+    <button class="fb" data-f="food">Food &amp; Bev</button>
+    <button class="fb" data-f="cannabis">Cannabis</button>
   </div>
 
-  <section class="deck-grid-section">
-    <div class="deck-grid" id="deckGrid"></div>
-  </section>
+  <div class="grid-wrap">
+    <div class="deck-grid" id="dg"></div>
+  </div>
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="deckModal">
+<div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-head">
-      <div>
-        <div class="modal-industry" id="mInd"></div>
-        <div class="modal-title" id="mTitle"></div>
-      </div>
-      <button class="modal-close-btn" id="mClose">Close</button>
+      <div><div class="modal-ind" id="mInd"></div><div class="modal-title" id="mTitle"></div></div>
+      <button class="modal-x" id="mX">Close</button>
     </div>
-    <iframe class="modal-frame" id="mFrame" src="" allow="autoplay" allowfullscreen title="Deck viewer"></iframe>
+    <iframe class="modal-frame" id="mFrame" src="" allow="autoplay" allowfullscreen title="Deck"></iframe>
     <div class="modal-foot">
-      <a id="mLink" href="#" target="_blank" rel="noopener" class="btn btn-paper btn-arrow" style="font-size:10px;padding:10px 18px;">Open in Drive</a>
-      <button id="mClose2" class="btn btn-ghost" style="font-size:10px;padding:10px 18px;">Close</button>
+      <a id="mLink" href="#" target="_blank" rel="noopener" class="btn btn-solid" style="font-size:9px;padding:11px 18px;">Open in Drive &nbsp;↗</a>
+      <button id="mX2" class="btn btn-outline" style="font-size:9px;padding:11px 18px;">Close</button>
     </div>
   </div>
 </div>
 
 <footer>
   <span class="footer-logo">Chip Ursery</span>
-  <div class="footer-right">
+  <div class="footer-r">
     <a href="mailto:chipursery@gmail.com" class="footer-link">chipursery@gmail.com</a>
     <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
     <span class="footer-copy">© 2025</span>
   </div>
 </footer>
-
-<script>
-const DECKS = [
-  { id:'tko',       title:'TKO Marketing Strategy',               industry:'Sports & Entertainment', cat:'sports',
-    desc:'Speculative brand and fan engagement strategy for a global sports and entertainment company focused on live events, audience culture, and sponsorship integration.',
-    preview:'https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/preview',
-    link:'https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view' },
-  { id:'nb',        title:'New Balance Global Partnership Strategy',industry:'Global Sportswear',      cat:'lifestyle',
-    desc:'Global partnership and cultural collaboration framework for a sportswear brand focused on international brand relevance, athlete storytelling, and community alignment.',
-    preview:'https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/preview',
-    link:'https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view' },
-  { id:'nofree',    title:"NoFreeMarathon × CMPLXCon '26",         industry:'Streetwear & Culture',   cat:'culture',
-    desc:'Experiential partnership concept connecting streetwear, culture, and live event marketing through immersive brand activations and community engagement.',
-    preview:'https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/preview',
-    link:'https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view' },
-  { id:'alo',       title:'ALO Marketing Strategy',                industry:'Wellness & Lifestyle',   cat:'lifestyle',
-    desc:'Marketing and cultural positioning strategy for a premium wellness brand centered around elevated community experiences and modern consumer identity.',
-    preview:'https://drive.google.com/file/d/1BnWvqWU5uVJ1HIt-jx75W_QPKSHuF2QI/preview',
-    link:'https://drive.google.com/file/d/1BnWvqWU5uVJ1HIt-jx75W_QPKSHuF2QI/view' },
-  { id:'pacers',    title:'Pacers Heritage League',                industry:'Sports & Community',     cat:'sports',
-    desc:'Community and sports culture initiative to strengthen local identity, fan engagement, and heritage storytelling through experiential basketball programming.',
-    preview:'https://drive.google.com/file/d/1mqbBJTal_jGdXRYq6RciRVB2C4Pm1ZpH/preview',
-    link:'https://drive.google.com/file/d/1mqbBJTal_jGdXRYq6RciRVB2C4Pm1ZpH/view' },
-  { id:'krispy',    title:'Krispy Kreme Creative Direction',       industry:'Food & Lifestyle',       cat:'food',
-    desc:'Creative campaign and visual direction exploring cultural collaborations, limited-edition product storytelling, and lifestyle-focused brand engagement.',
-    preview:'https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/preview',
-    link:'https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/view' },
-  { id:'marathon',  title:'Marathon Parlor',                       industry:'Food & Beverage',        cat:'food',
-    desc:'Restaurant and lifestyle retail concept inspired by community, storytelling, and cultural gathering spaces tied to the MARATHON brand.',
-    preview:'https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/preview',
-    link:'https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/view' },
-  { id:'signature', title:'Signature Swap Cookies + TGC',          industry:'Cannabis Culture',       cat:'culture',
-    desc:'Cannabis collaboration concept merging product storytelling, limited-edition branding, and community-driven partnership marketing.',
-    preview:'https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/preview',
-    link:'https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/view' },
-  { id:'joejuice',  title:'Joe & The Juice Expansion Strategy',    industry:'Lifestyle Beverage',     cat:'food',
-    desc:'Growth and experiential retail strategy focused on cultural relevance, community engagement, and market expansion for a lifestyle beverage brand.',
-    preview:'https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/preview',
-    link:'https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/view' },
-];
-
-/* Helper to extract Google Drive file ID and get thumbnail */
-function getThumbnailUrl(driveUrl) {
-  const match = driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (match && match[1]) {
-    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w600`;
-  }
-  return '';
-}
-
-/* Build grid */
-const grid = document.getElementById('deckGrid');
-DECKS.forEach((d, i) => {
-  const card = document.createElement('div');
-  card.className = 'deck-card reveal';
-  card.dataset.cat = d.cat;
-  const formattedIndex = String(i + 1).padStart(2, '0');
-  const thumbUrl = getThumbnailUrl(d.link);
-  card.innerHTML = `
-    <div class="dc-thumb">
-      <img src="${thumbUrl}" alt="${d.title}" loading="lazy" />
-    </div>
-    <div class="dc-top">
-      <span class="dc-index">${formattedIndex}</span>
-      <span class="dc-arrow">↗</span>
-    </div>
-    <div class="dc-body">
-      <div class="dc-industry">${d.industry}</div>
-      <div class="dc-title">${d.title}</div>
-      <p class="dc-desc">${d.desc}</p>
-    </div>
-    <div class="dc-preview">
-      <iframe src="" data-src="${d.preview}" loading="lazy" allow="autoplay" allowfullscreen title="${d.title}"></iframe>
-    </div>
-    <div class="dc-footer">
-      <button class="dc-open" data-id="${d.id}">Open Deck</button>
-    </div>`;
-  grid.appendChild(card);
-
-  /* lazy-load preview on hover */
-  card.addEventListener('mouseenter', () => {
-    const fr = card.querySelector('iframe');
-    if (fr && !fr.src) fr.src = fr.dataset.src;
-  });
-});
-
-/* Filter */
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.deck-card').forEach(c => {
-      c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
-    });
-  });
-});
-
-/* Modal */
-const modal = document.getElementById('deckModal');
-const mTitle = document.getElementById('mTitle');
-const mInd   = document.getElementById('mInd');
-const mFrame = document.getElementById('mFrame');
-const mLink  = document.getElementById('mLink');
-
-function openM(id) {
-  const d = DECKS.find(x => x.id === id); if (!d) return;
-  mTitle.textContent = d.title;
-  mInd.textContent   = d.industry;
-  mFrame.src         = d.preview;
-  mLink.href         = d.link;
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeM() {
-  modal.classList.remove('open');
-  mFrame.src = '';
-  document.body.style.overflow = '';
-}
-document.addEventListener('click', e => {
-  const b = e.target.closest('.dc-open');
-  if (b) openM(b.dataset.id);
-});
-document.getElementById('mClose').addEventListener('click', closeM);
-document.getElementById('mClose2').addEventListener('click', closeM);
-modal.addEventListener('click', e => { if (e.target === modal) closeM(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
-if (location.hash) { const id = location.hash.slice(1); if (DECKS.find(x=>x.id===id)) openM(id); }
-</script>
 <script src="nav.js"></script>
+<script>
+const DECKS=[
+  {id:'tko',      title:'TKO Marketing Strategy',               ind:'Sports & Entertainment', cat:'sports',
+   desc:'Speculative brand and fan engagement strategy for a global sports and entertainment company focused on live events, audience culture, and sponsorship integration.',
+   prev:'https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/preview',
+   link:'https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view'},
+  {id:'nb',       title:'New Balance Global Partnership Strategy',ind:'Global Sportswear',     cat:'sports',
+   desc:'Global partnership and cultural collaboration framework focused on international brand relevance, athlete storytelling, and community alignment.',
+   prev:'https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/preview',
+   link:'https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view'},
+  {id:'nofree',   title:"NoFreeMarathon × CMPLXCon '26",        ind:'Streetwear & Culture',   cat:'culture',
+   desc:'Experiential partnership connecting streetwear, culture, and live event marketing through immersive brand activations and community engagement.',
+   prev:'https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/preview',
+   link:'https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view'},
+  {id:'alo',      title:'ALO Marketing Strategy',               ind:'Wellness & Lifestyle',   cat:'lifestyle',
+   desc:'Marketing and cultural positioning strategy for a premium wellness brand centered around elevated community experiences and modern consumer identity.',
+   prev:'https://drive.google.com/file/d/1BnWvqWU5uVJ1HIt-jx75W_QPKSHuF2QI/preview',
+   link:'https://drive.google.com/file/d/1BnWvqWU5uVJ1HIt-jx75W_QPKSHuF2QI/view'},
+  {id:'pacers',   title:'Pacers Heritage League',               ind:'Sports & Community',     cat:'sports',
+   desc:'Community and sports culture initiative to strengthen local identity, fan engagement, and heritage storytelling through experiential basketball programming.',
+   prev:'https://drive.google.com/file/d/1mqbBJTal_jGdXRYq6RciRVB2C4Pm1ZpH/preview',
+   link:'https://drive.google.com/file/d/1mqbBJTal_jGdXRYq6RciRVB2C4Pm1ZpH/view'},
+  {id:'krispy',   title:'Krispy Kreme Creative Direction',      ind:'Food & Lifestyle',       cat:'food',
+   desc:'Creative campaign and visual direction concept exploring cultural collaborations, limited-edition product storytelling, and lifestyle-focused brand engagement.',
+   prev:'https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/preview',
+   link:'https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/view'},
+  {id:'marathon', title:'Marathon Original Parlor',             ind:'Lifestyle Retail',       cat:'lifestyle',
+   desc:'Restaurant and lifestyle retail concept inspired by community, storytelling, and cultural gathering spaces tied to the MARATHON brand.',
+   prev:'https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/preview',
+   link:'https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/view'},
+  {id:'sig',      title:'Signature Swap Cookies + TGC',         ind:'Cannabis & Collaboration',cat:'cannabis',
+   desc:'Cannabis collaboration concept merging product storytelling, limited-edition branding, and community-driven partnership marketing.',
+   prev:'https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/preview',
+   link:'https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/view'},
+  {id:'joe',      title:'Joe & The Juice Expansion Strategy',   ind:'Lifestyle Beverage',     cat:'food',
+   desc:'Growth and experiential retail strategy focused on cultural relevance, community engagement, and market expansion for a lifestyle beverage brand.',
+   prev:'https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/preview',
+   link:'https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/view'},
+];
+const grid=document.getElementById('dg');
+DECKS.forEach((d,i)=>{
+  const c=document.createElement('div');
+  c.className='dc reveal'; c.dataset.cat=d.cat;
+  c.innerHTML=`<div class="dc-top"><span class="dc-idx">0${i+1} / 09</span><span class="dc-arrow">↗</span></div>
+    <div class="dc-body"><div class="dc-ind">${d.ind}</div><div class="dc-title">${d.title}</div><p class="dc-desc">${d.desc}</p></div>
+    <div class="dc-preview"><iframe src="" data-src="${d.prev}" loading="lazy" allow="autoplay" allowfullscreen title="${d.title}"></iframe></div>
+    <div class="dc-foot"><button class="dc-btn" data-id="${d.id}">Open Deck</button></div>`;
+  grid.appendChild(c);
+  c.addEventListener('mouseenter',()=>{const fr=c.querySelector('iframe');if(fr&&!fr.src)fr.src=fr.dataset.src;});
+});
+// filter
+document.querySelectorAll('.fb').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+  const f=b.dataset.f;
+  document.querySelectorAll('.dc').forEach(c=>c.style.display=(f==='all'||c.dataset.cat===f)?'':'none');
+}));
+// modal
+const modal=document.getElementById('modal'),mT=document.getElementById('mTitle'),mI=document.getElementById('mInd'),mF=document.getElementById('mFrame'),mL=document.getElementById('mLink');
+function openM(id){const d=DECKS.find(x=>x.id===id);if(!d)return;mT.textContent=d.title;mI.textContent=d.ind;mF.src=d.prev;mL.href=d.link;modal.classList.add('open');document.body.style.overflow='hidden';}
+function closeM(){modal.classList.remove('open');mF.src='';document.body.style.overflow='';}
+document.addEventListener('click',e=>{const b=e.target.closest('.dc-btn');if(b)openM(b.dataset.id);});
+document.getElementById('mX').addEventListener('click',closeM);
+document.getElementById('mX2').addEventListener('click',closeM);
+modal.addEventListener('click',e=>{if(e.target===modal)closeM();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+if(location.hash){const id=location.hash.slice(1);if(DECKS.find(x=>x.id===id))openM(id);}
+</script>
 </body>
 </html>

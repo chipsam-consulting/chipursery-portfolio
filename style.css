@@ -4,25 +4,26 @@
    References: Kith, Wieden+Kennedy, Fear of God, Nike Editorial
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
 /* ── DESIGN TOKENS ── */
 :root {
   /* Pure Editorial Palette */
-  --ink:          #000000; /* Pure black */
-  --ink-2:        #080808; /* Extremely deep grey */
-  --ink-3:        #101010; /* Charcoal secondary */
-  --ink-4:        #1a1a1a; /* Charcoal tertiary */
-  --paper:        #f5f5f3; /* Premium linen off-white */
-  --paper-dim:    #cacac8; /* Muted linen */
-  --paper-mute:   #7f7f7e; /* Charcoal accent grey */
-  --rule:         rgba(245, 245, 243, 0.05); /* Extremely thin divider */
-  --rule-strong:  rgba(245, 245, 243, 0.12); /* Pronounced divider */
+  --ink:          #0B0B0B; /* Matte Black */
+  --ink-2:        #141414; /* Lighter Matte Black for hover cards */
+  --ink-3:        #1c1c1c; /* Charcoal secondary */
+  --ink-4:        #242424; /* Charcoal tertiary */
+  --paper:        #F5F3EE; /* Off White */
+  --paper-dim:    #A1A1A1; /* Soft Gray (Secondary copy) */
+  --paper-mute:   #7A7A7A; /* Darker Soft Gray for metadata */
+  --accent:       #C6A66B; /* Gold accent */
+  --rule:         rgba(198, 166, 107, 0.12); /* Thin gold divider line */
+  --rule-strong:  rgba(198, 166, 107, 0.25); /* Pronounced gold divider */
 
   /* Typographic Pairing */
-  --font-display:      'Antonio', sans-serif;           /* Tall, condensed, bold editorial (Druk vibe) */
-  --font-display-wide: 'Syncopate', sans-serif;         /* Wide uppercase fashion headers (Kith vibe) */
-  --font-body:         'Inter', sans-serif;             /* Stark neutral body (Helvetica Neue vibe) */
+  --font-display:      'Anton', sans-serif;             /* Bold condensed display font */
+  --font-display-wide: 'Anton', sans-serif;             /* Map to Anton for unified brand display */
+  --font-body:         'Roboto', sans-serif;            /* Stark neutral body */
   --font-serif:        'Cormorant Garamond', serif;     /* Classic editorial italic accent */
 
   /* Layout Spacing */
@@ -92,18 +93,17 @@ body::after {
 .cursor {
   position: fixed;
   width: 6px; height: 6px;
-  background: var(--paper);
+  background: var(--accent);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition: width .25s ease, height .25s ease, background .25s ease, border .25s ease;
-  mix-blend-mode: difference;
 }
 .cursor.expanded {
   width: 28px; height: 28px;
   background: transparent;
-  border: 1px solid var(--paper);
+  border: 1px solid var(--accent);
 }
 @media (pointer: coarse) {
   .cursor { display: none; }
@@ -120,7 +120,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--s4);
-  background: rgba(0, 0, 0, 0.94);
+  background: rgba(11, 11, 11, 0.94);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border-bottom: 1px solid var(--rule);

@@ -68,8 +68,28 @@
     .deck-card:hover .dc-arrow { opacity: 1; transform: translate(3px,-3px); color: var(--paper); }
     .deck-card:hover .dc-preview { opacity: 1; max-height: 280px; }
 
+    .dc-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--ink-3);
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+    .dc-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.85;
+    }
+    .deck-card:hover .dc-thumb img {
+      transform: scale(1.05);
+      opacity: 1;
+    }
     .dc-top {
-      padding: var(--s4) var(--s4) var(--s2);
+      padding: var(--s2) var(--s4) var(--s2);
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -80,7 +100,7 @@
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.05em;
-      color: var(--paper-mute);
+      color: var(--accent);
     }
     .dc-arrow {
       font-size: 18px;
@@ -260,7 +280,7 @@
       <h1 class="d1 reveal up" data-delay="1" style="margin-top:16px;">The<br>Work</h1>
     </div>
     <div class="page-header-right reveal" data-delay="2">
-      <p class="body-sm" style="max-width:200px;">Nine strategic concepts across six industries. Hover to preview. Click to open.</p>
+      <p class="body-sm" style="max-width:220px;">My strategic concepts across different industries. Click to open.</p>
     </div>
   </div>
 
@@ -270,7 +290,6 @@
     <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
     <button class="filter-btn" data-filter="culture">Culture</button>
     <button class="filter-btn" data-filter="food">Food &amp; Bev</button>
-    <button class="filter-btn" data-filter="cannabis">Cannabis</button>
   </div>
 
   <section class="deck-grid-section">
@@ -311,7 +330,7 @@ const DECKS = [
     desc:'Speculative brand and fan engagement strategy for a global sports and entertainment company focused on live events, audience culture, and sponsorship integration.',
     preview:'https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/preview',
     link:'https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view' },
-  { id:'nb',        title:'New Balance Global Partnership Strategy',industry:'Global Sportswear',      cat:'sports',
+  { id:'nb',        title:'New Balance Global Partnership Strategy',industry:'Global Sportswear',      cat:'lifestyle',
     desc:'Global partnership and cultural collaboration framework for a sportswear brand focused on international brand relevance, athlete storytelling, and community alignment.',
     preview:'https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/preview',
     link:'https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view' },
@@ -331,11 +350,11 @@ const DECKS = [
     desc:'Creative campaign and visual direction exploring cultural collaborations, limited-edition product storytelling, and lifestyle-focused brand engagement.',
     preview:'https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/preview',
     link:'https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/view' },
-  { id:'marathon',  title:'Marathon Original Parlor',              industry:'Lifestyle Retail',       cat:'lifestyle',
+  { id:'marathon',  title:'Marathon Parlor',                       industry:'Food & Beverage',        cat:'food',
     desc:'Restaurant and lifestyle retail concept inspired by community, storytelling, and cultural gathering spaces tied to the MARATHON brand.',
     preview:'https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/preview',
     link:'https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/view' },
-  { id:'signature', title:'Signature Swap Cookies + TGC',          industry:'Cannabis & Collaboration',cat:'cannabis',
+  { id:'signature', title:'Signature Swap Cookies + TGC',          industry:'Cannabis Culture',       cat:'culture',
     desc:'Cannabis collaboration concept merging product storytelling, limited-edition branding, and community-driven partnership marketing.',
     preview:'https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/preview',
     link:'https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/view' },
@@ -345,15 +364,29 @@ const DECKS = [
     link:'https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/view' },
 ];
 
+/* Helper to extract Google Drive file ID and get thumbnail */
+function getThumbnailUrl(driveUrl) {
+  const match = driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w600`;
+  }
+  return '';
+}
+
 /* Build grid */
 const grid = document.getElementById('deckGrid');
 DECKS.forEach((d, i) => {
   const card = document.createElement('div');
   card.className = 'deck-card reveal';
   card.dataset.cat = d.cat;
+  const formattedIndex = String(i + 1).padStart(2, '0');
+  const thumbUrl = getThumbnailUrl(d.link);
   card.innerHTML = `
+    <div class="dc-thumb">
+      <img src="${thumbUrl}" alt="${d.title}" loading="lazy" />
+    </div>
     <div class="dc-top">
-      <span class="dc-index">0${i+1} / 09</span>
+      <span class="dc-index">${formattedIndex}</span>
       <span class="dc-arrow">↗</span>
     </div>
     <div class="dc-body">

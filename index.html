@@ -1,499 +1,881 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cultural strategy consultancy at the intersection of sports, lifestyle, music, partnerships, and experiential branding." />
   <title>Chip Ursery — Cultural Partnerships & Brand Strategy</title>
-  <meta name="description" content="Boutique cultural strategy at the intersection of sports, lifestyle, music, partnerships, and experiential branding."/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&family=Big+Shoulders+Text:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap" rel="stylesheet" />
   <style>
-    /* ══ HERO ══ */
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0B0B0B;
+      --ink-2: #121212;
+      --ink-3: #181818;
+      --rule: rgba(198, 166, 107, 0.15);
+      --rule-2: rgba(198, 166, 107, 0.25);
+      --fog: #A1A1A1;
+      --ash: #A1A1A1;
+      --parchment: #F5F3EE;
+      --white: #F5F3EE;
+      --mark: #C6A66B;
+      --mark-dim: rgba(198, 166, 107, 0.08);
+      --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--ink);
+      color: var(--parchment);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9000;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    /* ─────────────────────────────────────────
+       TYPOGRAPHY UTILS
+    ───────────────────────────────────────── */
+    .label {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--fog);
+    }
+    .label-accent { color: var(--mark); }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.4s var(--ease);
+    }
+
+    .nav-logo {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo .dot { color: var(--mark); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fog);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--white); }
+
+    .nav-contact {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--mark);
+      padding: 9px 20px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-contact:hover { opacity: 0.85; }
+
+    /* hamburger */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-burger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--parchment);
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: 60px;
+      background: var(--ink-2);
+      z-index: 490;
+      flex-direction: column;
+      padding: 60px 40px;
+      gap: 0;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 52px;
+      letter-spacing: 0.04em;
+      color: var(--parchment);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 20px 0;
+      transition: color 0.2s;
+    }
+    .nav-mobile a:hover { color: var(--mark); }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
     .hero {
       min-height: 100svh;
       display: grid;
       grid-template-rows: 1fr auto;
+      padding: 0 40px;
+      padding-top: 60px;
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid var(--rule);
     }
-    .hero-ghost {
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 80px;
+    }
+
+    /* vertical side label */
+    .hero-side {
       position: absolute;
-      bottom: -.06em; left: -.01em;
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(240px, 32vw, 560px);
-      line-height: 1;
-      text-transform: uppercase;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: center center;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      white-space: nowrap;
+    }
+    .hero-side .label { letter-spacing: 0.3em; }
+    .hero-side::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--rule-2);
+    }
+
+    /* big background rule number */
+    .hero-rule-num {
+      position: absolute;
+      right: -20px;
+      bottom: -60px;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(200px, 28vw, 420px);
       color: transparent;
-      -webkit-text-stroke: 1px rgba(237,233,224,0.035);
+      -webkit-text-stroke: 1px rgba(198, 166, 107, 0.04);
+      line-height: 1;
       pointer-events: none;
       user-select: none;
-      white-space: nowrap;
-      z-index: 0;
     }
-    .hero-body {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: var(--sp8) var(--sp4) var(--sp5);
-      position: relative;
-      z-index: 2;
-    }
-    .hero-eyeline {
+
+    .hero-eyebrow {
       display: flex;
       align-items: center;
-      gap: var(--sp3);
-      margin-bottom: var(--sp3);
-      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.1s var(--ease) forwards;
     }
-    .hero-eyeline-item {
-      font-family: var(--font-text);
-      font-weight: 500;
-      font-size: 9px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--chalk-3);
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--mark);
     }
-    .hero-sep { width: 1px; height: 10px; background: var(--rule-mid); flex-shrink: 0; }
 
     .hero-name {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(80px, 13.5vw, 200px);
-      line-height: .84;
-      letter-spacing: -0.005em;
-      text-transform: uppercase;
-      color: var(--chalk);
-      margin-bottom: var(--sp2);
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(88px, 13.5vw, 200px);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      color: var(--white);
+      margin-bottom: 0;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.18s var(--ease) forwards;
     }
-    .hero-name .sub {
-      display: block;
+
+    .hero-name-italic {
+      font-family: 'Lato', sans-serif;
+      font-style: italic;
       font-weight: 300;
-      font-size: .38em;
-      letter-spacing: 0.04em;
-      color: var(--chalk-3);
-      line-height: 1.2;
-      margin-top: 4px;
+      font-size: clamp(24px, 3.5vw, 48px);
+      color: var(--ash);
+      letter-spacing: -0.01em;
+      display: block;
+      margin-top: 8px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.26s var(--ease) forwards;
     }
 
-    .hero-foot {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: var(--sp4);
-      padding: var(--sp3) var(--sp4);
-      border-top: 1px solid var(--rule);
-      position: relative;
-      z-index: 2;
-    }
-    .hero-statement { max-width: 480px; }
-    .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-
-    /* scroll line */
-    .scroll-line-wrap {
-      position: absolute;
-      right: var(--sp4); top: 50%;
-      transform: translateY(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      opacity: .28; z-index: 3;
-    }
-    .scroll-line-wrap .label-sm { writing-mode: vertical-rl; }
-    .s-line {
-      width: 1px; height: 52px;
-      background: linear-gradient(to bottom, var(--chalk), transparent);
-      transform-origin: top;
-      animation: sline 2.8s ease-in-out infinite;
-    }
-    @keyframes sline {
-      0%   { transform: scaleY(0); opacity: 0; }
-      25%  { opacity: 1; }
-      100% { transform: scaleY(1); opacity: 0; }
+    .hero-statement {
+      max-width: 520px;
+      font-size: clamp(15px, 1.4vw, 17px);
+      font-weight: 300;
+      color: var(--ash);
+      line-height: 1.8;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.34s var(--ease) forwards;
     }
 
-    /* ══ AUTHORITY ══ */
-    .authority { border-bottom: 1px solid var(--rule); }
-    .auth-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-    .auth-left {
-      padding: var(--sp6) var(--sp4);
-      border-right: 1px solid var(--rule);
-    }
-    .auth-headline {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(40px, 6vw, 88px);
-      line-height: .88;
-      text-transform: uppercase;
-      color: var(--chalk);
-      margin: var(--sp3) 0 var(--sp4);
-    }
-    .auth-right {
-      padding: var(--sp6) var(--sp4);
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid var(--rule);
-    }
-    .stat {
-      padding: var(--sp4) var(--sp3);
-      border-right: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-    .stat:nth-child(2n) { border-right: none; }
-    .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
-    .stat-n {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(48px, 6vw, 80px);
-      line-height: 1;
-      color: var(--chalk);
-    }
-    .stat-l {
-      font-family: var(--font-text);
-      font-weight: 500;
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--chalk-3);
-      margin-top: 6px;
-    }
-    .tags-area { margin-top: var(--sp5); }
-    .tag-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: var(--sp2); }
-    .tag {
-      font-family: var(--font-text);
-      font-weight: 500;
-      font-size: 8px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      padding: 6px 12px;
-      border: 1px solid var(--rule-mid);
-      color: var(--chalk-3);
-      transition: border-color .2s, color .2s;
-    }
-    .tag:hover { border-color: var(--chalk-3); color: var(--chalk); }
-
-    /* ══ PROJECTS TEASER ══ */
-    .projects-section { border-bottom: 1px solid var(--rule); }
-    .proj-header {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      padding: var(--sp5) var(--sp4) var(--sp4);
-      border-bottom: 1px solid var(--rule);
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-    .proj-row {
-      display: grid;
-      grid-template-columns: 72px 1fr 100px;
-      align-items: stretch;
-      border-bottom: 1px solid var(--rule);
-      transition: background .2s;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      width: 100%;
-    }
-    /* make the entire row a link */
-    a.proj-row { color: inherit; }
-    a.proj-row:hover { background: var(--carbon); }
-    a.proj-row:hover .pr-arrow { opacity: 1; transform: translate(3px,-3px); }
-    a.proj-row:hover .pr-cta { color: var(--chalk); }
-
-    .pr-num {
-      border-right: 1px solid var(--rule);
+    .hero-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      color: var(--chalk-3);
-    }
-    .pr-body {
-      padding: var(--sp4) var(--sp4);
-      border-right: 1px solid var(--rule);
-    }
-    .pr-ind {
-      font-family: var(--font-text);
-      font-weight: 500;
-      font-size: 8px;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--chalk-3);
-      margin-bottom: var(--sp2);
-      opacity: .6;
-    }
-    .pr-title {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(26px, 3.5vw, 50px);
-      line-height: .9;
-      text-transform: uppercase;
-      color: var(--chalk);
-      margin-bottom: var(--sp2);
-    }
-    .pr-desc {
-      font-size: 13px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: var(--chalk-3);
-      max-width: 580px;
-    }
-    .pr-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding: var(--sp3);
-    }
-    .pr-arrow {
-      font-size: 20px;
-      color: var(--chalk);
-      opacity: .15;
-      transition: opacity .2s, transform .25s;
-    }
-    .pr-cta {
-      font-family: var(--font-text);
-      font-weight: 500;
-      font-size: 8px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--chalk-3);
-      transition: color .2s;
-    }
-    .proj-foot {
-      padding: var(--sp3) var(--sp4);
-      display: flex;
-      justify-content: flex-end;
-      max-width: var(--max-w);
-      margin: 0 auto;
+      gap: 24px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.42s var(--ease) forwards;
     }
 
-    /* ══ CLOSING ══ */
-    .closing {
-      padding: var(--sp7) var(--sp4);
-      text-align: center;
+    .btn {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s var(--ease);
+    }
+    .btn-filled {
+      background: var(--mark);
+      color: var(--ink);
+      padding: 14px 28px;
+    }
+    .btn-filled:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-ghost {
+      color: var(--ash);
+      border: 1px solid var(--rule-2);
+      padding: 13px 28px;
+    }
+    .btn-ghost:hover { color: var(--white); border-color: var(--ash); transform: translateY(-1px); }
+
+    /* scroll indicator */
+    .hero-scroll {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-top: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeIn 1s 1s var(--ease) forwards;
+    }
+    .hero-scroll .label { color: var(--fog); }
+    .scroll-line {
+      width: 48px;
+      height: 1px;
+      background: var(--rule-2);
       position: relative;
       overflow: hidden;
     }
-    .closing-ghost {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-weight: 900;
-      font-size: clamp(100px, 18vw, 280px);
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(237,233,224,0.025);
-      pointer-events: none; white-space: nowrap;
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--mark);
+      animation: scrollLine 2s 1.5s var(--ease) infinite;
     }
-    .closing-inner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
-    .closing-inner .label { margin-bottom: var(--sp3); }
-    .closing-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: var(--sp4); }
+    @keyframes scrollLine {
+      0% { left: -100%; }
+      50%, 100% { left: 100%; }
+    }
 
-    @media (max-width: 900px) {
-      .auth-grid { grid-template-columns: 1fr; }
-      .auth-left { border-right: none; border-bottom: 1px solid var(--rule); padding-bottom: var(--sp4); }
-      .proj-row { grid-template-columns: 1fr 60px; }
-      .pr-num { display: none; }
-      .pr-body { border-right: none; }
+    /* ─────────────────────────────────────────
+       ABOUT / STATEMENT
+    ───────────────────────────────────────── */
+    .about {
+      padding: 160px 40px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      border-top: 1px solid var(--rule);
+      align-items: start;
     }
-    @media (max-width: 600px) {
-      .hero-foot { grid-template-columns: 1fr; }
-      .hero-ctas { justify-content: flex-start; }
-      .proj-header { grid-template-columns: 1fr; gap: var(--sp2); }
-      .scroll-line-wrap { display: none; }
+
+    .about-left { position: sticky; top: 100px; }
+    .about-left .section-index {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 120px;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--rule-2);
+      line-height: 1;
+      margin-bottom: -16px;
+    }
+
+    .about-headline {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(44px, 5.5vw, 76px);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .about-headline em {
+      color: var(--mark);
+      font-style: normal;
+    }
+
+    .about-body {
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--ash);
+      margin-bottom: 32px;
+      max-width: 560px;
+    }
+
+    /* stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 64px;
+    }
+    .stat-cell {
+      background: var(--ink-2);
+      padding: 32px 24px;
+    }
+    .stat-num {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 52px;
+      color: var(--mark);
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fog);
+      margin-top: 6px;
+    }
+
+    /* tags */
+    .focus-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .focus-tag {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fog);
+      border: 1px solid var(--rule-2);
+      padding: 7px 14px;
+      transition: color 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .focus-tag:hover { color: var(--parchment); border-color: var(--fog); }
+
+    /* ─────────────────────────────────────────
+       SELECTED WORK PREVIEW
+    ───────────────────────────────────────── */
+    .work-preview {
+      padding: 0 40px 160px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 60px 0 64px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(52px, 7vw, 96px);
+      line-height: 0.92;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .section-title em { color: var(--mark); font-style: normal; }
+
+    .section-link {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fog);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.2s;
+      white-space: nowrap;
+      align-self: flex-end;
+      padding-bottom: 8px;
+    }
+    .section-link::after { content: '→'; transition: transform 0.2s; }
+    .section-link:hover { color: var(--white); }
+    .section-link:hover::after { transform: translateX(4px); }
+
+    .project-list { display: flex; flex-direction: column; }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 40px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s;
+      position: relative;
+    }
+    .project-row::before {
+      content: '';
+      position: absolute;
+      left: -40px; right: -40px;
+      top: 0; bottom: 0;
+      background: var(--ink-3);
+      opacity: 0;
+      transition: opacity 0.25s var(--ease);
+    }
+    .project-row:hover::before { opacity: 1; }
+    .project-row:first-child { border-top: 1px solid var(--rule); }
+
+    .project-row > * { position: relative; z-index: 1; }
+
+    .project-row-num {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--fog);
+    }
+
+    .project-row-info {}
+
+    .project-row-cat {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mark);
+      margin-bottom: 6px;
+    }
+
+    .project-row-title {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      letter-spacing: 0.02em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+    .project-row:hover .project-row-title { color: var(--mark); }
+
+    .project-row-desc {
+      font-size: 13px;
+      color: var(--fog);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .project-row-arrow {
+      font-size: 20px;
+      color: var(--rule-2);
+      transition: color 0.2s, transform 0.25s var(--ease);
+    }
+    .project-row:hover .project-row-arrow { color: var(--mark); transform: translate(4px, -4px); }
+
+    /* ─────────────────────────────────────────
+       CTA BAND
+    ───────────────────────────────────────── */
+    .cta-band {
+      margin: 0 40px;
+      background: var(--mark);
+      padding: 80px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .cta-band-copy h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .cta-band-copy p {
+      font-size: 14px;
+      color: rgba(10,10,10,0.55);
+      font-weight: 400;
+    }
+    .btn-dark {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mark);
+      background: var(--ink);
+      padding: 16px 32px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .btn-dark:hover { opacity: 0.82; }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--rule);
+      padding: 32px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 120px;
+    }
+    .footer-left p {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fog);
+    }
+    .footer-right {
+      display: flex;
+      gap: 28px;
+    }
+    .footer-right a {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fog);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-right a:hover { color: var(--white); }
+
+    /* ─────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─────────────────────────────────────────
+       ANIMATIONS
+    ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .about { grid-template-columns: 1fr; gap: 48px; padding: 100px 24px; }
+      .about-left { position: static; }
+      .about-left .section-index { display: none; }
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 24px; }
+      .nav-links, .nav-contact { display: none; }
+      .nav-burger { display: flex; }
+      .hero { padding: 0 24px; padding-top: 60px; }
+      .hero-side { display: none; }
+      .hero-rule-num { display: none; }
+      .hero-scroll { padding: 20px 24px; }
+      .work-preview { padding: 0 24px 100px; }
+      .project-row { grid-template-columns: 48px 1fr 24px; gap: 16px; }
+      .cta-band { margin: 0 24px; padding: 52px 32px; }
+      .footer { padding: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-name { font-size: 72px; }
+      .project-row-desc { display: none; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
 
-<nav>
-  <a class="nav-logo" href="index.html">Chip Ursery<small>Cultural Strategy</small></a>
-  <div class="nav-center">
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Chip Ursery<span class="dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-contact">Let's Talk</a>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <nav class="nav-mobile" id="mobileNav">
     <a href="index.html">Home</a>
     <a href="work.html">Work</a>
     <a href="projects.html">Projects</a>
     <a href="services.html">Services</a>
     <a href="contact.html">Contact</a>
-  </div>
-  <a href="contact.html" class="nav-cta">Let's Talk</a>
-  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu">
-  <button class="mob-close">Close</button>
-  <a href="index.html">Home</a>
-  <a href="work.html">Work</a>
-  <a href="projects.html">Projects</a>
-  <a href="services.html">Services</a>
-  <a href="contact.html">Contact</a>
-  <div class="mob-foot">chipursery@gmail.com</div>
-</div>
-
-<div class="page-wrap">
+  </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <span class="hero-ghost" aria-hidden="true">Strategy</span>
-    <div class="scroll-line-wrap" aria-hidden="true">
-      <div class="s-line"></div>
-      <span class="label-sm">Scroll</span>
+    <div class="hero-rule-num" aria-hidden="true">CU</div>
+
+    <div class="hero-side" aria-hidden="true">
+      <span class="label">Cultural Strategy</span>
+      <span class="label" style="color: var(--rule-2)">Est. 2017</span>
     </div>
-    <div class="hero-body">
-      <div class="hero-eyeline reveal">
-        <span class="hero-eyeline-item">Cultural Partnerships</span>
-        <span class="hero-sep"></span>
-        <span class="hero-eyeline-item">Brand Strategy</span>
-        <span class="hero-sep"></span>
-        <span class="hero-eyeline-item">Experiential</span>
-        <span class="hero-sep"></span>
-        <span class="hero-eyeline-item">Las Vegas</span>
+
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="label label-accent">Cultural Partnerships & Brand Strategy</span>
       </div>
-      <h1 class="hero-name reveal" data-d="1">
-        Chip<br>Ursery
-        <span class="sub">Cultural Strategy Consultancy</span>
-      </h1>
+
+      <h1 class="hero-name">Chip<br>Ursery</h1>
+      <span class="hero-name-italic">Partnership Strategy · Experiential Campaigns · Cultural Positioning</span>
+
+      <p class="hero-statement">
+        Cultural strategy at the intersection of sports, lifestyle, music, partnerships, and experiential branding. Built for brands competing for cultural relevance.
+      </p>
+
+      <div class="hero-actions">
+        <a href="work.html" class="btn btn-filled">View Work</a>
+        <a href="contact.html" class="btn btn-ghost">Capabilities Deck</a>
+      </div>
     </div>
-    <div class="hero-foot">
-      <p class="hero-statement body-lg reveal" data-d="2">Boutique cultural strategy at the intersection of sports, lifestyle, music, partnerships, and experiential branding. Built for brands competing for cultural relevance.</p>
-      <div class="hero-ctas reveal" data-d="3">
-        <a href="work.html" class="btn btn-solid">View Work &nbsp;↗</a>
-        <a href="contact.html" class="btn btn-outline">Capabilities Deck</a>
-      </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="label">Scroll</span>
     </div>
   </section>
 
-  <!-- MARQUEE -->
-  <div class="marquee-track" aria-hidden="true">
-    <div class="marquee-inner">
-      <div class="marquee-item"><span>Partnership Strategy</span><span class="m-dot"></span></div>
-      <div class="marquee-item"><span>Brand Collaborations</span><span class="m-dot"></span></div>
-      <div class="marquee-item"><span>Experiential Activations</span><span class="m-dot"></span></div>
-      <div class="marquee-item"><span>Sports Marketing</span><span class="m-dot"></span></div>
-      <div class="marquee-item"><span>Cultural Positioning</span><span class="m-dot"></span></div>
-      <div class="marquee-item"><span>Pitch Development</span><span class="m-dot"></span></div>
-      <div class="marquee-item"><span>Lifestyle Branding</span><span class="m-dot"></span></div>
-      <div class="marquee-item"><span>Sponsorship Concepts</span><span class="m-dot"></span></div>
+  <!-- ABOUT / STATEMENT -->
+  <section class="about">
+    <div class="about-left">
+      <div class="section-index" aria-hidden="true">01</div>
+      <p class="label label-accent" style="margin-bottom: 16px;">About the Work</p>
     </div>
-  </div>
+    <div>
+      <h2 class="about-headline reveal">Built for<br>brands that<br>compete on<br><em>culture.</em></h2>
+      <p class="about-body reveal">
+        I develop partnership concepts, experiential campaigns, and culture-driven brand strategies that live at the intersection of sports, streetwear, wellness, and lifestyle. Every concept is built around audience identity and community behavior — not just reach metrics.
+      </p>
 
-  <!-- AUTHORITY -->
-  <section class="authority">
-    <div class="auth-grid">
-      <div class="auth-left">
-        <div class="label reveal">About the Work</div>
-        <h2 class="auth-headline reveal" data-d="1">Built for<br>brands that<br>compete on<br>culture.</h2>
-        <p class="body-lg reveal" data-d="2" style="max-width:420px;">I develop partnership concepts, experiential campaigns, and culture-driven brand strategies. Every concept is built around audience identity and community behavior — not just reach metrics.</p>
-        <div class="tags-area reveal" data-d="3">
-          <div class="label" style="margin-bottom:12px;">Focus Areas</div>
-          <div class="tag-list">
-            <span class="tag">Sports Entertainment</span>
-            <span class="tag">Premium Wellness</span>
-            <span class="tag">Streetwear &amp; Culture</span>
-            <span class="tag">Cannabis &amp; Lifestyle</span>
-            <span class="tag">Food &amp; Beverage</span>
-            <span class="tag">Global Sportswear</span>
-            <span class="tag">Experiential Retail</span>
-            <span class="tag">Community Activation</span>
-          </div>
+      <div class="stats-row reveal">
+        <div class="stat-cell">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Pitch Decks Created</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Years of Retail Experience</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-num">5+</span>
+          <span class="stat-label">Industries Spanned</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Cultural Range</span>
         </div>
       </div>
-      <div class="auth-right">
-        <div class="stats-grid reveal">
-          <div class="stat"><div class="stat-n">9</div><div class="stat-l">Strategic Decks</div></div>
-          <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Yrs Cannabis Retail</div></div>
-          <div class="stat"><div class="stat-n">6</div><div class="stat-l">Industries Spanned</div></div>
-          <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Cultural Range</div></div>
+
+      <div class="focus-tags reveal">
+        <span class="focus-tag">Sports Entertainment</span>
+        <span class="focus-tag">Premium Wellness</span>
+        <span class="focus-tag">Streetwear & Culture</span>
+        <span class="focus-tag">Cannabis & Lifestyle</span>
+        <span class="focus-tag">Food & Beverage</span>
+        <span class="focus-tag">Global Sportswear</span>
+        <span class="focus-tag">Experiential Retail</span>
+        <span class="focus-tag">Community Activation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="work-preview">
+    <div class="section-header reveal">
+      <h2 class="section-title">Flagship<br><em>Case Studies</em></h2>
+      <a href="work.html" class="section-link">All Work</a>
+    </div>
+
+    <p class="label" style="margin-bottom: 40px; opacity: 0.6;">Strategy at agency depth — not gallery cards.</p>
+
+    <div class="project-list">
+
+      <a href="projects.html#tko" class="project-row reveal">
+        <span class="project-row-num">01</span>
+        <div class="project-row-info">
+          <div class="project-row-cat">Sports & Entertainment</div>
+          <div class="project-row-title">TKO Marketing Strategy</div>
+          <p class="project-row-desc">Reframing a global sports and entertainment property as a year-round cultural platform — with a partnership architecture built on fan identity, not broadcast inventory.</p>
         </div>
-      </div>
+        <span class="project-row-arrow">↗</span>
+      </a>
+
+      <a href="projects.html#newbalance" class="project-row reveal">
+        <span class="project-row-num">02</span>
+        <div class="project-row-info">
+          <div class="project-row-cat">Global Sportswear</div>
+          <div class="project-row-title">New Balance Global Partnership Strategy</div>
+          <p class="project-row-desc">A tiered international partnership framework protecting brand authenticity while scaling cultural relevance through athlete storytelling and community-first activations.</p>
+        </div>
+        <span class="project-row-arrow">↗</span>
+      </a>
+
+      <a href="projects.html#nofree" class="project-row reveal">
+        <span class="project-row-num">03</span>
+        <div class="project-row-info">
+          <div class="project-row-cat">Streetwear & Experiential</div>
+          <div class="project-row-title">NoFreeMarathon × CMPLXCon '26</div>
+          <p class="project-row-desc">A multi-phase partnership framework where the brand becomes co-author of the festival experience — not a sponsor. Built around shared identity and a narrative arc beyond the event.</p>
+        </div>
+        <span class="project-row-arrow">↗</span>
+      </a>
+
     </div>
   </section>
 
-  <!-- PROJECTS TEASER -->
-  <section class="projects-section">
-    <div class="proj-header reveal">
-      <div>
-        <div class="label">Selected Work</div>
-        <h2 class="d-xl" style="margin-top:12px;">Flagship<br>Case Studies</h2>
-      </div>
-      <p class="body-sm" style="max-width:200px;text-align:right;">Strategy at agency depth — not gallery cards.</p>
+  <!-- CTA BAND -->
+  <div class="cta-band reveal">
+    <div class="cta-band-copy">
+      <h2>Have a Brand<br>Worth Talking About?</h2>
+      <p>Whether you have a project in mind or want to explore what's possible — let's talk.</p>
     </div>
-
-    <a href="projects.html#tko" class="proj-row reveal">
-      <div class="pr-num">01</div>
-      <div class="pr-body">
-        <div class="pr-ind">Sports &amp; Entertainment</div>
-        <div class="pr-title">TKO Marketing Strategy</div>
-        <p class="pr-desc">Reframing a global sports and entertainment property as a year-round cultural platform — partnership architecture built on fan identity, not broadcast inventory.</p>
-      </div>
-      <div class="pr-right">
-        <span class="pr-arrow">↗</span>
-        <span class="pr-cta">View Case Study</span>
-      </div>
-    </a>
-
-    <a href="projects.html#newbalance" class="proj-row reveal">
-      <div class="pr-num">02</div>
-      <div class="pr-body">
-        <div class="pr-ind">Global Sportswear</div>
-        <div class="pr-title">New Balance Global Partnership Strategy</div>
-        <p class="pr-desc">A tiered international partnership framework protecting brand authenticity while scaling cultural relevance through athlete storytelling and community-first activations.</p>
-      </div>
-      <div class="pr-right">
-        <span class="pr-arrow">↗</span>
-        <span class="pr-cta">View Case Study</span>
-      </div>
-    </a>
-
-    <a href="projects.html#nofree" class="proj-row reveal">
-      <div class="pr-num">03</div>
-      <div class="pr-body">
-        <div class="pr-ind">Streetwear &amp; Experiential</div>
-        <div class="pr-title">NoFreeMarathon × CMPLXCon '26</div>
-        <p class="pr-desc">A multi-phase framework where the brand becomes co-author of the festival experience — built around shared identity, limited product, and a narrative arc beyond the event date.</p>
-      </div>
-      <div class="pr-right">
-        <span class="pr-arrow">↗</span>
-        <span class="pr-cta">View Case Study</span>
-      </div>
-    </a>
-
-    <div class="proj-foot reveal">
-      <a href="work.html" class="btn btn-outline">All 9 Projects &nbsp;↗</a>
-    </div>
-  </section>
-
-  <!-- CLOSING -->
-  <section class="closing">
-    <span class="closing-ghost" aria-hidden="true">Collaborate</span>
-    <div class="closing-inner">
-      <div class="label reveal" style="margin-bottom:16px;">Let's Build Something</div>
-      <h2 class="d-xl reveal" data-d="1">Have a Brand<br>Worth Talking<br>About?</h2>
-      <p class="body-lg reveal" data-d="2" style="margin-top:20px;">Whether you have a project in mind or just want to explore what's possible — let's start a conversation.</p>
-      <div class="closing-btns reveal" data-d="3">
-        <a href="contact.html" class="btn btn-solid">Get In Touch &nbsp;↗</a>
-        <a href="services.html" class="btn btn-outline">View Services</a>
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<footer>
-  <span class="footer-logo">Chip Ursery</span>
-  <div class="footer-r">
-    <a href="mailto:chipursery@gmail.com" class="footer-link">chipursery@gmail.com</a>
-    <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
-    <span class="footer-copy">© 2025</span>
+    <a href="contact.html" class="btn-dark">Get In Touch →</a>
   </div>
-</footer>
-<script src="nav.js"></script>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <p>Chip Ursery © 2025</p>
+      <p style="margin-top:4px;">Cultural Partnerships & Brand Strategy</p>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:chipursery@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="work.html">Work</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobileNav');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = (i * 0.04) + 's';
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>

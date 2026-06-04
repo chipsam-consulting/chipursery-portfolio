@@ -7,304 +7,178 @@
   <title>Contact — Chip Ursery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&family=Big+Shoulders+Text:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&family=Big+Shoulders+Text:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ink: #0B0B0B; --ink-2: #121212; --ink-3: #181818; --rule: rgba(198, 166, 107, 0.15); --rule-2: rgba(198, 166, 107, 0.25);
+      --ink: #0B0B0B; --ink-2: #121212; --ink-3: #181818;
+      --rule: rgba(198, 166, 107, 0.15); --rule-2: rgba(198, 166, 107, 0.25);
       --fog: #A1A1A1; --ash: #A1A1A1; --parchment: #F5F3EE; --white: #F5F3EE; --mark: #C6A66B;
-      --ease:cubic-bezier(0.16,1,0.3,1);
+      --ease: cubic-bezier(0.16,1,0.3,1);
     }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--ink);
-      color: var(--parchment);
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-      line-height: 1.65;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background: var(--ink); color: var(--parchment); font-family: 'Roboto', sans-serif;
+      font-weight: 400; font-size: 17px; line-height: 1.75; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column;
     }
     body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9000; opacity:0.028; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E"); background-repeat:repeat; }
 
     /* NAV */
-    .nav { position:fixed; top:0; left:0; right:0; z-index:500; height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(10,10,10,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--rule); }
-    .nav-logo { font-family:'Big Shoulders Text', sans-serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nav { position:fixed; top:0; left:0; right:0; z-index:500; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(10,10,10,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--rule); }
+    .nav-logo { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--white); text-decoration:none; }
     .nav-logo .dot { color:var(--mark); }
     .nav-links { display:flex; gap:36px; list-style:none; }
-    .nav-links a { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
+    .nav-links a { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color:var(--white); }
-    .nav-contact { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink); background:var(--mark); padding:9px 20px; text-decoration:none; }
+    .nav-contact { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); background:var(--mark); padding:10px 22px; text-decoration:none; }
     .nav-contact:hover { opacity:0.85; }
     .nav-burger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
     .nav-burger span { display:block; width:22px; height:1px; background:var(--parchment); transition:transform 0.3s,opacity 0.3s; }
     .nav-burger.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity:0; }
     .nav-burger.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
-    .nav-mobile { display:none; position:fixed; inset:0; top:60px; background:var(--ink-2); z-index:490; flex-direction:column; padding:60px 40px; }
+    .nav-mobile { display:none; position:fixed; inset:0; top:64px; background:var(--ink-2); z-index:490; flex-direction:column; padding:60px 40px; }
     .nav-mobile.open { display:flex; }
-    .nav-mobile a { font-family:'Big Shoulders Display', sans-serif; font-size:52px; letter-spacing:0.04em; color:var(--parchment); text-decoration:none; border-bottom:1px solid var(--rule); padding:20px 0; transition:color 0.2s; }
+    .nav-mobile a { font-family:'Big Shoulders Display',sans-serif; font-size:52px; letter-spacing:0.04em; color:var(--parchment); text-decoration:none; border-bottom:1px solid var(--rule); padding:20px 0; transition:color 0.2s; }
     .nav-mobile a:hover { color:var(--mark); }
 
     /* MAIN LAYOUT */
-    main { flex: 1; display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 60px); margin-top: 60px; }
+    main { flex:1; display:grid; grid-template-columns:1fr 1fr; min-height:calc(100vh - 64px); margin-top:64px; }
 
     /* LEFT PANEL */
-    .contact-left {
-      padding: 100px 64px 80px 40px;
-      border-right: 1px solid var(--rule);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: sticky;
-      top: 60px;
-      height: calc(100vh - 60px);
-      overflow-y: auto;
-    }
+    .contact-left { padding:100px 64px 80px 40px; border-right:1px solid var(--rule); display:flex; flex-direction:column; justify-content:space-between; position:sticky; top:64px; height:calc(100vh - 64px); overflow-y:auto; }
 
-    .contact-top {}
+    .page-label { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--mark); margin-bottom:20px; display:block; }
+    .contact-headline { font-family:'Big Shoulders Display',sans-serif; font-size:clamp(64px,9vw,120px); line-height:0.88; letter-spacing:0.02em; color:var(--white); margin-bottom:32px; }
+    .contact-headline em { color:var(--mark); font-style:normal; display:block; }
+    .contact-statement { font-size:15px; color:var(--ash); line-height:1.75; max-width:380px; margin-bottom:48px; }
 
-    .page-label {
-      font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.22em;
-      text-transform:uppercase; color:var(--mark); margin-bottom:20px; display:block;
-    }
+    .direct-links { display:flex; flex-direction:column; gap:1px; margin-bottom:40px; }
+    .direct-link { display:flex; align-items:center; justify-content:space-between; padding:22px 24px; background:var(--ink-2); border:1px solid var(--rule); text-decoration:none; transition:background 0.25s,border-color 0.25s; margin-bottom:1px; }
+    .direct-link:last-child { margin-bottom:0; }
+    .direct-link:hover { background:var(--ink-3); border-color:var(--rule-2); }
+    .direct-link:hover .dl-arrow { color:var(--mark); transform:translate(3px,-3px); }
+    .dl-type { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--fog); margin-bottom:5px; }
+    .dl-value { font-family:'Roboto',sans-serif; font-size:14px; color:var(--parchment); }
+    .dl-arrow { font-size:16px; color:var(--rule-2); transition:color 0.2s,transform 0.25s var(--ease); }
 
-    .contact-headline {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-size: clamp(72px, 9vw, 128px);
-      line-height: 0.88;
-      letter-spacing: 0.02em;
-      color: var(--white);
-      margin-bottom: 36px;
-    }
-    .contact-headline em { color: var(--mark); font-style: normal; display: block; }
-
-    .contact-statement {
-      font-size: 15px;
-      color: var(--ash);
-      line-height: 1.85;
-      max-width: 380px;
-      margin-bottom: 56px;
-    }
-
-    /* DIRECT LINKS */
-    .direct-links { display: flex; flex-direction: column; gap: 1px; margin-bottom: 48px; }
-
-    .direct-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 22px 24px;
-      background: var(--ink-2);
-      border: 1px solid var(--rule);
-      text-decoration: none;
-      transition: background 0.25s var(--ease), border-color 0.25s;
-      margin-bottom: 1px;
-    }
-    .direct-link:last-child { margin-bottom: 0; }
-    .direct-link:hover { background: var(--ink-3); border-color: var(--rule-2); }
-    .direct-link:hover .dl-arrow { color: var(--mark); transform: translate(3px,-3px); }
-
-    .dl-info {}
-    .dl-type {
-      font-family:'Big Shoulders Text', sans-serif; font-size:9px; letter-spacing:0.24em;
-      text-transform:uppercase; color:var(--fog); margin-bottom:6px;
-    }
-    .dl-value {
-      font-family:'Big Shoulders Text', sans-serif; font-size:13px; letter-spacing:0.04em;
-      color:var(--parchment);
-    }
-    .dl-arrow {
-      font-size:16px; color:var(--rule-2);
-      transition: color 0.2s, transform 0.25s var(--ease);
-    }
-
-    /* AVAILABILITY */
-    .availability {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .avail-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--mark);
-      flex-shrink: 0;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(198, 166, 107, 0.35); }
-      50% { opacity:0.75; box-shadow:0 0 0 5px rgba(198, 166, 107, 0); }
-    }
-    .avail-text {
-      font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.16em;
-      text-transform:uppercase; color:var(--fog);
-    }
+    .availability { display:inline-flex; align-items:center; gap:10px; }
+    .avail-dot { width:7px; height:7px; border-radius:50%; background:var(--mark); flex-shrink:0; animation:pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(198,166,107,0.35);}50%{opacity:0.75;box-shadow:0 0 0 5px rgba(198,166,107,0);} }
+    .avail-text { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); }
 
     /* RIGHT PANEL */
-    .contact-right {
-      padding: 100px 40px 80px 64px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .contact-right { padding:100px 40px 80px 64px; display:flex; flex-direction:column; gap:2px; }
 
-    /* DECK DOWNLOAD */
+    /* CAPABILITIES DECK — PREVIEW TREATMENT */
     .deck-block {
       background: var(--ink-2);
       border: 1px solid var(--rule);
-      padding: 44px 40px;
       margin-bottom: 2px;
+      cursor: pointer;
+      transition: background 0.3s var(--ease);
+      position: relative;
+      overflow: hidden;
     }
+    .deck-block:hover { background: var(--ink-3); }
 
-    .deck-block-label {
-      font-family:'Big Shoulders Text', sans-serif; font-size:9px; letter-spacing:0.24em;
-      text-transform:uppercase; color:var(--mark); margin-bottom:16px; display:block;
+    /* iframe preview */
+    .cap-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--ink);
+      position: relative;
     }
+    .cap-thumb iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      transform: scale(1.02);
+      transition: transform 0.5s var(--ease);
+    }
+    .deck-block:hover .cap-thumb iframe { transform: scale(1.05); }
+    .cap-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--ink-2) 100%);
+      transition: opacity 0.3s;
+    }
+    .deck-block:hover .cap-thumb-overlay { opacity: 0.7; }
+    .cap-thumb-icon {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%) scale(0.8);
+      width: 52px; height: 52px;
+      border: 1px solid rgba(198,166,107,0.4);
+      background: rgba(10,10,10,0.6);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s var(--ease);
+      font-size: 20px;
+      color: var(--mark);
+    }
+    .deck-block:hover .cap-thumb-icon { opacity:1; transform:translate(-50%,-50%) scale(1); }
 
-    .deck-block h3 {
-      font-family:'Big Shoulders Display', sans-serif; font-size:40px; letter-spacing:0.02em;
-      color:var(--white); line-height:1; margin-bottom:14px;
-    }
+    .deck-block-info { padding: 28px 32px 32px; }
+    .deck-block-label { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--mark); margin-bottom:10px; display:block; }
+    .deck-block h3 { font-family:'Big Shoulders Display',sans-serif; font-size:36px; letter-spacing:0.02em; color:var(--white); line-height:1; margin-bottom:12px; }
+    .deck-block p { font-size:14px; color:var(--ash); line-height:1.75; margin-bottom:24px; }
+    .deck-block-actions { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
 
-    .deck-block p {
-      font-size:14px; color:var(--ash); line-height:1.8; margin-bottom:28px;
-    }
-
-    .btn-filled {
-      font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.2em;
-      text-transform:uppercase; color:var(--ink); background:var(--mark);
-      padding:14px 28px; text-decoration:none; display:inline-flex;
-      align-items:center; gap:10px; transition:opacity 0.2s, transform 0.2s var(--ease);
-    }
+    .btn-filled { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink); background:var(--mark); padding:13px 26px; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:opacity 0.2s,transform 0.2s; }
     .btn-filled:hover { opacity:0.88; transform:translateY(-1px); }
+    .btn-ghost { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--ash); border:1px solid var(--rule-2); padding:12px 26px; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all 0.2s var(--ease); }
+    .btn-ghost:hover { color:var(--white); border-color:var(--ash); transform:translateY(-1px); }
 
     /* FORM */
-    .form-block {
-      background: var(--ink-2);
-      border: 1px solid var(--rule);
-      padding: 44px 40px;
-      flex: 1;
+    .form-block { background:var(--ink-2); border:1px solid var(--rule); padding:44px 40px; flex:1; }
+    .form-block-label { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--fog); margin-bottom:14px; display:block; }
+    .form-block h3 { font-family:'Big Shoulders Display',sans-serif; font-size:38px; letter-spacing:0.02em; color:var(--white); line-height:1; margin-bottom:32px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .form-group { margin-bottom:14px; }
+    .form-group label { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--fog); display:block; margin-bottom:10px; }
+    .form-group input, .form-group textarea, .form-group select {
+      width:100%; background:var(--ink); border:1px solid var(--rule-2); color:var(--parchment);
+      font-family:'Roboto',sans-serif; font-size:15px; font-weight:400; padding:14px 16px; outline:none;
+      appearance:none; -webkit-appearance:none; transition:border-color 0.2s,background 0.2s; border-radius:0;
     }
-
-    .form-block-label {
-      font-family:'Big Shoulders Text', sans-serif; font-size:9px; letter-spacing:0.24em;
-      text-transform:uppercase; color:var(--fog); margin-bottom:16px; display:block;
-    }
-
-    .form-block h3 {
-      font-family:'Big Shoulders Display', sans-serif; font-size:40px; letter-spacing:0.02em;
-      color:var(--white); line-height:1; margin-bottom:36px;
-    }
-
-    .form-row { display: grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-    .form-group { margin-bottom:16px; }
-    .form-group:last-of-type { margin-bottom: 0; }
-
-    .form-group label {
-      font-family:'Big Shoulders Text', sans-serif; font-size:9px; letter-spacing:0.24em;
-      text-transform:uppercase; color:var(--fog); display:block; margin-bottom:10px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width:100%;
-      background: var(--ink);
-      border: 1px solid var(--rule-2);
-      border-bottom: 1px solid var(--rule-2);
-      color: var(--parchment);
-      font-family:'Lato', sans-serif;
-      font-size:14px;
-      font-weight:300;
-      padding:14px 16px;
-      outline:none;
-      appearance:none;
-      -webkit-appearance:none;
-      transition: border-color 0.2s, background 0.2s;
-      border-radius: 0;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--mark);
-      background: var(--ink-2);
-    }
-    .form-group input::placeholder,
-    .form-group textarea::placeholder { color: var(--fog); }
-    .form-group select option { background: var(--ink-2); }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-
-    .form-submit {
-      font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.2em; text-transform:uppercase;
-      color:var(--ink); background:var(--mark); border:none; padding:16px 32px;
-      width:100%; cursor:pointer; margin-top:24px;
-      transition: opacity 0.2s;
-      display:flex; align-items:center; justify-content:center; gap:10px;
-    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--mark); background:var(--ink-2); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color:var(--fog); }
+    .form-group select option { background:var(--ink-2); }
+    .form-group textarea { resize:vertical; min-height:120px; }
+    .form-submit { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink); background:var(--mark); border:none; padding:16px 32px; width:100%; cursor:pointer; margin-top:22px; transition:opacity 0.2s; display:flex; align-items:center; justify-content:center; gap:10px; }
     .form-submit:hover { opacity:0.88; }
     .form-submit:disabled { opacity:0.5; cursor:not-allowed; }
-
-    /* SUCCESS STATE */
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 48px 0;
-    }
-    .form-success .success-mark {
-      font-family:'Big Shoulders Display', sans-serif;
-      font-size:64px;
-      color:var(--mark);
-      line-height:1;
-      margin-bottom:16px;
-      display:block;
-    }
-    .form-success p {
-      font-size:14px;
-      color:var(--ash);
-      line-height:1.8;
-    }
+    .form-success { display:none; text-align:center; padding:48px 0; }
+    .form-success .success-mark { font-family:'Big Shoulders Display',sans-serif; font-size:64px; color:var(--mark); line-height:1; margin-bottom:16px; display:block; }
+    .form-success p { font-size:15px; color:var(--ash); line-height:1.75; }
 
     /* FOOTER */
-    .footer {
-      border-top:1px solid var(--rule);
-      padding:28px 40px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:24px;
-      flex-wrap:wrap;
-    }
-    .footer p { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); }
+    .footer { border-top:1px solid var(--rule); padding:28px 40px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
+    .footer p { font-family:'Big Shoulders Text',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fog); }
     .footer-links { display:flex; gap:28px; }
-    .footer-links a { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
+    .footer-links a { font-family:'Big Shoulders Text',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
     .footer-links a:hover { color:var(--white); }
 
     .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s var(--ease),transform 0.7s var(--ease); }
     .reveal.visible { opacity:1; transform:none; }
 
-    /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      main { grid-template-columns: 1fr; }
-      .contact-left {
-        position: static;
-        height: auto;
-        padding: 100px 40px 60px;
-        border-right: none;
-        border-bottom: 1px solid var(--rule);
-      }
-      .contact-right { padding: 60px 40px 80px; }
+    @media (max-width:1024px) {
+      main { grid-template-columns:1fr; }
+      .contact-left { position:static; height:auto; padding:100px 40px 60px; border-right:none; border-bottom:1px solid var(--rule); }
+      .contact-right { padding:60px 40px 80px; }
     }
-    @media (max-width: 600px) {
-      .nav { padding:0 20px; }
-      .nav-links, .nav-contact { display:none; }
+    @media (max-width:600px) {
+      .nav { padding:0 20px; height:60px; }
+      .nav-links,.nav-contact { display:none; }
       .nav-burger { display:flex; }
       .contact-left { padding:100px 20px 52px; }
       .contact-right { padding:52px 20px 80px; }
-      .deck-block, .form-block { padding:32px 24px; }
+      .deck-block-info, .form-block { padding:28px 24px; }
       .form-row { grid-template-columns:1fr; }
       .footer { padding:24px 20px; flex-direction:column; align-items:flex-start; gap:16px; }
     }
@@ -317,7 +191,6 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="work.html">Work</a></li>
-      <li><a href="projects.html">Projects</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
@@ -327,7 +200,6 @@
   <nav class="nav-mobile" id="mobileNav">
     <a href="index.html">Home</a>
     <a href="work.html">Work</a>
-    <a href="projects.html">Projects</a>
     <a href="services.html">Services</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -340,12 +212,11 @@
         <span class="page-label">Get In Touch</span>
         <h1 class="contact-headline">Let's Build<br>Something<br><em>Real.</em></h1>
         <p class="contact-statement">Whether you have a partnership concept, a brand challenge, or just want to start a conversation — I'm open. Reach out directly or send a message.</p>
-
         <div class="direct-links">
-          <a href="mailto:chipursery@gmail.com" class="direct-link">
+          <a href="mailto:hello@chipthecreative.com" class="direct-link">
             <div class="dl-info">
               <div class="dl-type">Email</div>
-              <div class="dl-value">chipursery@gmail.com</div>
+              <div class="dl-value">hello@chipthecreative.com</div>
             </div>
             <span class="dl-arrow">↗</span>
           </a>
@@ -357,7 +228,6 @@
             <span class="dl-arrow">↗</span>
           </a>
         </div>
-
         <div class="availability">
           <span class="avail-dot"></span>
           <span class="avail-text">Available for new projects & collaborations</span>
@@ -368,19 +238,27 @@
     <!-- RIGHT -->
     <div class="contact-right">
 
-      <!-- CAPABILITIES DECK -->
-      <div class="deck-block reveal">
-        <span class="deck-block-label">Resources</span>
-        <h3>Capabilities Deck</h3>
-        <p>A full overview of my strategic approach, work, and focus areas. Download or share with your team before we connect.</p>
-        <!-- UPDATE: Replace the href below with your capabilities/intro deck Google Drive link -->
-        <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 8px;">
-          <a href="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view" target="_blank" rel="noopener" class="btn-filled">
-            ↓ Download Capabilities Deck
-          </a>
-          <a href="work.html" class="btn-ghost" style="text-decoration: none;">
-            My Work →
-          </a>
+      <!-- CAPABILITIES DECK — PREVIEW TREATMENT -->
+      <div class="deck-block reveal" onclick="window.open('https://drive.google.com/file/d/1_ADMExDZ3Tee600ANTC8Fq_Uwq6Up56f/view?usp=drive_link','_blank')">
+        <div class="cap-thumb">
+          <iframe
+            src="https://drive.google.com/file/d/1_ADMExDZ3Tee600ANTC8Fq_Uwq6Up56f/preview"
+            loading="lazy"
+            title="Chip Ursery Capabilities Deck"
+          ></iframe>
+          <div class="cap-thumb-overlay"></div>
+          <div class="cap-thumb-icon">↗</div>
+        </div>
+        <div class="deck-block-info">
+          <span class="deck-block-label">Resources</span>
+          <h3>Capabilities Deck</h3>
+          <p>A full overview of my strategic approach, work, and focus areas. Preview below or open directly.</p>
+          <div class="deck-block-actions" onclick="event.stopPropagation()">
+            <a href="https://drive.google.com/file/d/1_ADMExDZ3Tee600ANTC8Fq_Uwq6Up56f/view?usp=drive_link" target="_blank" rel="noopener" class="btn-filled">
+              Open Deck ↗
+            </a>
+            <a href="work.html" class="btn-ghost">View All Work →</a>
+          </div>
         </div>
       </div>
 
@@ -388,7 +266,6 @@
       <div class="form-block reveal">
         <span class="form-block-label">Send a Message</span>
         <h3>Start a Conversation</h3>
-
         <div id="formFields">
           <div class="form-row">
             <div class="form-group">
@@ -423,7 +300,6 @@
             Send Message <span>→</span>
           </button>
         </div>
-
         <div class="form-success" id="formSuccess">
           <span class="success-mark">✓</span>
           <p>Message sent.<br>I'll be in touch shortly.</p>
@@ -435,11 +311,11 @@
 
   <footer class="footer">
     <div>
-      <p>Chip Ursery © 2025</p>
+      <p>Chip Ursery © 2026</p>
       <p style="margin-top:4px;">Cultural Partnerships & Brand Strategy</p>
     </div>
     <div class="footer-links">
-      <a href="mailto:chipursery@gmail.com">Email</a>
+      <a href="mailto:hello@chipthecreative.com">hello@chipthecreative.com</a>
       <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="work.html">Work</a>
       <a href="services.html">Services</a>
@@ -447,7 +323,6 @@
   </footer>
 
   <script>
-    // Mobile nav
     const burger = document.getElementById('burger');
     const mobileNav = document.getElementById('mobileNav');
     burger.addEventListener('click', () => {
@@ -461,15 +336,11 @@
       document.body.style.overflow = '';
     }));
 
-    // Scroll reveal
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // Form submit — opens mail client with pre-filled content
     function handleSubmit() {
       const name    = document.getElementById('fname').value.trim();
       const company = document.getElementById('fcompany').value.trim();
@@ -478,13 +349,9 @@
       const message = document.getElementById('fmessage').value.trim();
 
       if (!name || !email || !message) {
-        // Highlight missing fields
-        [['fname', name], ['femail', email], ['fmessage', message]].forEach(([id, val]) => {
+        [['fname',name],['femail',email],['fmessage',message]].forEach(([id,val]) => {
           const el = document.getElementById(id);
-          if (!val) {
-            el.style.borderColor = 'rgba(198, 166, 107, 0.5)';
-            setTimeout(() => el.style.borderColor = '', 2000);
-          }
+          if (!val) { el.style.borderColor='rgba(198,166,107,0.5)'; setTimeout(()=>el.style.borderColor='',2000); }
         });
         return;
       }
@@ -493,23 +360,20 @@
       btn.disabled = true;
       btn.textContent = 'Sending...';
 
-      const subject = encodeURIComponent(`Portfolio Inquiry — ${name}${company ? ' / ' + company : ''}`);
+      const subject = encodeURIComponent(`Portfolio Inquiry — ${name}${company?' / '+company:''}`);
       const body = encodeURIComponent(
-        `Hi Chip,\n\nMy name is ${name}${company ? ' from ' + company : ''}.\n\n` +
-        (service ? `Focus area: ${service}\n\n` : '') +
+        `Hi Chip,\n\nMy name is ${name}${company?' from '+company:''}.\n\n`+
+        (service?`Focus area: ${service}\n\n`:'')+
         `${message}\n\nBest,\n${name}\n${email}`
       );
+      window.location.href = `mailto:hello@chipthecreative.com?subject=${subject}&body=${body}`;
 
-      window.location.href = `mailto:chipursery@gmail.com?subject=${subject}&body=${body}`;
-
-      // Show success state after short delay
       setTimeout(() => {
         document.getElementById('formFields').style.display = 'none';
         document.getElementById('formSuccess').style.display = 'block';
       }, 800);
     }
 
-    // Allow submit on Enter in inputs (not textarea)
     document.querySelectorAll('#formFields input, #formFields select').forEach(el => {
       el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
     });

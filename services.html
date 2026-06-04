@@ -7,255 +7,225 @@
   <title>Services — Chip Ursery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&family=Big+Shoulders+Text:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&family=Big+Shoulders+Text:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ink: #0B0B0B; --ink-2: #121212; --ink-3: #181818; --rule: rgba(198, 166, 107, 0.15); --rule-2: rgba(198, 166, 107, 0.25);
+      --ink: #0B0B0B; --ink-2: #121212; --ink-3: #181818;
+      --rule: rgba(198, 166, 107, 0.15); --rule-2: rgba(198, 166, 107, 0.25);
       --fog: #A1A1A1; --ash: #A1A1A1; --parchment: #F5F3EE; --white: #F5F3EE; --mark: #C6A66B;
-      --ease:cubic-bezier(0.16,1,0.3,1);
+      --ease: cubic-bezier(0.16,1,0.3,1);
     }
     html { scroll-behavior: smooth; }
-    body { background:var(--ink); color:var(--parchment); font-family:'DM Sans',-apple-system,sans-serif; font-weight:300; line-height:1.65; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+    body { background:var(--ink); color:var(--parchment); font-family:'Roboto',sans-serif; font-weight:400; font-size:17px; line-height:1.75; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
     body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9000; opacity:0.028; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E"); background-repeat:repeat; }
 
     /* NAV */
-    .nav { position:fixed; top:0; left:0; right:0; z-index:500; height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(10,10,10,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--rule); }
-    .nav-logo { font-family:'Big Shoulders Text', sans-serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nav { position:fixed; top:0; left:0; right:0; z-index:500; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(10,10,10,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--rule); }
+    .nav-logo { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--white); text-decoration:none; }
     .nav-logo .dot { color:var(--mark); }
     .nav-links { display:flex; gap:36px; list-style:none; }
-    .nav-links a { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
+    .nav-links a { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color:var(--white); }
-    .nav-contact { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink); background:var(--mark); padding:9px 20px; text-decoration:none; }
+    .nav-contact { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); background:var(--mark); padding:10px 22px; text-decoration:none; }
     .nav-contact:hover { opacity:0.85; }
     .nav-burger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
     .nav-burger span { display:block; width:22px; height:1px; background:var(--parchment); transition:transform 0.3s,opacity 0.3s; }
     .nav-burger.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity:0; }
     .nav-burger.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
-    .nav-mobile { display:none; position:fixed; inset:0; top:60px; background:var(--ink-2); z-index:490; flex-direction:column; padding:60px 40px; }
+    .nav-mobile { display:none; position:fixed; inset:0; top:64px; background:var(--ink-2); z-index:490; flex-direction:column; padding:60px 40px; }
     .nav-mobile.open { display:flex; }
-    .nav-mobile a { font-family:'Big Shoulders Display', sans-serif; font-size:52px; letter-spacing:0.04em; color:var(--parchment); text-decoration:none; border-bottom:1px solid var(--rule); padding:20px 0; transition:color 0.2s; }
+    .nav-mobile a { font-family:'Big Shoulders Display',sans-serif; font-size:52px; letter-spacing:0.04em; color:var(--parchment); text-decoration:none; border-bottom:1px solid var(--rule); padding:20px 0; transition:color 0.2s; }
     .nav-mobile a:hover { color:var(--mark); }
 
     /* PAGE HEADER */
-    .page-header {
-      padding: 140px 40px 100px;
-      border-bottom: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: end;
-      gap: 60px;
-    }
-    .page-label { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mark); margin-bottom:16px; display:block; }
-    .page-title { font-family:'Big Shoulders Display', sans-serif; font-size:clamp(72px,10vw,140px); line-height:0.88; color:var(--white); letter-spacing:0.02em; }
+    .page-header { padding:140px 40px 100px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:60px; }
+    .page-label { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--mark); margin-bottom:16px; display:block; }
+    .page-title { font-family:'Big Shoulders Display',sans-serif; font-size:clamp(72px,10vw,140px); line-height:0.88; color:var(--white); letter-spacing:0.02em; }
     .page-title em { color:var(--mark); font-style:normal; display:block; }
-    .page-sub { font-size:15px; color:var(--ash); line-height:1.85; max-width:420px; }
+    .page-sub { font-size:17px; color:var(--ash); line-height:1.75; max-width:420px; }
 
-    /* SERVICES LIST */
-    .services-body { padding: 0 40px 120px; }
+    /* ── SERVICES LIST ── */
+    .services-body { padding: 0 40px 80px; }
 
     .service-row {
       display: grid;
-      grid-template-columns: 100px 1fr 1fr;
-      gap: 60px;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 52px;
       align-items: start;
-      padding: 72px 0;
+      padding: 64px 0;
       border-bottom: 1px solid var(--rule);
       position: relative;
     }
-    .service-row::before {
+    .service-row::before { content:''; position:absolute; left:-40px; right:-40px; top:0; bottom:0; background:var(--ink-3); opacity:0; transition:opacity 0.35s var(--ease); pointer-events:none; }
+    .service-row:hover::before { opacity:1; }
+    .service-row > * { position:relative; z-index:1; }
+
+    .service-num { font-family:'Big Shoulders Display',sans-serif; font-size:72px; color:transparent; -webkit-text-stroke:1px var(--rule-2); line-height:1; transition:-webkit-text-stroke-color 0.3s; }
+    .service-row:hover .service-num { -webkit-text-stroke-color:rgba(198,166,107,0.2); }
+
+    .service-tag { font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--mark); margin-bottom:12px; display:block; }
+    .service-name { font-family:'Big Shoulders Display',sans-serif; font-size:clamp(32px,4vw,52px); line-height:1; letter-spacing:0.02em; color:var(--white); margin-bottom:18px; }
+    .service-desc { font-size:15px; color:var(--ash); line-height:1.75; max-width:380px; }
+
+    .service-right { padding-top:8px; }
+    .service-deliverables { list-style:none; border-top:1px solid var(--rule); }
+    .service-deliverables li {
+      font-family:'Big Shoulders Text',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--fog); padding:16px 0; border-bottom:1px solid var(--rule);
+      display:flex; align-items:center; gap:14px; transition:color 0.2s;
+    }
+    .service-deliverables li::before { content:''; display:block; width:16px; height:1px; background:var(--rule-2); flex-shrink:0; transition:background 0.2s,width 0.3s var(--ease); }
+    .service-row:hover .service-deliverables li { color:var(--parchment); }
+    .service-row:hover .service-deliverables li::before { background:var(--mark); width:24px; }
+
+    /* ── PROCESS — TIMELINE ── */
+    .process-section { padding: 0 40px 120px; border-top:1px solid var(--rule); }
+    .process-header { padding:80px 0 72px; }
+    .process-title { font-family:'Big Shoulders Display',sans-serif; font-size:clamp(44px,6vw,80px); line-height:0.92; color:var(--white); letter-spacing:0.02em; }
+    .process-title em { color:var(--mark); font-style:normal; }
+
+    /* Timeline connector */
+    .process-timeline-wrap {
+      position: relative;
+    }
+
+    /* Horizontal rule behind nodes */
+    .process-connector-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+      margin-bottom: 0;
+    }
+    .process-connector-bar::before {
       content: '';
       position: absolute;
-      left: -40px; right: -40px;
-      top: 0; bottom: 0;
-      background: var(--ink-3);
-      opacity: 0;
-      transition: opacity 0.35s var(--ease);
-      pointer-events: none;
-    }
-    .service-row:hover::before { opacity: 1; }
-
-    .service-row > * { position: relative; z-index: 1; }
-
-    .service-num {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-size: 80px;
-      color: transparent;
-      -webkit-text-stroke: 1px var(--rule-2);
-      line-height: 1;
-      transition: -webkit-text-stroke-color 0.3s;
-    }
-    .service-row:hover .service-num { -webkit-text-stroke-color: rgba(198, 166, 107, 0.2); }
-
-    .service-left {}
-
-    .service-tag {
-      font-family:'Big Shoulders Text', sans-serif; font-size:9px; letter-spacing:0.24em;
-      text-transform:uppercase; color:var(--mark); margin-bottom:14px; display:block;
-    }
-
-    .service-name {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-size: clamp(36px, 4.5vw, 56px);
-      line-height: 1;
-      letter-spacing: 0.02em;
-      color: var(--white);
-      margin-bottom: 20px;
-    }
-
-    .service-desc {
-      font-size: 14px;
-      color: var(--ash);
-      line-height: 1.85;
-      max-width: 380px;
-    }
-
-    .service-right { padding-top: 8px; }
-
-    .service-deliverables {
-      list-style: none;
-      border-top: 1px solid var(--rule);
-    }
-    .service-deliverables li {
-      font-family: 'Big Shoulders Text', sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--fog);
-      padding: 14px 0;
-      border-bottom: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: color 0.2s;
-    }
-    .service-deliverables li::before {
-      content: '';
-      display: block;
-      width: 16px;
+      top: 28px;
+      left: calc(12.5%);
+      right: calc(12.5%);
       height: 1px;
       background: var(--rule-2);
-      flex-shrink: 0;
-      transition: background 0.2s, width 0.3s var(--ease);
-    }
-    .service-row:hover .service-deliverables li { color: var(--parchment); }
-    .service-row:hover .service-deliverables li::before { background: var(--mark); width: 24px; }
-
-    /* PROCESS */
-    .process-section {
-      padding: 0 40px 120px;
-      border-top: 1px solid var(--rule);
+      z-index: 0;
     }
 
-    .process-header {
-      padding: 72px 0 64px;
+    .pc-node {
       display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 24px;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
     }
-
-    .section-title {
+    .pc-circle {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--mark);
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0;
+    }
+    .pc-circle-inner {
       font-family: 'Big Shoulders Display', sans-serif;
-      font-size: clamp(44px, 6vw, 80px);
-      line-height: 0.92;
-      color: var(--white);
-      letter-spacing: 0.02em;
+      font-size: 18px;
+      color: var(--mark);
+      line-height: 1;
     }
-    .section-title em { color: var(--mark); font-style: normal; }
+    /* Arrow between nodes */
+    .pc-node:not(:last-child) .pc-circle::after {
+      content: '→';
+      position: absolute;
+      right: -100%;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--mark);
+      font-size: 16px;
+      opacity: 0.5;
+      width: 100%;
+      text-align: center;
+      pointer-events: none;
+    }
 
-    .process-grid {
+    /* Process cells */
+    .process-cells {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1px;
       background: var(--rule);
       border: 1px solid var(--rule);
+      border-top: none;
     }
-
     .process-cell {
       background: var(--ink-2);
-      padding: 40px 32px;
-      position: relative;
+      padding: 40px 32px 48px;
       transition: background 0.3s var(--ease);
+      position: relative;
     }
     .process-cell:hover { background: var(--ink-3); }
-
-    .process-step-num {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-size: 64px;
+    .process-cell-tag {
+      font-family: 'Big Shoulders Text', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       color: var(--mark);
-      line-height: 1;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      display: block;
     }
-
     .process-step-name {
       font-family: 'Big Shoulders Display', sans-serif;
-      font-size: 24px;
+      font-size: 36px;
       letter-spacing: 0.04em;
       color: var(--white);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      line-height: 1;
     }
-
     .process-step-desc {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--fog);
       line-height: 1.75;
+      font-family: 'Roboto', sans-serif;
     }
 
     /* CTA BAND */
-    .cta-band {
-      margin: 0 40px 120px;
-      background: var(--mark);
-      padding: 80px 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-    .cta-band h2 {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-size: clamp(36px, 5vw, 64px);
-      color: var(--ink);
-      line-height: 1;
-      margin-bottom: 10px;
-    }
-    .cta-band p { font-size: 14px; color: rgba(10,10,10,0.5); font-weight:400; }
-    .btn-dark {
-      font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.2em; text-transform:uppercase;
-      color:var(--mark); background:var(--ink); padding:16px 32px; text-decoration:none;
-      white-space:nowrap; transition:opacity 0.2s;
-    }
+    .cta-band { margin:0 40px 120px; background:var(--mark); padding:80px 64px; display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+    .cta-band h2 { font-family:'Big Shoulders Display',sans-serif; font-size:clamp(36px,5vw,64px); color:var(--ink); line-height:1; margin-bottom:10px; }
+    .cta-band p { font-size:15px; color:rgba(10,10,10,0.5); font-family:'Roboto',sans-serif; }
+    .btn-dark { font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--mark); background:var(--ink); padding:16px 32px; text-decoration:none; white-space:nowrap; transition:opacity 0.2s; }
     .btn-dark:hover { opacity:0.82; }
 
     /* FOOTER */
     .footer { border-top:1px solid var(--rule); padding:32px 40px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
-    .footer p { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); }
+    .footer p { font-family:'Big Shoulders Text',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fog); }
     .footer-links { display:flex; gap:28px; }
-    .footer-links a { font-family:'Big Shoulders Text', sans-serif; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
+    .footer-links a { font-family:'Big Shoulders Text',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
     .footer-links a:hover { color:var(--white); }
 
     .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s var(--ease),transform 0.7s var(--ease); }
     .reveal.visible { opacity:1; transform:none; }
 
-    @media (max-width: 1024px) {
-      .service-row { grid-template-columns: 80px 1fr; gap: 32px; }
-      .service-right { grid-column: 2; }
-      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width:1024px) {
+      .service-row { grid-template-columns:80px 1fr; gap:32px; }
+      .service-right { grid-column:2; }
+      .process-connector-bar { grid-template-columns:repeat(2,1fr); }
+      .process-connector-bar::before { display:none; }
+      .process-cells { grid-template-columns:repeat(2,1fr); }
     }
-    @media (max-width: 768px) {
-      .nav { padding: 0 20px; }
-      .nav-links, .nav-contact { display: none; }
-      .nav-burger { display: flex; }
-      .page-header { grid-template-columns: 1fr; padding: 120px 20px 60px; }
-      .services-body { padding: 0 20px 80px; }
-      .service-row { grid-template-columns: 1fr; gap: 20px; padding: 52px 0; }
-      .service-num { font-size: 56px; }
-      .process-section { padding: 0 20px 80px; }
-      .process-grid { grid-template-columns: 1fr; }
-      .cta-band { margin: 0 20px 80px; padding: 52px 28px; }
-      .footer { padding: 24px 20px; }
+    @media (max-width:768px) {
+      .nav { padding:0 20px; height:60px; }
+      .nav-links,.nav-contact { display:none; }
+      .nav-burger { display:flex; }
+      .page-header { grid-template-columns:1fr; padding:120px 20px 60px; }
+      .services-body { padding:0 20px 60px; }
+      .service-row { grid-template-columns:1fr; gap:20px; padding:48px 0; }
+      .process-section { padding:0 20px 80px; }
+      .process-connector-bar { grid-template-columns:1fr 1fr; }
+      .process-cells { grid-template-columns:1fr; }
+      .cta-band { margin:0 20px 80px; padding:52px 28px; }
+      .footer { padding:24px 20px; }
     }
   </style>
 </head>
@@ -266,7 +236,6 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="work.html">Work</a></li>
-      <li><a href="projects.html">Projects</a></li>
       <li><a href="services.html" class="active">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -276,7 +245,6 @@
   <nav class="nav-mobile" id="mobileNav">
     <a href="index.html">Home</a>
     <a href="work.html">Work</a>
-    <a href="projects.html">Projects</a>
     <a href="services.html">Services</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -295,37 +263,33 @@
 
     <div class="service-row reveal">
       <div class="service-num" aria-hidden="true">01</div>
-      <div class="service-left">
+      <div>
         <span class="service-tag">Campaigns & Experiences</span>
         <h2 class="service-name">Creative Campaign<br>Development</h2>
-        <p class="service-desc">Campaign ideation, experiential concepts, and launch narratives for brands entering new cultural territory. From the big idea through to activation architecture — built to generate real conversation, not just impressions.</p>
+        <p class="service-desc">Campaign ideation and experiential concepts for brands entering new cultural territory — from the big idea through to activation architecture.</p>
       </div>
       <div class="service-right">
         <ul class="service-deliverables">
           <li>Campaign Ideation & Concepting</li>
           <li>Experiential Activation Design</li>
-          <li>Launch Narrative Development</li>
-          <li>Product Storytelling</li>
+          <li>Launch Narrative & Product Storytelling</li>
           <li>Event & Pop-Up Strategy</li>
-          <li>Community-Driven Programming</li>
         </ul>
       </div>
     </div>
 
     <div class="service-row reveal">
       <div class="service-num" aria-hidden="true">02</div>
-      <div class="service-left">
+      <div>
         <span class="service-tag">Partnerships & Sponsorships</span>
         <h2 class="service-name">Partnership<br>Strategy</h2>
-        <p class="service-desc">Brand collaborations, sponsorship concepts, and cross-industry activations built around audience identity — not just reach. I develop partnership frameworks that align brand values with cultural momentum, creating agreements that feel earned rather than bought.</p>
+        <p class="service-desc">Brand collaborations and cross-industry activations built around audience identity — frameworks that align brand values with cultural momentum.</p>
       </div>
       <div class="service-right">
         <ul class="service-deliverables">
           <li>Brand Collaboration Frameworks</li>
           <li>Sponsorship Concept Development</li>
-          <li>Cross-Industry Activations</li>
-          <li>Sports Marketing Strategy</li>
-          <li>Partnership Architecture</li>
+          <li>Sports Marketing & Cultural Activations</li>
           <li>Audience Alignment Research</li>
         </ul>
       </div>
@@ -333,18 +297,16 @@
 
     <div class="service-row reveal">
       <div class="service-num" aria-hidden="true">03</div>
-      <div class="service-left">
+      <div>
         <span class="service-tag">Decks & Storytelling</span>
         <h2 class="service-name">Pitch & Deck<br>Creation</h2>
-        <p class="service-desc">Strategic decks for partnerships, sponsorships, and brand storytelling that close conversations. I build pitch materials that communicate vision and value with clarity — designed to be read, believed, and acted on.</p>
+        <p class="service-desc">Strategic decks for partnerships, sponsorships, and brand storytelling that close conversations — built to be read, believed, and acted on.</p>
       </div>
       <div class="service-right">
         <ul class="service-deliverables">
           <li>Partnership & Sponsorship Pitches</li>
           <li>Brand Storytelling Decks</li>
-          <li>Capabilities & Intro Decks</li>
-          <li>Campaign Pitch Presentations</li>
-          <li>Investor Narratives</li>
+          <li>Campaign & Capabilities Decks</li>
           <li>Executive Summary One-Pagers</li>
         </ul>
       </div>
@@ -352,50 +314,69 @@
 
     <div class="service-row reveal" style="border-bottom:none;">
       <div class="service-num" aria-hidden="true">04</div>
-      <div class="service-left">
+      <div>
         <span class="service-tag">Identity & Community</span>
         <h2 class="service-name">Cultural<br>Positioning</h2>
-        <p class="service-desc">Helping brands align with audience identity and community culture — not just trends. I map the intersection of brand values and lived culture to build positioning frameworks that resonate with real people, not demographic targets.</p>
+        <p class="service-desc">Positioning frameworks built at the intersection of brand values and lived culture — resonating with real people, not demographic targets.</p>
       </div>
       <div class="service-right">
         <ul class="service-deliverables">
           <li>Cultural Relevance Audits</li>
           <li>Audience Identity Mapping</li>
-          <li>Community Strategy</li>
-          <li>Brand Voice & Narrative Alignment</li>
-          <li>Lifestyle Brand Positioning</li>
-          <li>Subculture Integration Frameworks</li>
+          <li>Brand Voice & Community Strategy</li>
+          <li>Lifestyle & Subculture Positioning</li>
         </ul>
       </div>
     </div>
 
   </div>
 
-  <!-- PROCESS -->
+  <!-- PROCESS — TIMELINE -->
   <section class="process-section">
     <div class="process-header reveal">
-      <h2 class="section-title">The<br><em>Process.</em></h2>
+      <p style="font-family:'Big Shoulders Text',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--mark); margin-bottom:16px;">The Methodology</p>
+      <h2 class="process-title">The<br><em>Process.</em></h2>
     </div>
-    <div class="process-grid reveal">
-      <div class="process-cell">
-        <div class="process-step-num">01</div>
-        <div class="process-step-name">Discovery</div>
-        <p class="process-step-desc">Brand audit, audience mapping, competitive landscape. Understanding where the brand sits culturally before recommending where it should go.</p>
+
+    <div class="process-timeline-wrap reveal">
+      <!-- Connector nodes with arrows -->
+      <div class="process-connector-bar">
+        <div class="pc-node">
+          <div class="pc-circle"><span class="pc-circle-inner">01</span></div>
+        </div>
+        <div class="pc-node">
+          <div class="pc-circle"><span class="pc-circle-inner">02</span></div>
+        </div>
+        <div class="pc-node">
+          <div class="pc-circle"><span class="pc-circle-inner">03</span></div>
+        </div>
+        <div class="pc-node">
+          <div class="pc-circle"><span class="pc-circle-inner">04</span></div>
+        </div>
       </div>
-      <div class="process-cell">
-        <div class="process-step-num">02</div>
-        <div class="process-step-name">Strategy</div>
-        <p class="process-step-desc">Partnership frameworks, positioning platforms, and campaign architectures — built on insight, not instinct alone.</p>
-      </div>
-      <div class="process-cell">
-        <div class="process-step-num">03</div>
-        <div class="process-step-name">Concept</div>
-        <p class="process-step-desc">Activation ideas, creative direction, and narrative development. Turning strategy into something you can see, feel, and pitch.</p>
-      </div>
-      <div class="process-cell">
-        <div class="process-step-num">04</div>
-        <div class="process-step-name">Delivery</div>
-        <p class="process-step-desc">A strategic deck, pitch document, or activation playbook ready to present — or ready to execute.</p>
+
+      <!-- Detail cells -->
+      <div class="process-cells">
+        <div class="process-cell">
+          <span class="process-cell-tag">Step 01</span>
+          <div class="process-step-name">Observe</div>
+          <p class="process-step-desc">Identify emotional tension and audience behavior patterns. Deep market and audience insight.</p>
+        </div>
+        <div class="process-cell">
+          <span class="process-cell-tag">Step 02</span>
+          <div class="process-step-name">Translate</div>
+          <p class="process-step-desc">Convert insights into brand language and experiences. Strategic positioning and narrative development.</p>
+        </div>
+        <div class="process-cell">
+          <span class="process-cell-tag">Step 03</span>
+          <div class="process-step-name">Build</div>
+          <p class="process-step-desc">Create campaigns, visuals, partnerships, and systems. Execution and creative direction.</p>
+        </div>
+        <div class="process-cell">
+          <span class="process-cell-tag">Step 04</span>
+          <div class="process-step-name">Amplify</div>
+          <p class="process-step-desc">Turn ideas into repeatable community momentum. Measurement and long-term brand building.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -410,9 +391,9 @@
   </div>
 
   <footer class="footer">
-    <div><p>Chip Ursery © 2025</p><p style="margin-top:4px;">Cultural Partnerships & Brand Strategy</p></div>
+    <div><p>Chip Ursery © 2026</p><p style="margin-top:4px;">Cultural Partnerships & Brand Strategy</p></div>
     <div class="footer-links">
-      <a href="mailto:chipursery@gmail.com">Email</a>
+      <a href="mailto:hello@chipthecreative.com">hello@chipthecreative.com</a>
       <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="work.html">Work</a>
     </div>
@@ -431,11 +412,8 @@
       mobileNav.classList.remove('open');
       document.body.style.overflow = '';
     }));
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>

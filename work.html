@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Chip Ursery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&family=Big+Shoulders+Text:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0B0B0B; --ink-2: #121212; --ink-3: #181818; --rule: rgba(198, 166, 107, 0.15); --rule-2: rgba(198, 166, 107, 0.25);
+      --fog: #A1A1A1; --ash: #A1A1A1; --parchment: #F5F3EE; --white: #F5F3EE; --mark: #C6A66B;
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--ink); color:var(--parchment); font-family:'Roboto', sans-serif; font-weight:400; font-size:17px; line-height:1.75; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+    body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9000; opacity:0.028; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E"); background-repeat:repeat; }
+
+    /* NAV */
+    .nav { position:fixed; top:0; left:0; right:0; z-index:500; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(10,10,10,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--rule); }
+    .nav-logo { font-family:'Big Shoulders Text', sans-serif; font-size:13px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nav-logo .dot { color:var(--mark); }
+    .nav-links { display:flex; align-items:center; gap:36px; list-style:none; }
+    .nav-links a { font-family:'Big Shoulders Text', sans-serif; font-size:13px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--white); }
+    .nav-contact { font-family:'Big Shoulders Text', sans-serif; font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); background:var(--mark); padding:10px 22px; text-decoration:none; transition:opacity 0.2s; }
+    .nav-contact:hover { opacity:0.85; }
+    .nav-burger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+    .nav-burger span { display:block; width:22px; height:1px; background:var(--parchment); transition:transform 0.3s,opacity 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity:0; }
+    .nav-burger.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+    .nav-mobile { display:none; position:fixed; inset:0; top:64px; background:var(--ink-2); z-index:490; flex-direction:column; padding:60px 40px; }
+    .nav-mobile.open { display:flex; }
+    .nav-mobile a { font-family:'Big Shoulders Display', sans-serif; font-size:52px; letter-spacing:0.04em; color:var(--parchment); text-decoration:none; border-bottom:1px solid var(--rule); padding:20px 0; transition:color 0.2s; }
+    .nav-mobile a:hover { color:var(--mark); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 140px 40px 80px;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 40px;
+    }
+    .page-label { font-family:'Big Shoulders Text', sans-serif; font-size:14px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--mark); margin-bottom:16px; display:block; }
+    .page-title { font-family:'Big Shoulders Display', sans-serif; font-size:clamp(64px,9vw,130px); line-height:0.88; color:var(--white); letter-spacing:0.02em; }
+    .page-title em { color:var(--mark); font-style:normal; display:block; }
+    .page-right { padding-bottom:8px; }
+    .page-sub { font-size:17px; color:var(--ash); line-height:1.75; max-width:400px; }
+
+    /* FILTER TABS */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      border-bottom: 1px solid var(--rule);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display:none; }
+    .filter-btn {
+      font-family:'Big Shoulders Text', sans-serif; font-size:14px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase;
+      color:var(--fog); background:none; border:none; padding:22px 28px; cursor:pointer;
+      border-bottom:2px solid transparent; transition:color 0.2s,border-color 0.2s; white-space:nowrap;
+    }
+    .filter-btn:hover { color:var(--parchment); }
+    .filter-btn.active { color:var(--mark); border-bottom-color:var(--mark); }
+
+    /* DECK GRID */
+    .deck-grid {
+      padding: 64px 40px 120px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border-left: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      margin: 0 40px;
+    }
+    .deck-card { background:var(--ink-2); cursor:pointer; position:relative; overflow:hidden; transition:background 0.3s var(--ease); }
+    .deck-card:hover { background:var(--ink-3); }
+    .deck-card.hidden { display:none; }
+    .deck-thumb { width:100%; aspect-ratio:16/10; overflow:hidden; background:var(--ink); position:relative; }
+    .deck-thumb iframe { width:100%; height:100%; border:none; pointer-events:none; transform:scale(1.02); transition:transform 0.5s var(--ease); }
+    .deck-card:hover .deck-thumb iframe { transform:scale(1.06); }
+    .deck-thumb-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 30%, var(--ink-2) 100%); transition:opacity 0.3s; }
+    .deck-card:hover .deck-thumb-overlay { opacity:0.7; }
+    .deck-thumb-icon {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.8);
+      width:48px; height:48px; border:1px solid rgba(198,166,107,0.4); background:rgba(10,10,10,0.6);
+      backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center;
+      opacity:0; transition:opacity 0.3s,transform 0.3s var(--ease); font-size:18px; color:var(--mark);
+    }
+    .deck-card:hover .deck-thumb-icon { opacity:1; transform:translate(-50%,-50%) scale(1); }
+    .deck-info { padding:24px 24px 28px; }
+    .deck-cat { font-family:'Big Shoulders Text', sans-serif; font-size:13px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--mark); margin-bottom:8px; }
+    .deck-title { font-family:'Big Shoulders Display', sans-serif; font-size:24px; letter-spacing:0.03em; color:var(--white); line-height:1.05; margin-bottom:10px; }
+    .deck-desc { font-size:14px; color:var(--fog); line-height:1.65; margin-bottom:20px; font-family:'Roboto', sans-serif; }
+    .deck-open-btn { font-family:'Big Shoulders Text', sans-serif; font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--fog); display:inline-flex; align-items:center; gap:8px; transition:color 0.2s; }
+    .deck-open-btn::after { content:'→'; transition:transform 0.2s; }
+    .deck-card:hover .deck-open-btn { color:var(--mark); }
+    .deck-card:hover .deck-open-btn::after { transform:translateX(4px); }
+
+    /* MODAL */
+    .modal { display:none; position:fixed; inset:0; z-index:800; background:rgba(5,5,5,0.95); backdrop-filter:blur(12px); align-items:center; justify-content:center; padding:24px; }
+    .modal.open { display:flex; }
+    .modal-box { background:var(--ink-2); border:1px solid var(--rule-2); width:100%; max-width:1000px; max-height:92vh; display:flex; flex-direction:column; }
+    .modal-head { display:flex; justify-content:space-between; align-items:center; padding:18px 24px; border-bottom:1px solid var(--rule); flex-shrink:0; }
+    .modal-head-title { font-family:'Big Shoulders Display', sans-serif; font-size:22px; letter-spacing:0.05em; color:var(--white); }
+    .modal-head-actions { display:flex; align-items:center; gap:16px; }
+    .modal-drive-link { font-family:'Big Shoulders Text', sans-serif; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
+    .modal-drive-link:hover { color:var(--mark); }
+    .modal-close-btn { font-family:'Big Shoulders Text', sans-serif; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; background:none; border:1px solid var(--rule-2); color:var(--fog); padding:9px 16px; cursor:pointer; transition:color 0.2s,border-color 0.2s; }
+    .modal-close-btn:hover { color:var(--white); border-color:var(--fog); }
+    .modal-frame { flex:1; overflow:hidden; min-height:0; }
+    .modal-frame iframe { width:100%; height:100%; min-height:540px; border:none; display:block; }
+
+    /* FOOTER */
+    .footer { border-top:1px solid var(--rule); padding:32px 40px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; margin-top:80px; }
+    .footer p { font-family:'Big Shoulders Text', sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fog); }
+    .footer-links { display:flex; gap:28px; }
+    .footer-links a { font-family:'Big Shoulders Text', sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fog); text-decoration:none; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--white); }
+
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s var(--ease),transform 0.7s var(--ease); }
+    .reveal.visible { opacity:1; transform:none; }
+
+    @media (max-width:900px) {
+      .page-header { grid-template-columns:1fr; padding:120px 24px 60px; }
+      .deck-grid { grid-template-columns:1fr 1fr; margin:0 24px; padding:40px 24px 80px; }
+      .filter-bar { padding:0 24px; }
+    }
+    @media (max-width:600px) {
+      .nav { padding:0 20px; height:60px; }
+      .nav-links,.nav-contact { display:none; }
+      .nav-burger { display:flex; }
+      .deck-grid { grid-template-columns:1fr; margin:0; padding:32px 20px 80px; }
+      .filter-bar { padding:0 20px; }
+      .footer { padding:24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">Chip Ursery<span class="dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-contact">Let's Talk</a>
+    <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  </nav>
+  <nav class="nav-mobile" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <header class="page-header">
+    <div>
+      <span class="page-label">Full Portfolio</span>
+      <h1 class="page-title">The<br><em>Work.</em></h1>
+    </div>
+    <div class="page-right">
+      <p class="page-sub">Strategic concepts across sports, culture, lifestyle, food & beverage, and retail. Click any card to open the deck.</p>
+    </div>
+  </header>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all">All Work</button>
+    <button class="filter-btn" data-filter="sports">Sports</button>
+    <button class="filter-btn" data-filter="culture">Culture</button>
+    <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+    <button class="filter-btn" data-filter="food">Food + Bev</button>
+    <button class="filter-btn" data-filter="retail">Retail</button>
+  </div>
+
+  <div class="deck-grid" id="deckGrid">
+
+    <!-- 01 Pacers Heritage League — Sports / Culture -->
+    <div class="deck-card reveal" data-cat="sports culture" data-title="Pacers Heritage League" data-url="https://drive.google.com/file/d/1mqbBJTal_jGdXRYq6RciRVB2C4Pm1ZpH/preview" data-drive="https://drive.google.com/file/d/1mqbBJTal_jGdXRYq6RciRVB2C4Pm1ZpH/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1mqbBJTal_jGdXRYq6RciRVB2C4Pm1ZpH/preview" loading="lazy" title="Pacers Heritage League"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Sports · Culture</div>
+        <div class="deck-title">Pacers Heritage League</div>
+        <p class="deck-desc">Basketball heritage campaign concept designed to reconnect the franchise with Indiana culture through storytelling, community identity, and lifestyle-driven fan engagement.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 02 24's Bowling Alley Concept — Culture / Retail -->
+    <div class="deck-card reveal" data-cat="culture retail" data-title="24's Bowling Alley Concept" data-url="https://drive.google.com/file/d/1VXiFH_-mgEHOLAuAjeg9Qgqa9Ndk4-Rs/preview" data-drive="https://drive.google.com/file/d/1VXiFH_-mgEHOLAuAjeg9Qgqa9Ndk4-Rs/view?usp=sharing">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1VXiFH_-mgEHOLAuAjeg9Qgqa9Ndk4-Rs/preview" loading="lazy" title="24's Bowling Alley Concept"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Culture · Retail</div>
+        <div class="deck-title">24's Bowling Alley Concept</div>
+        <p class="deck-desc">A cultural entertainment concept inspired by T.I.'s brand identity, blending bowling, skating, music, and community experiences into a lifestyle destination designed to attract fans, creatives, and local audiences.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 03 BAY FC Partnership Presentation — Sports / Culture -->
+    <div class="deck-card reveal" data-cat="sports culture" data-title="BAY FC Partnership Presentation" data-url="https://drive.google.com/file/d/1vUCUgxPjtOqeJmaMZp29fqjAuRvYloN6/preview" data-drive="https://drive.google.com/file/d/1vUCUgxPjtOqeJmaMZp29fqjAuRvYloN6/view?usp=drive_link">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1vUCUgxPjtOqeJmaMZp29fqjAuRvYloN6/preview" loading="lazy" title="BAY FC Partnership Presentation"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Sports · Culture</div>
+        <div class="deck-title">BAY FC Partnership Presentation</div>
+        <p class="deck-desc">A partnership growth strategy designed for Bay FC's women's soccer brand, featuring concepts focused on community engagement, brand collaborations, fan acquisition, and cultural relevance.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 04 The Rays Way Pitch Deck — Sports / Culture -->
+    <div class="deck-card reveal" data-cat="sports culture" data-title="The Rays Way Pitch Deck" data-url="https://drive.google.com/file/d/1PML3ZvUprmx3jSSApuzYC6WBOb3kbz-e/preview" data-drive="https://drive.google.com/file/d/1PML3ZvUprmx3jSSApuzYC6WBOb3kbz-e/view?usp=drive_link">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1PML3ZvUprmx3jSSApuzYC6WBOb3kbz-e/preview" loading="lazy" title="The Rays Way Pitch Deck"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Sports · Culture</div>
+        <div class="deck-title">The Rays Way Pitch Deck</div>
+        <p class="deck-desc">A strategic presentation concept showcasing the ability to transform team data, brand goals, and business opportunities into a visually compelling narrative designed to grow the Tampa Bay Rays brand.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 05 PWHL LV Hockey Partnerships — Sports / Culture -->
+    <div class="deck-card reveal" data-cat="sports culture" data-title="PWHL LV Hockey Partnerships" data-url="https://drive.google.com/file/d/1aAX4wITUXpKqLvvB27GjaDGh9gTMX-RH/preview" data-drive="https://drive.google.com/file/d/1aAX4wITUXpKqLvvB27GjaDGh9gTMX-RH/view?usp=drive_link">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1aAX4wITUXpKqLvvB27GjaDGh9gTMX-RH/preview" loading="lazy" title="PWHL LV Hockey Partnerships"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Sports · Culture</div>
+        <div class="deck-title">PWHL LV Hockey Partnerships</div>
+        <p class="deck-desc">A partnership strategy presentation for the launch of Las Vegas' PWHL expansion team, featuring activation ideas, local collaborations, and community-focused concepts to build the franchise's inaugural season.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 06 Fontainebleau Loyalty — Lifestyle / Hospitality -->
+    <div class="deck-card reveal" data-cat="lifestyle retail" data-title="Fontainebleau Loyalty" data-url="https://drive.google.com/file/d/1vlVjdo-WYh6cCjD8xSboz8w3ChtExoGG/preview" data-drive="https://drive.google.com/file/d/1vlVjdo-WYh6cCjD8xSboz8w3ChtExoGG/view?usp=sharing">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1vlVjdo-WYh6cCjD8xSboz8w3ChtExoGG/preview" loading="lazy" title="Fontainebleau Loyalty"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Lifestyle · Hospitality</div>
+        <div class="deck-title">Fontainebleau Loyalty</div>
+        <p class="deck-desc">A loyalty program enhancement concept designed to elevate Fontainebleau's guest experience through strategic rewards, member engagement opportunities, and lifestyle-driven benefits that strengthen brand loyalty.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 07 Juice Brand Naming — Food + Bev / Lifestyle -->
+    <div class="deck-card reveal" data-cat="food lifestyle" data-title="Juice Brand Naming" data-url="https://drive.google.com/file/d/1bXNimVfp4NQ7NHKtf0ynFS7J0zMP6niB/preview" data-drive="https://drive.google.com/file/d/1bXNimVfp4NQ7NHKtf0ynFS7J0zMP6niB/view?usp=drive_link">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1bXNimVfp4NQ7NHKtf0ynFS7J0zMP6niB/preview" loading="lazy" title="Juice Brand Naming"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Branding</div>
+        <div class="deck-title">Juice Brand Naming</div>
+        <p class="deck-desc">A brand development concept focused on creating a memorable juice company name through strategic positioning, consumer appeal, and a distinct identity within the competitive wellness and beverage market.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 08 Sifted Proposal Deck — Food + Bev / Retail -->
+    <div class="deck-card reveal" data-cat="food retail" data-title="Sifted Proposal Deck" data-url="https://drive.google.com/file/d/1xT57MtdwMQUXd9f8baZ18arST446ygK3/preview" data-drive="https://drive.google.com/file/d/1xT57MtdwMQUXd9f8baZ18arST446ygK3/view?usp=sharing">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1xT57MtdwMQUXd9f8baZ18arST446ygK3/preview" loading="lazy" title="Sifted Proposal Deck"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Retail</div>
+        <div class="deck-title">Sifted Proposal Deck</div>
+        <p class="deck-desc">A presentation design proposal created for Sifted, demonstrating how strategic storytelling, visual systems, and elevated presentation design can help communicate a food brand's vision and opportunities.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 09 Personal Graphic Design Work — Culture / Lifestyle -->
+    <div class="deck-card reveal" data-cat="culture lifestyle" data-title="Personal Graphic Design Work" data-url="https://drive.google.com/file/d/1aETkDQJ4GhnBWEWpGVL45kDvRsD9tcOq/preview" data-drive="https://drive.google.com/file/d/1aETkDQJ4GhnBWEWpGVL45kDvRsD9tcOq/view?usp=sharing">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1aETkDQJ4GhnBWEWpGVL45kDvRsD9tcOq/preview" loading="lazy" title="Personal Graphic Design Work"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Culture · Lifestyle</div>
+        <div class="deck-title">Personal Graphic Design Work</div>
+        <p class="deck-desc">A collection of earlier graphic design projects showcasing visual exploration across branding, culture, and lifestyle-driven creative work.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 10 Marathon Parlor — Food + Bev / Retail -->
+    <div class="deck-card reveal" data-cat="food retail" data-title="Marathon Parlor" data-url="https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/preview" data-drive="https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1Bkmwz5k3h7twcRsKKhwRNeRx0VlCZiK7/preview" loading="lazy" title="Marathon Parlor"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Retail</div>
+        <div class="deck-title">Marathon Parlor</div>
+        <p class="deck-desc">Hospitality-driven retail concept blending coffee, culture, and community into a destination experience inspired by modern lifestyle branding.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 03 NoFreeMarathon x CMPLXCon '26 — Culture / Lifestyle / Sports -->
+    <div class="deck-card reveal" data-cat="culture lifestyle sports" data-title="NoFreeMarathon × CMPLXCon '26" data-url="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/preview" data-drive="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/12BOZXNzg_D0mn3xBvlw6yamErRGByHef/preview" loading="lazy" title="NoFreeMarathon x CMPLXCon '26"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Culture · Lifestyle · Sports</div>
+        <div class="deck-title">NoFreeMarathon × CMPLXCon '26</div>
+        <p class="deck-desc">Experiential brand activation concept merging fashion, music, food, and community engagement through an immersive CMPLXCon partnership experience.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 04 New Balance Global Partnership Strategy — Sports / Culture -->
+    <div class="deck-card reveal" data-cat="sports culture" data-title="New Balance Global Partnership Strategy" data-url="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/preview" data-drive="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1gukmjW1mDTCkC5gO8t8fXooTlqHEc69z/preview" loading="lazy" title="New Balance Global Partnership Strategy"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Sports · Culture</div>
+        <div class="deck-title">New Balance Global Partnership Strategy</div>
+        <p class="deck-desc">Global partnership strategy concept focused on expanding New Balance's cultural relevance through athlete collaborations, storytelling, and experiential campaigns.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 05 Nike x APlasticAirMax — Retail / Culture -->
+    <div class="deck-card reveal" data-cat="retail culture" data-title="Nike × APlasticAirMax" data-url="https://drive.google.com/file/d/1ysE979HebH73UEo8duCPwOLWmY0bT0Jk/preview" data-drive="https://drive.google.com/file/d/1ysE979HebH73UEo8duCPwOLWmY0bT0Jk/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1ysE979HebH73UEo8duCPwOLWmY0bT0Jk/preview" loading="lazy" title="Nike x APlasticAirMax"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Retail · Culture</div>
+        <div class="deck-title">Nike × APlasticAirMax</div>
+        <p class="deck-desc">Creative footwear collaboration concept exploring sustainability, material innovation, and environmental storytelling through a redesigned Air Max campaign.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 06 TKO Marketing Strategy — Sports / Lifestyle -->
+    <div class="deck-card reveal" data-cat="sports lifestyle" data-title="TKO Marketing Strategy" data-url="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/preview" data-drive="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1-_7iHMF8_PQELfiRIcevgMTAsRC_Ux6O/preview" loading="lazy" title="TKO Marketing Strategy"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Sports · Lifestyle</div>
+        <div class="deck-title">TKO Marketing Strategy</div>
+        <p class="deck-desc">Cross-platform combat sports strategy concept centered around fan culture, live-event engagement, and premium entertainment positioning.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 07 ALO Marketing Strategy — Lifestyle / Retail -->
+    <div class="deck-card reveal" data-cat="lifestyle retail" data-title="ALO Marketing Strategy" data-url="https://drive.google.com/file/d/1BnWvqWU5uVJ1HIt-jx75W_QPKSHuF2QI/preview" data-drive="https://drive.google.com/file/d/1BnWvqWU5uVJ1HIt-jx75W_QPKSHuF2QI/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1BnWvqWU5uVJ1HIt-jx75W_QPKSHuF2QI/preview" loading="lazy" title="ALO Marketing Strategy"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Lifestyle · Retail</div>
+        <div class="deck-title">ALO Marketing Strategy</div>
+        <p class="deck-desc">Lifestyle marketing concept designed to strengthen ALO's identity through elevated wellness storytelling, experiential retail, and community-led branding.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 08 Joe + The Juice Expansion Strategy — Food + Bev / Lifestyle -->
+    <div class="deck-card reveal" data-cat="food lifestyle" data-title="Joe + The Juice Expansion Strategy" data-url="https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/preview" data-drive="https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/195vtl-Hcnf0sgZFFLgQfruugOIzMJFYE/preview" loading="lazy" title="Joe + The Juice Expansion Strategy"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Lifestyle</div>
+        <div class="deck-title">Joe + The Juice Expansion Strategy</div>
+        <p class="deck-desc">Market expansion strategy concept focused on scaling brand presence through culturally driven retail experiences and youth-oriented consumer engagement.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 09 Krispy Kreme Creative Direction — Food + Bev / Culture -->
+    <div class="deck-card reveal" data-cat="food culture" data-title="Krispy Kreme Creative Direction" data-url="https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/preview" data-drive="https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1Exv01KWipG0IzxPFIuhuF2ojrHnHMh8f/preview" loading="lazy" title="Krispy Kreme Creative Direction"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Culture</div>
+        <div class="deck-title">Krispy Kreme Creative Direction</div>
+        <p class="deck-desc">Creative campaign concept exploring limited-edition collaborations, visual storytelling, and culturally driven product marketing.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 10 Starbucks Brand System — Food + Bev / Lifestyle -->
+    <div class="deck-card reveal" data-cat="food lifestyle" data-title="Starbucks Brand System" data-url="https://drive.google.com/file/d/1Q4u2lz1L3iC9fnZHm9a-qMoah1V-lGZ7/preview" data-drive="https://drive.google.com/file/d/1Q4u2lz1L3iC9fnZHm9a-qMoah1V-lGZ7/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1Q4u2lz1L3iC9fnZHm9a-qMoah1V-lGZ7/preview" loading="lazy" title="Starbucks Brand System"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Lifestyle</div>
+        <div class="deck-title">Starbucks Brand System</div>
+        <p class="deck-desc">Brand identity exploration focused on modernizing visual systems, in-store storytelling, and lifestyle-oriented customer engagement.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 11 COMAL Original Restaurant Concept — Food + Bev / Culture -->
+    <div class="deck-card reveal" data-cat="food culture" data-title="COMAL Original Restaurant Concept" data-url="https://drive.google.com/file/d/1UD3XbEOktFadcEtirJIQrisoZuo3sbOL/preview" data-drive="https://drive.google.com/file/d/1UD3XbEOktFadcEtirJIQrisoZuo3sbOL/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1UD3XbEOktFadcEtirJIQrisoZuo3sbOL/preview" loading="lazy" title="COMAL Original Restaurant Concept"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Culture</div>
+        <div class="deck-title">COMAL Original Restaurant Concept</div>
+        <p class="deck-desc">Original restaurant concept centered around elevated dining, cultural storytelling, and community-focused hospitality design.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 12 Tillamook Parlor — Food + Bev / Retail -->
+    <div class="deck-card reveal" data-cat="food retail" data-title="Tillamook Parlor" data-url="https://drive.google.com/file/d/18WgXT_fzKkAaAqPLoMTT3YsHKjzFYyal/preview" data-drive="https://drive.google.com/file/d/18WgXT_fzKkAaAqPLoMTT3YsHKjzFYyal/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/18WgXT_fzKkAaAqPLoMTT3YsHKjzFYyal/preview" loading="lazy" title="Tillamook Parlor"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Retail</div>
+        <div class="deck-title">Tillamook Parlor</div>
+        <p class="deck-desc">Retail hospitality concept transforming the Tillamook brand into an immersive consumer experience built around comfort, nostalgia, and premium food culture.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 13 Bourdain Bodega Bash — Food + Bev / Culture -->
+    <div class="deck-card reveal" data-cat="food culture" data-title="Bourdain Bodega Bash" data-url="https://drive.google.com/file/d/1Cc6v_83iklTAl_n2SdTb1Z67_IgUUUqz/preview" data-drive="https://drive.google.com/file/d/1Cc6v_83iklTAl_n2SdTb1Z67_IgUUUqz/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1Cc6v_83iklTAl_n2SdTb1Z67_IgUUUqz/preview" loading="lazy" title="Bourdain Bodega Bash"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Culture</div>
+        <div class="deck-title">Bourdain Bodega Bash</div>
+        <p class="deck-desc">Food and culture event concept inspired by travel, storytelling, and neighborhood culinary experiences rooted in community connection.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 14 The Gathering Table w/ Mike G — Food + Bev / Culture -->
+    <div class="deck-card reveal" data-cat="food culture" data-title="The Gathering Table w/ Mike G" data-url="https://drive.google.com/file/d/17qxwbJ-337j8nLJeVB5xV7fi_gguiR8p/preview" data-drive="https://drive.google.com/file/d/17qxwbJ-337j8nLJeVB5xV7fi_gguiR8p/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/17qxwbJ-337j8nLJeVB5xV7fi_gguiR8p/preview" loading="lazy" title="The Gathering Table w/ Mike G"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Food + Bev · Culture</div>
+        <div class="deck-title">The Gathering Table w/ Mike G</div>
+        <p class="deck-desc">Community-centered dining and conversation concept designed to merge food, storytelling, and cultural dialogue into a shared experience.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 15 Dropout Companies — Culture / Lifestyle -->
+    <div class="deck-card reveal" data-cat="culture lifestyle" data-title="Dropout Companies — Social Strategy" data-url="https://drive.google.com/file/d/1CaDJ-DKQm3W16ehuLDQzyYY67g_G2ghF/preview" data-drive="https://drive.google.com/file/d/1CaDJ-DKQm3W16ehuLDQzyYY67g_G2ghF/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1CaDJ-DKQm3W16ehuLDQzyYY67g_G2ghF/preview" loading="lazy" title="Dropout Companies Social Strategy"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Culture · Lifestyle</div>
+        <div class="deck-title">Dropout Companies — Social Strategy</div>
+        <p class="deck-desc">Social-first brand strategy concept focused on audience growth, cultural relevance, and community engagement through platform-native storytelling.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 16 Berner's 20th Vinyl Series — Culture / Lifestyle -->
+    <div class="deck-card reveal" data-cat="culture lifestyle" data-title="Berner's 20th Vinyl Series" data-url="https://drive.google.com/file/d/1SfRjbObY160SjVTougwpH4cdzSdJextX/preview" data-drive="https://drive.google.com/file/d/1SfRjbObY160SjVTougwpH4cdzSdJextX/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1SfRjbObY160SjVTougwpH4cdzSdJextX/preview" loading="lazy" title="Berner's 20th Vinyl Series"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Culture · Lifestyle</div>
+        <div class="deck-title">Berner's 20th Vinyl Series</div>
+        <p class="deck-desc">Limited-edition vinyl rollout concept celebrating music legacy through collectible packaging, storytelling, and fan-focused brand experiences.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 17 Signature Swap Cookies + TGC — Retail / Lifestyle -->
+    <div class="deck-card reveal" data-cat="retail lifestyle" data-title="Signature Swap Cookies + TGC" data-url="https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/preview" data-drive="https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1GnMzt6c6U_HQoT01Qha4X70c1tGtgKZP/preview" loading="lazy" title="Signature Swap Cookies + TGC"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Retail · Lifestyle</div>
+        <div class="deck-title">Signature Swap Cookies + TGC</div>
+        <p class="deck-desc">Cannabis collaboration concept merging product storytelling, collectible branding, and partnership-driven consumer engagement.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 18 Cookies Strain Of The Season — Retail / Lifestyle -->
+    <div class="deck-card reveal" data-cat="retail lifestyle" data-title="Cookies Strain Of The Season" data-url="https://drive.google.com/file/d/15UzBHTUmzm4DmxspfdfF0U2NZD0V1tHJ/preview" data-drive="https://drive.google.com/file/d/15UzBHTUmzm4DmxspfdfF0U2NZD0V1tHJ/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/15UzBHTUmzm4DmxspfdfF0U2NZD0V1tHJ/preview" loading="lazy" title="Cookies Strain Of The Season"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Retail · Lifestyle</div>
+        <div class="deck-title">Cookies Strain Of The Season</div>
+        <p class="deck-desc">Seasonal cannabis campaign concept designed around curated product drops, lifestyle positioning, and limited-release storytelling.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 19 VandyThePink + NoFreeCoffee — Culture / Lifestyle -->
+    <div class="deck-card reveal" data-cat="culture lifestyle" data-title="VandyThePink + NoFreeCoffee" data-url="https://drive.google.com/file/d/1Qj9mZZM-ajHAghsYXEeELoGtjGNhjP-b/preview" data-drive="https://drive.google.com/file/d/1Qj9mZZM-ajHAghsYXEeELoGtjGNhjP-b/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1Qj9mZZM-ajHAghsYXEeELoGtjGNhjP-b/preview" loading="lazy" title="VandyThePink + NoFreeCoffee"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Culture · Lifestyle</div>
+        <div class="deck-title">VandyThePink + NoFreeCoffee</div>
+        <p class="deck-desc">Lifestyle collaboration concept blending collegiate culture, fashion identity, and community storytelling through apparel and experiential branding.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 20 Saint Ave Celebration — Culture / Lifestyle -->
+    <div class="deck-card reveal" data-cat="culture lifestyle" data-title="Saint Ave Celebration" data-url="https://drive.google.com/file/d/1MzHLUXUIlRswoF1wAEgoJO3X9Uu0JjGB/preview" data-drive="https://drive.google.com/file/d/1MzHLUXUIlRswoF1wAEgoJO3X9Uu0JjGB/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1MzHLUXUIlRswoF1wAEgoJO3X9Uu0JjGB/preview" loading="lazy" title="Saint Ave Celebration"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Culture · Lifestyle</div>
+        <div class="deck-title">Saint Ave Celebration</div>
+        <p class="deck-desc">Community celebration concept focused on neighborhood storytelling, cultural identity, and local brand engagement through live experiences.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 21 Fever Facility Proposal — Sports / Lifestyle (FIXED URL) -->
+    <div class="deck-card reveal" data-cat="sports lifestyle" data-title="Fever Facility Proposal" data-url="https://drive.google.com/file/d/1XIhYj6fjI5BZaBfor7r53c08qPaJ6xNy/preview" data-drive="https://drive.google.com/file/d/1XIhYj6fjI5BZaBfor7r53c08qPaJ6xNy/view?usp=drive_link">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1XIhYj6fjI5BZaBfor7r53c08qPaJ6xNy/preview" loading="lazy" title="Fever Facility Proposal"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Sports · Lifestyle</div>
+        <div class="deck-title">Fever Facility Proposal</div>
+        <p class="deck-desc">Women's basketball facility concept designed to elevate player development, fan experience, and community connection through modern sports infrastructure.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+    <!-- 22 Tropical Breeze Auto Spa Growth Plan — Lifestyle / Retail -->
+    <div class="deck-card reveal" data-cat="lifestyle retail" data-title="Tropical Breeze Auto Spa Growth Plan" data-url="https://drive.google.com/file/d/1X-5KjdG-kFDh_xipNSgm-6GAo0YvFjTg/preview" data-drive="https://drive.google.com/file/d/1X-5KjdG-kFDh_xipNSgm-6GAo0YvFjTg/view">
+      <div class="deck-thumb">
+        <iframe src="https://drive.google.com/file/d/1X-5KjdG-kFDh_xipNSgm-6GAo0YvFjTg/preview" loading="lazy" title="Tropical Breeze Auto Spa Growth Plan"></iframe>
+        <div class="deck-thumb-overlay"></div><div class="deck-thumb-icon">↗</div>
+      </div>
+      <div class="deck-info">
+        <div class="deck-cat">Lifestyle · Retail</div>
+        <div class="deck-title">Tropical Breeze Auto Spa Growth Plan</div>
+        <p class="deck-desc">Business growth strategy focused on increasing visibility, customer retention, and premium service positioning for a modern auto spa brand.</p>
+        <span class="deck-open-btn">Open Deck</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span class="modal-head-title" id="modalTitle"></span>
+        <div class="modal-head-actions">
+          <a class="modal-drive-link" id="modalDriveLink" href="#" target="_blank" rel="noopener">Open in Drive ↗</a>
+          <button class="modal-close-btn" id="modalClose">✕ Close</button>
+        </div>
+      </div>
+      <div class="modal-frame">
+        <iframe id="modalIframe" src="" allowfullscreen title="Deck viewer"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div><p>Chip Ursery © 2026</p><p style="margin-top:4px;">Cultural Partnerships & Brand Strategy</p></div>
+    <div class="footer-links">
+      <a href="mailto:hello@chipthecreative.com">hello@chipthecreative.com</a>
+      <a href="https://www.linkedin.com/in/chipsam/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="work.html">Work</a>
+    </div>
+  </footer>
+
+  <script>
+    // Burger
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobileNav');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // Filter function
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.deck-card');
+
+    function applyFilter(f) {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector(`[data-filter="${f}"]`);
+      if (btn) btn.classList.add('active');
+      cards.forEach(c => {
+        if (f === 'all' || c.dataset.cat.split(' ').includes(f)) {
+          c.classList.remove('hidden');
+        } else {
+          c.classList.add('hidden');
+        }
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+    });
+
+    // Read URL hash on load for category filter (e.g. work.html#sports)
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && document.querySelector(`[data-filter="${hash}"]`)) {
+        applyFilter(hash);
+        // Scroll past the nav
+        setTimeout(() => {
+          document.getElementById('filterBar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    });
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalIframe = document.getElementById('modalIframe');
+    const modalDriveLink = document.getElementById('modalDriveLink');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        modalTitle.textContent = card.dataset.title;
+        modalIframe.src = card.dataset.url;
+        modalDriveLink.href = card.dataset.drive;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modalIframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = (i * 0.04) + 's';
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.04 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
